@@ -13,6 +13,8 @@
 		16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B77284F313D007A1BB5 /* Preview Assets.xcassets */; };
 		16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B79284F313D007A1BB5 /* Persistence.swift */; };
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
+		1674F8882851D006006BC61A /* SharedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8872851D006006BC61A /* SharedTestView.swift */; };
+		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +26,8 @@
 		16514B77284F313D007A1BB5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		16514B79284F313D007A1BB5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		16514B7C284F313D007A1BB5 /* NearCatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NearCatch.xcdatamodel; sourceTree = "<group>"; };
+		1674F8872851D006006BC61A /* SharedTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestView.swift; sourceTree = "<group>"; };
+		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,7 +66,6 @@
 				16AEB3162851C01D0034CC0F /* Models */,
 				16AEB31A2851C0A60034CC0F /* Utils */,
 				16AEB3172851C03C0034CC0F /* Resources */,
-				16514B74284F313D007A1BB5 /* Assets.xcassets */,
 				16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */,
 				16514B76284F313D007A1BB5 /* Preview Content */,
 			);
@@ -90,6 +93,7 @@
 		16AEB3162851C01D0034CC0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1674F8892851D016006BC61A /* TestModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -97,6 +101,7 @@
 		16AEB3172851C03C0034CC0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				16514B74284F313D007A1BB5 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 		16AEB3192851C07F0034CC0F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1674F8872851D006006BC61A /* SharedTestView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -197,8 +203,10 @@
 				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
+				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
+				1674F8882851D006006BC61A /* SharedTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
