@@ -25,8 +25,9 @@ struct HomeView: View {
                     Circle()
                         .frame(width: 220, height: 220)
                 }
-                Text("Hello")
+                Text("니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                     .font(.system(size: 28))
+                    .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
