@@ -9,11 +9,13 @@ import Foundation
 import NearbyInteraction
 import MultipeerConnectivity
 
-final class NearbyInteractionManager: NSObject, ObservableObject {
+class NearbyInteractionManager: NSObject, ObservableObject {
+    
+    
     // MARK: - Distance and direction state.
     
-    // A threshold, in meters, the app uses to update its display.
-    let nearbyDistanceThreshold: Float = 0.3
+    // 범프 한계 거리
+    let nearbyDistanceThreshold: Float = 0.1
 
     enum DistanceDirectionState {
         case closeUpInFOV, notCloseUpInFOV, outOfFOV, unknown
