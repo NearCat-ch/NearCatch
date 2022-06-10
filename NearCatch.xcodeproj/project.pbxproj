@@ -18,14 +18,6 @@
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
-		217B06E028530E77003700B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06DF28530E77003700B9 /* Extensions.swift */; };
-		217B06E228531358003700B9 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E128531358003700B9 /* ProfilePicture.swift */; };
-		217B06E4285315AB003700B9 /* CustomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E3285315AB003700B9 /* CustomSheet.swift */; };
-		217B06E628531C9E003700B9 /* NearCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E528531C9E003700B9 /* NearCat.swift */; };
-		218C1C372851E13B008F385B /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C362851E13B008F385B /* HomeMainButton.swift */; };
-		218C1C392851E52A008F385B /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C382851E52A008F385B /* CircleButton.swift */; };
-		218C1C3B2851E671008F385B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C3A2851E671008F385B /* Tip.swift */; };
-		218C1C3D2851EB31008F385B /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C3C2851EB31008F385B /* Bubble.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,14 +33,6 @@
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
-		217B06DF28530E77003700B9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		217B06E128531358003700B9 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
-		217B06E3285315AB003700B9 /* CustomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheet.swift; sourceTree = "<group>"; };
-		217B06E528531C9E003700B9 /* NearCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCat.swift; sourceTree = "<group>"; };
-		218C1C362851E13B008F385B /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
-		218C1C382851E52A008F385B /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
-		218C1C3A2851E671008F385B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
-		218C1C3C2851EB31008F385B /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +114,6 @@
 		16AEB3182851C0650034CC0F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				218C1C352851E0A1008F385B /* Components */,
 				16AEB31B2851C3820034CC0F /* HomeView.swift */,
 			);
 			path = Home;
@@ -159,19 +142,6 @@
 				6F5711762851D7FF00B094C2 /* ProfileView.swift */,
 			);
 			path = Profile;
-		218C1C352851E0A1008F385B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				218C1C362851E13B008F385B /* HomeMainButton.swift */,
-				218C1C382851E52A008F385B /* CircleButton.swift */,
-				218C1C3A2851E671008F385B /* Tip.swift */,
-				217B06E528531C9E003700B9 /* NearCat.swift */,
-				218C1C3C2851EB31008F385B /* Bubble.swift */,
-				217B06E3285315AB003700B9 /* CustomSheet.swift */,
-				217B06E128531358003700B9 /* ProfilePicture.swift */,
-				217B06DF28530E77003700B9 /* Extensions.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,20 +216,12 @@
 			files = (
 				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,
 				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
-				218C1C372851E13B008F385B /* HomeMainButton.swift in Sources */,
-				218C1C3D2851EB31008F385B /* Bubble.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
-				218C1C392851E52A008F385B /* CircleButton.swift in Sources */,
-				218C1C3B2851E671008F385B /* Tip.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
-				217B06E628531C9E003700B9 /* NearCat.swift in Sources */,
-				217B06E028530E77003700B9 /* Extensions.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
 				6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */,
-				217B06E228531358003700B9 /* ProfilePicture.swift in Sources */,
-				217B06E4285315AB003700B9 /* CustomSheet.swift in Sources */,
 				1674F8882851D006006BC61A /* SharedTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
