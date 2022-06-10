@@ -19,6 +19,7 @@
 		217B06E028530E77003700B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06DF28530E77003700B9 /* Extensions.swift */; };
 		217B06E228531358003700B9 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E128531358003700B9 /* ProfilePicture.swift */; };
 		217B06E4285315AB003700B9 /* CustomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E3285315AB003700B9 /* CustomSheet.swift */; };
+		217B06E628531C9E003700B9 /* NearCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B06E528531C9E003700B9 /* NearCat.swift */; };
 		218C1C372851E13B008F385B /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C362851E13B008F385B /* HomeMainButton.swift */; };
 		218C1C392851E52A008F385B /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C382851E52A008F385B /* CircleButton.swift */; };
 		218C1C3B2851E671008F385B /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C1C3A2851E671008F385B /* Tip.swift */; };
@@ -39,6 +40,7 @@
 		217B06DF28530E77003700B9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		217B06E128531358003700B9 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		217B06E3285315AB003700B9 /* CustomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheet.swift; sourceTree = "<group>"; };
+		217B06E528531C9E003700B9 /* NearCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCat.swift; sourceTree = "<group>"; };
 		218C1C362851E13B008F385B /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
 		218C1C382851E52A008F385B /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		218C1C3A2851E671008F385B /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				218C1C362851E13B008F385B /* HomeMainButton.swift */,
 				218C1C382851E52A008F385B /* CircleButton.swift */,
 				218C1C3A2851E671008F385B /* Tip.swift */,
+				217B06E528531C9E003700B9 /* NearCat.swift */,
 				218C1C3C2851EB31008F385B /* Bubble.swift */,
 				217B06E3285315AB003700B9 /* CustomSheet.swift */,
 				217B06E128531358003700B9 /* ProfilePicture.swift */,
@@ -236,6 +239,7 @@
 				218C1C392851E52A008F385B /* CircleButton.swift in Sources */,
 				218C1C3B2851E671008F385B /* Tip.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
+				217B06E628531C9E003700B9 /* NearCat.swift in Sources */,
 				217B06E028530E77003700B9 /* Extensions.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,

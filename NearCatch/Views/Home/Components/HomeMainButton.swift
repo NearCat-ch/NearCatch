@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-// 임시 상태
-enum GameState: String {
-    case ready
-    case finding
-    case found
-}
-
 struct HomeMainButton: View {
     
     @Binding var state: GameState

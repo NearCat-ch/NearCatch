@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// 임시 상태
+enum GameState: String {
+    case ready
+    case finding
+    case found
+}
+
 extension String {
     
     func partialColor(basicColor: Color = .primary, _ partials: [String], _ color: Color) -> AttributedString {

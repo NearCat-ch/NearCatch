@@ -27,10 +27,11 @@ struct ProfilePicture: View {
                     .clipShape(Circle())
                     .padding(5)
             } else {
-                // 임시. 이미지 데이터 못받으면 무슨 사진 불러올 지?
-                Image(systemName: "photo")
-                    .font(.title)
-                    .foregroundColor(.gray)
+                Image("img_sunglass_190px")
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(Circle())
+                    .padding(5)
             }
         }
     }
@@ -41,7 +42,7 @@ struct ProfilePicture_Previews: PreviewProvider {
         ProfilePicture(imageData: Data())
             .frame(width: 120, height: 120)
             .preferredColorScheme(.dark)
-            .padding(20)
+            .padding(50)
             .previewLayout(.sizeThatFits)
     }
 }
