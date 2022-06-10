@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StarBubbleView: View {
+struct StarBubble: View {
     var count: Int
     
     var body: some View {
@@ -35,7 +35,7 @@ struct StarBubbleView: View {
     }
 }
 
-struct HeartBubbleView: View {
+struct HeartBubble: View {
     
     var body: some View {
         ZStack {
@@ -58,12 +58,12 @@ struct HeartBubbleView: View {
     }
 }
 
-struct BubbleView_Previews: PreviewProvider {
+struct Bubble_Previews: PreviewProvider {
     static var previews: some View {
         HStack(spacing: 20) {
-            StarBubbleView(count: 2)
+            StarBubble(count: 2)
             
-            HeartBubbleView()
+            HeartBubble()
         }
         .preferredColorScheme(.dark)
         .padding(20)

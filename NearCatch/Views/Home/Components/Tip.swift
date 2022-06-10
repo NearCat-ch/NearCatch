@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TipView<InnerView>: View where InnerView: View {
+struct Tip<InnerView>: View where InnerView: View {
     
     var content: () -> InnerView
     
@@ -37,38 +37,23 @@ struct TipView<InnerView>: View where InnerView: View {
 struct TipView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 50) {
-            TipView {
+            Tip {
                 VStack {
-                    Text(
-                        "Tip 니어캣과 함께 주변을 돌아다녀 보세요"
-                            .partialColor(["Tip", "니어캣"], .theme.yellow)
-                    )
-                    
-                    Text(
-                        "니어캣이 진동으로 인연의 별을 알려드릴 거에요"
-                            .partialColor(["니어캣"], .theme.yellow)
-                    )
+                    Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .theme.yellow))
+                    Text("니어캣이 진동으로 인연의 별을 알려드릴 거에요".partialColor(["니어캣"], .theme.yellow))
                 }
                 .frame(maxWidth: .infinity)
             }
             
-            TipView {
-                VStack {
-                    Text(
-                        "Tip 스마트폰을 서로 가까이 가져가 보세요\n공통된 관심사를 가지고 대화를 이어나가 보세요!"
-                            .partialColor(["Tip"], .theme.yellow)
-                    )
-                }
-                .frame(maxWidth: .infinity)
+            Tip {
+                Text("Tip 스마트폰을 서로 가까이 가져가 보세요\n공통된 관심사를 가지고 대화를 이어나가 보세요!".partialColor(["Tip"], .theme.yellow))
+                    .frame(maxWidth: .infinity)
             }
             
-            TipView {
+            Tip {
                 VStack(spacing: 12) {
-                    Text(
-                        "NO. 권한을 허용하지 않으면\n니어캐치 앱 사용이 불가능해요!!"
-                            .partialColor(["NO."], .theme.yellow)
-                    )
-                    .padding(.bottom, 28)
+                    Text("NO. 권한을 허용하지 않으면\n니어캐치 앱 사용이 불가능해요!!".partialColor(["NO."], .theme.yellow))
+                        .padding(.bottom, 28)
                     
                     Text("1. 설정에서 개인 정보 보호에 들어갑니다.")
                     Text("2. 근접 상호 작용 항목으로 들어갑니다.")
