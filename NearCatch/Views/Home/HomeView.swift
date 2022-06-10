@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var toggle: Bool = false
+    @StateObject var nearbyInterationObject = NearbyInteractionManager()
+//    var delegate: NearbyInteractionManagerDelegate?
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Button {
-                
+            
             } label: {
                 Circle()
                     .frame(width: 40, height: 40)
@@ -20,17 +24,26 @@ struct HomeView: View {
             
             VStack(spacing: 24) {
                 Button {
-                    
+                    if toggle {
+                        nearbyInterationObject.shutdown()
+                    } else {
+                        nearbyInterationObject.startup()
+                    }
+                    toggle = !toggle
                 } label: {
                     Circle()
                         .frame(width: 220, height: 220)
                 }
-                Text("니어캣을 눌러서\n새로운 인연을 찾아보세요!")
+                Text(
+                    toggle ?
+                    "켜짐"
+                    : "니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                     .font(.system(size: 28))
                     .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        
     }
 }
 

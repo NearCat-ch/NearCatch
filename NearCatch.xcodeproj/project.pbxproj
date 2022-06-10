@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160A5C8F2851E9F800B3534D /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160A5C8E2851E9F800B3534D /* MathUtilities.swift */; };
+		160A5C9428530F4100B3534D /* MPCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160A5C9328530F4000B3534D /* MPCSession.swift */; };
 		16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B70284F313B007A1BB5 /* NearCatchApp.swift */; };
 		16514B73284F313B007A1BB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B72284F313B007A1BB5 /* ContentView.swift */; };
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
@@ -15,10 +17,14 @@
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
 		1674F8882851D006006BC61A /* SharedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8872851D006006BC61A /* SharedTestView.swift */; };
 		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
+		1674F88C2851D61F006BC61A /* NearbyInteractionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F88B2851D61F006BC61A /* NearbyInteractionManager.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160A5C8E2851E9F800B3534D /* MathUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
+		160A5C922852DE9400B3534D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		160A5C9328530F4000B3534D /* MPCSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
 		16514B6D284F313B007A1BB5 /* NearCatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearCatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16514B70284F313B007A1BB5 /* NearCatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCatchApp.swift; sourceTree = "<group>"; };
 		16514B72284F313B007A1BB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,6 +34,7 @@
 		16514B7C284F313D007A1BB5 /* NearCatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NearCatch.xcdatamodel; sourceTree = "<group>"; };
 		1674F8872851D006006BC61A /* SharedTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestView.swift; sourceTree = "<group>"; };
 		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		1674F88B2851D61F006BC61A /* NearbyInteractionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionManager.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +68,7 @@
 		16514B6F284F313B007A1BB5 /* NearCatch */ = {
 			isa = PBXGroup;
 			children = (
+				160A5C922852DE9400B3534D /* Info.plist */,
 				16514B70284F313B007A1BB5 /* NearCatchApp.swift */,
 				16AEB3152851C0120034CC0F /* Views */,
 				16AEB3162851C01D0034CC0F /* Models */,
@@ -78,6 +86,15 @@
 				16514B77284F313D007A1BB5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1674F88D2851DD23006BC61A /* NearbyInteraction */ = {
+			isa = PBXGroup;
+			children = (
+				1674F88B2851D61F006BC61A /* NearbyInteractionManager.swift */,
+				160A5C9328530F4000B3534D /* MPCSession.swift */,
+			);
+			path = NearbyInteraction;
 			sourceTree = "<group>";
 		};
 		16AEB3152851C0120034CC0F /* Views */ = {
@@ -126,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				16514B79284F313D007A1BB5 /* Persistence.swift */,
+				160A5C8E2851E9F800B3534D /* MathUtilities.swift */,
+				1674F88D2851DD23006BC61A /* NearbyInteraction */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -204,9 +223,12 @@
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
+				160A5C8F2851E9F800B3534D /* MathUtilities.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
+				1674F88C2851D61F006BC61A /* NearbyInteractionManager.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
 				1674F8882851D006006BC61A /* SharedTestView.swift in Sources */,
+				160A5C9428530F4100B3534D /* MPCSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,8 +357,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NearCatch/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "This app demonstrates the NearbyInteraction framework. Supply a value for this string to explain how the user benefits when they allow the app to use NearbyInteraction.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "This app demonstrates the NearbyInteraction framework. Supply a value for this string to explain how the user benefits when they allow the app to use NearbyInteraction.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,8 +390,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NearCatch/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "This app demonstrates the NearbyInteraction framework. Supply a value for this string to explain how the user benefits when they allow the app to use NearbyInteraction.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "This app demonstrates the NearbyInteraction framework. Supply a value for this string to explain how the user benefits when they allow the app to use NearbyInteraction.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
