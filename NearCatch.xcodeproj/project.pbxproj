@@ -16,6 +16,8 @@
 		1674F8882851D006006BC61A /* SharedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8872851D006006BC61A /* SharedTestView.swift */; };
 		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
+		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
+		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		1674F8872851D006006BC61A /* SharedTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestView.swift; sourceTree = "<group>"; };
 		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				16514B72284F313B007A1BB5 /* ContentView.swift */,
+				6F5711752851D7EE00B094C2 /* Profile */,
 				16AEB3182851C0650034CC0F /* Home */,
 				16AEB3192851C07F0034CC0F /* Shared */,
 			);
@@ -118,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				1674F8872851D006006BC61A /* SharedTestView.swift */,
+				6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -128,6 +134,14 @@
 				16514B79284F313D007A1BB5 /* Persistence.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6F5711752851D7EE00B094C2 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6F5711762851D7FF00B094C2 /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,12 +214,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,
 				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
+				6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */,
 				1674F8882851D006006BC61A /* SharedTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
