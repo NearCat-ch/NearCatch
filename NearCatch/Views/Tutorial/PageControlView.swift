@@ -10,27 +10,32 @@ import SwiftUI
 struct PageControlView: View {
     @State var currentPage = 0
     @State private var offset: CGSize = .zero
+    @State var nickname: String = ""
     var body: some View {
         ZStack{
             Image("img_background")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-            
             VStack{
                 pageControl(current: $currentPage)
                 ZStack {
-                    if currentPage == 0{
-                        SettingNicknameView()
+                    if currentPage == 0 {
+                        SettingNicknameView(nickname: $nickname)
                     }
-                    else if currentPage == 1{
-                        Image("img_star_33px")
+                    else if currentPage == 1 {
+//                        Image("img_star_33px")
                     }
                     else {
-                        Image("img_shooting")
+//                        Image("img_shooting")
                     }
                 }
-
             }
+            .frame(
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
+            
+            
         }.gesture(DragGesture()
             .onChanged{self.offset = $0.translation}
             .onEnded{
@@ -95,6 +100,9 @@ struct pageControl : UIViewRepresentable {
     }
     
 }
+
+
+
 
 
 struct PageControlView_Previews: PreviewProvider {

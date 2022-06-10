@@ -9,18 +9,64 @@ import SwiftUI
 
 struct SettingNicknameView: View {
     
-    @State var nickname: String = ""
+    @Binding var nickname: String
     
     var body: some View {
         VStack{
-            TextField("닉네임", text: $nickname)
-            Text("\(nickname)")
+            Text("당신의 이름을 니어캣에게 알려주세요!")
+                .foregroundColor(.yellow)
+                .font(.system(size: 34))
+            Text("니어캣에게 이름을 알려주세요")
+//                .foregroundColor(.white)
+                .font(.system(size: 24))
+            Text("프로필 변경에서 변경할 수 있습니다.")
+//                .foregroundColor(.white)
+                .font(.system(size: 24))
+            Image("img_standing")
+            TextField("",text: $nickname)
+                .placeholder(when: nickname.isEmpty) {
+                    Text("User Name").foregroundColor(.white)
+                }
+                .limitText($nickname, to: 10)
+                .foregroundColor(.white)
+                .frame(width: 200,height: 30)
+                .multilineTextAlignment(.center)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
+//            Text("\(nickname)")
+            Divider()
+                .frame(width: 250, height: 1)
+                .background(Color.white)
+            
         }
     }
 }
 
+// Mark: placeholder 색상 변경을 위한 View 확장
+extension View {
+    // placeholder 함수
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .center,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+        //shouldShow가 true면 보여주고, false면 안보여주기.
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+    
+    func limitText(_ text: Binding<String>, to characterLimit: Int) -> some View {
+            self
+                .onChange(of: text.wrappedValue) { _ in
+                    text.wrappedValue = String(text.wrappedValue.prefix(characterLimit))
+                }
+        }
+    
+}
+
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingNicknameView()
+        SettingNicknameView(nickname: .constant(""))
     }
 }
