@@ -17,7 +17,7 @@ struct StarBubble: View {
             
             Circle()
                 .fill(.white.opacity(0.5))
-                .padding(2)
+                .padding(4)
             
             
             Image("img_star_58px")
@@ -44,7 +44,7 @@ struct HeartBubble: View {
             
             Circle()
                 .fill(.white.opacity(0.5))
-                .padding(2)
+                .padding(4)
             
             
             Image("img_heart")
