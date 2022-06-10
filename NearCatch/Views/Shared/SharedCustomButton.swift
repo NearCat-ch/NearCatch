@@ -11,6 +11,7 @@ struct SharedCustomButton: View {
     @State var icon:String
     @State var circleSize:CGFloat
     @State var color:Color
+    @State var innerOpacity:Double
     var body: some View {
         ZStack{
             ZStack{
@@ -20,9 +21,11 @@ struct SharedCustomButton: View {
                     .frame(width:circleSize * 1.2, height:circleSize*1.2)
                 Circle()
                     .fill(color)
-                    .opacity(0.5)
+                    .opacity(innerOpacity)
                     .frame(width:circleSize, height:circleSize)
                 Image(icon)
+                    .resizable()
+                    .frame(width:circleSize*0.5, height:circleSize*0.5)
             }
         }
     }
@@ -30,6 +33,6 @@ struct SharedCustomButton: View {
 
 struct SharedCustomButton_Previews: PreviewProvider {
     static var previews: some View {
-        SharedCustomButton(icon: "icn_edit", circleSize: 50, color:Color.white)
+        SharedCustomButton(icon: "icn_edit", circleSize: 50, color:Color.white, innerOpacity:0.5)
     }
 }
