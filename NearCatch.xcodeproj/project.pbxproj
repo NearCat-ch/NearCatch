@@ -34,7 +34,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		160A5C922852DE9400B3534D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		164A4A5328547E1500CA8B0A /* MathUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		164A4A5528547E4100CA8B0A /* NISessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NISessionManager.swift; sourceTree = "<group>"; };
 		164A4A5A28547E9500CA8B0A /* MPCSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 		16514B6F284F313B007A1BB5 /* NearCatch */ = {
 			isa = PBXGroup;
 			children = (
-				160A5C922852DE9400B3534D /* Info.plist */,
 				16514B70284F313B007A1BB5 /* NearCatchApp.swift */,
 				16AEB3152851C0120034CC0F /* Views */,
 				16AEB3162851C01D0034CC0F /* Models */,
