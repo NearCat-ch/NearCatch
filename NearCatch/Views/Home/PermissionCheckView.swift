@@ -13,7 +13,6 @@ struct PermissionCheckView: View {
             Image("img_background")
                 .resizable()
                 .ignoresSafeArea()
-                .scaledToFill()
             
             VStack(spacing: 30) {
                 Tip {
