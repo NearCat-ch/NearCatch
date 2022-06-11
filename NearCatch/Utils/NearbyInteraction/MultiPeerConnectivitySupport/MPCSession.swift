@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-A class that manages peer discovery-token exchange over the local network by using MultipeerConnectivity.
+A class that manages peer discovery-token exchange over the local network.
 */
 
 import Foundation
@@ -42,6 +42,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
 
     // MARK: - `MPCSession` public methods.
     func start() {
+        NSLog("Start advertising")
         mcAdvertiser.startAdvertisingPeer()
         mcBrowser.startBrowsingForPeers()
     }
@@ -115,14 +116,14 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     }
 
     internal func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        // The sample app intentional omits this implementation.
+        // The sample app intentionally omits this implementation.
     }
 
     internal func session(_ session: MCSession,
                           didStartReceivingResourceWithName resourceName: String,
                           fromPeer peerID: MCPeerID,
                           with progress: Progress) {
-        // The sample app intentional omits this implementation.
+        // The sample app intentionally omits this implementation.
     }
 
     internal func session(_ session: MCSession,
@@ -130,7 +131,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                           fromPeer peerID: MCPeerID,
                           at localURL: URL?,
                           withError error: Error?) {
-        // The sample app intentional omits this implementation.
+        // The sample app intentionally omits this implementation.
     }
 
     // MARK: - `MCNearbyServiceBrowserDelegate`.
@@ -144,7 +145,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     }
 
     internal func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        // The sample app intentional omits this implementation.
+        // The sample app intentionally omits this implementation.
     }
 
     // MARK: - `MCNearbyServiceAdvertiserDelegate`.

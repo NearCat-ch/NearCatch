@@ -9,8 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var toggle: Bool = false
-    @StateObject var nearbyInterationObject = NearbyInteractionManager()
-//    var delegate: NearbyInteractionManagerDelegate?
+    @StateObject var niObject = NISessionManager()
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -25,9 +24,9 @@ struct HomeView: View {
             VStack(spacing: 24) {
                 Button {
                     if toggle {
-                        nearbyInterationObject.shutdown()
+                        niObject.stop()
                     } else {
-                        nearbyInterationObject.startup()
+                        niObject.start()
                     }
                     toggle = !toggle
                 } label: {
@@ -36,7 +35,7 @@ struct HomeView: View {
                 }
                 Text(
                     toggle ?
-                    "켜짐"
+                    "\(niObject.peersCnt)명"
                     : "니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                     .font(.system(size: 28))
                     .multilineTextAlignment(.center)

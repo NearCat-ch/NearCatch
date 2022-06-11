@@ -1,48 +1,62 @@
-//
-//  NearbyInteractionManager.swift
-//  NearCatch
-//
-//  Created by Wonhyuk Choi on 2022/06/09.
-//
+/*
+See LICENSE folder for this sample’s licensing information.
+
+Abstract:
+An object that manages the interaction session.
+*/
 
 import Foundation
 import NearbyInteraction
 import MultipeerConnectivity
+import UIKit
 
-class NearbyInteractionManager: NSObject, ObservableObject {
-    
-    
-    // MARK: - Distance and direction state.
-    
-    // 범프 한계 거리
-    let nearbyDistanceThreshold: Float = 0.1
-
-    enum DistanceDirectionState {
-        case closeUpInFOV, notCloseUpInFOV, outOfFOV, unknown
-    }
-    
-    // MARK: - Class variables
+class NISessionManager: NSObject, ObservableObject {
     var session: NISession?
     var peerDiscoveryToken: NIDiscoveryToken?
-    let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
-    var currentDistanceDirectionState: DistanceDirectionState = .unknown
     var mpc: MPCSession?
-    var connectedPeer: MCPeerID?
-    var sharedTokenWithPeer = false
-    var peerDisplayName: String?
-    var receivedText: String?
+
+    @Published var connectedPeer: MCPeerID?
+    @Published var sharedTokenWithPeer = false
+    @Published var latestNearbyObject: NINearbyObject?
+    @Published var peersCnt: Int = 0
+
+    override init() {
+        super.init()
+//        startup()
+    }
+
+    deinit {
+        session?.invalidate()
+        mpc?.invalidate()
+    }
     
+    func start() {
+        startup()
+    }
+    
+    func stop() {
+        session?.invalidate()
+        mpc?.invalidate()
+        connectedPeer = nil
+        sharedTokenWithPeer = false
+        latestNearbyObject = nil
+        peersCnt = 0
+        mpc = nil
+        peerDiscoveryToken = nil
+        session = nil
+    }
+
     func startup() {
         // NISession 생성
         session = NISession()
-        
+
         // delegate 지정
         session?.delegate = self
-        
+
         // Because the session is new, reset the token-shared flag.
         sharedTokenWithPeer = false
-        
-        // If `connectedPeer` exists, share the discovery token, if needed.
+
+        // If a connected peer exists, share the discovery token, if needed.
         if connectedPeer != nil && mpc != nil {
             if let myToken = session?.discoveryToken {
                 if !sharedTokenWithPeer {
@@ -58,34 +72,19 @@ class NearbyInteractionManager: NSObject, ObservableObject {
             }
         } else {
             startupMPC()
-            
-            // Set the display state.
-            currentDistanceDirectionState = .unknown
         }
     }
-    
-    // TODO: 세션 종료 초기화 설정
-    func shutdown() {
-        shutdownMPC()
-        session?.pause()
-        session = nil
-        connectedPeer = nil
-        peerDiscoveryToken = nil
-        session?.invalidate()
-        sharedTokenWithPeer = false
-        currentDistanceDirectionState = .unknown
-    }
-    
-    // MARK: - Discovery token sharing and receiving using MPC.
-    
+
+    // MARK: - MPC를 사용하여 디스커버리 토큰 공유
+
     func startupMPC() {
         if mpc == nil {
             // Prevent Simulator from finding devices.
-        #if targetEnvironment(simulator)
+            #if targetEnvironment(simulator)
             mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch", maxPeers: 1)
-        #else
+            #else
             mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch", maxPeers: 1)
-        #endif
+            #endif
             mpc?.peerConnectedHandler = connectedToPeer
             mpc?.peerDataHandler = dataReceivedHandler
             mpc?.peerDisconnectedHandler = disconnectedFromPeer
@@ -93,104 +92,71 @@ class NearbyInteractionManager: NSObject, ObservableObject {
         mpc?.invalidate()
         mpc?.start()
     }
-    
-    func shutdownMPC() {
-        mpc?.invalidate()
-        mpc = nil
-    }
-    
+
     func connectedToPeer(peer: MCPeerID) {
         guard let myToken = session?.discoveryToken else {
             fatalError("Unexpectedly failed to initialize nearby interaction session.")
         }
-        
+
         if connectedPeer != nil {
             fatalError("Already connected to a peer.")
         }
-        
+
         if !sharedTokenWithPeer {
             shareMyDiscoveryToken(token: myToken)
         }
-        
+
         connectedPeer = peer
-        peerDisplayName = peer.displayName
     }
-    
+
     func disconnectedFromPeer(peer: MCPeerID) {
         if connectedPeer == peer {
             connectedPeer = nil
             sharedTokenWithPeer = false
         }
     }
-    
+
+    // TODO: 데이터(프로필 정보) 리시빙 가능하도록 수정
     func dataReceivedHandler(data: Data, peer: MCPeerID) {
-        if let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) {
-            peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+        guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
+            fatalError("Unexpectedly failed to decode discovery token.")
         }
-        
-        receivedText = String(data: data, encoding: .utf8)
+        peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
     }
-    
+
     func shareMyDiscoveryToken(token: NIDiscoveryToken) {
         guard let encodedData = try?  NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
-        
         mpc?.sendDataToAllPeers(data: encodedData)
         sharedTokenWithPeer = true
     }
-    
+
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
         if connectedPeer != peer {
             fatalError("Received token from unexpected peer.")
         }
         // Create a configuration.
         peerDiscoveryToken = token
-        
+
         let config = NINearbyPeerConfiguration(peerToken: token)
-        
+
         // Run the session.
         session?.run(config)
-    }
-    
-    // MARK: - Visualizations
-    func isNearby(_ distance: Float) -> Bool {
-        return distance < nearbyDistanceThreshold
-    }
-    
-    func isPointingAt(_ angleRad: Float) -> Bool {
-        // Consider the range -15 to +15 to be "pointing at".
-        return abs(angleRad.radiansToDegrees) <= 15
-    }
-    
-    func getDistanceDirectionState(from nearbyObject: NINearbyObject) -> DistanceDirectionState {
-        if nearbyObject.distance == nil && nearbyObject.direction == nil {
-            return .unknown
-        }
-        
-        let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
-        let directionAvailable = nearbyObject.direction != nil
-        
-        if isNearby && directionAvailable {
-            return .closeUpInFOV
-        }
-        
-        if !isNearby && directionAvailable {
-            return .notCloseUpInFOV
-        }
-        
-        return .outOfFOV
     }
 }
 
 // MARK: - `NISessionDelegate`.
-extension NearbyInteractionManager: NISessionDelegate {
+extension NISessionManager: NISessionDelegate {
     func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
-        print("세션1")
         guard let peerToken = peerDiscoveryToken else {
             fatalError("don't have peer token")
         }
-
+        
+        DispatchQueue.main.async { [self] in
+            peersCnt = nearbyObjects.count
+        }
+        
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return obj.discoveryToken == peerToken
@@ -199,26 +165,32 @@ extension NearbyInteractionManager: NISessionDelegate {
         guard let nearbyObjectUpdate = peerObj else {
             return
         }
+
+        // Update the latest nearby object.
+        latestNearbyObject = nearbyObjectUpdate
     }
     
     func session(_ session: NISession, didRemove nearbyObjects: [NINearbyObject], reason: NINearbyObject.RemovalReason) {
-        print("세션2")
         guard let peerToken = peerDiscoveryToken else {
             fatalError("don't have peer token")
         }
+        
+        DispatchQueue.main.async { [self] in
+            peersCnt = peersCnt - nearbyObjects.count
+        }
+        
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return obj.discoveryToken == peerToken
         }
-
+        
         if peerObj == nil {
             return
         }
-
-        currentDistanceDirectionState = .unknown
-
+        
         switch reason {
         case .peerEnded:
+            print("피어엔드")
             // The peer token is no longer valid.
             peerDiscoveryToken = nil
             
@@ -226,12 +198,10 @@ extension NearbyInteractionManager: NISessionDelegate {
             // it's finished.
             session.invalidate()
             
-            print("peerEnded")
             // Restart the sequence to see if the peer comes back.
             startup()
-            
         case .timeout:
-            print("timeout")
+            print("타임아웃")
             // The peer timed out, but the session is valid.
             // If the configuration is valid, run the session again.
             if let config = session.configuration {
@@ -241,15 +211,12 @@ extension NearbyInteractionManager: NISessionDelegate {
             fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
         }
     }
-    
+
     func sessionWasSuspended(_ session: NISession) {
-        print("세션3")
-        currentDistanceDirectionState = .unknown
     }
-    
+
     func sessionSuspensionEnded(_ session: NISession) {
-        print("세션4")
-        // Session suspension ended. The session can now be run again.
+        // Session suspension ends. You can run the session again.
         if let config = self.session?.configuration {
             session.run(config)
         } else {
@@ -257,25 +224,15 @@ extension NearbyInteractionManager: NISessionDelegate {
             startup()
         }
     }
-    
-    func session(_ session: NISession, didInvalidateWith error: Error) {
-        print("세션5")
-        currentDistanceDirectionState = .unknown
 
+    func session(_ session: NISession, didInvalidateWith error: Error) {
         // If the app lacks user approval for Nearby Interaction, present
         // an option to go to Settings where the user can update the access.
         if case NIError.userDidNotAllow = error {
-            if #available(iOS 15.0, *) {
-                // In iOS 15.0, Settings persists Nearby Interaction access.
-                // Display the alert.
-            } else {
-                // Before iOS 15.0, ask the user to restart the app so the
-                // framework can ask for Nearby Interaction access again.
-            }
-
             return
         }
-        // Recreate a valid session.
+
+        // Recreate a valid session in other failure cases.
         startup()
     }
 }
