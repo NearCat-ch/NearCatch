@@ -10,6 +10,7 @@
 		164A4A5428547E1500CA8B0A /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A5328547E1500CA8B0A /* MathUtilities.swift */; };
 		164A4A5628547E4100CA8B0A /* NISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A5528547E4100CA8B0A /* NISessionManager.swift */; };
 		164A4A5B28547E9500CA8B0A /* MPCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A5A28547E9500CA8B0A /* MPCSession.swift */; };
+		164A4A5E2854BAD000CA8B0A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 		16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B70284F313B007A1BB5 /* NearCatchApp.swift */; };
 		16514B73284F313B007A1BB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B72284F313B007A1BB5 /* ContentView.swift */; };
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
@@ -18,7 +19,6 @@
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
 		1674F8882851D006006BC61A /* SharedTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8872851D006006BC61A /* SharedTestView.swift */; };
 		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
-		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 		21F1AD2B285336360016185A /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD2A285336360016185A /* HomeMainButton.swift */; };
 		21F1AD2D285336470016185A /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD2C285336470016185A /* CircleButton.swift */; };
 		21F1AD2F285336580016185A /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD2E285336580016185A /* Tip.swift */; };
@@ -37,6 +37,7 @@
 		164A4A5328547E1500CA8B0A /* MathUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		164A4A5528547E4100CA8B0A /* NISessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NISessionManager.swift; sourceTree = "<group>"; };
 		164A4A5A28547E9500CA8B0A /* MPCSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
+		164A4A642854BDA800CA8B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16514B6D284F313B007A1BB5 /* NearCatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearCatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16514B70284F313B007A1BB5 /* NearCatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCatchApp.swift; sourceTree = "<group>"; };
 		16514B72284F313B007A1BB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		16514B6F284F313B007A1BB5 /* NearCatch */ = {
 			isa = PBXGroup;
 			children = (
+				164A4A642854BDA800CA8B0A /* Info.plist */,
 				16514B70284F313B007A1BB5 /* NearCatchApp.swift */,
 				16AEB3152851C0120034CC0F /* Views */,
 				16AEB3162851C01D0034CC0F /* Models */,
@@ -278,15 +280,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164A4A5E2854BAD000CA8B0A /* HomeView.swift in Sources */,
 				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,
 				7072D6E228533929008594E5 /* Colors.swift in Sources */,
 				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
-				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
 				21F1AD35285336810016185A /* CustomSheet.swift in Sources */,
-				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
 				21F1AD2D285336470016185A /* CircleButton.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
 				164A4A5428547E1500CA8B0A /* MathUtilities.swift in Sources */,
