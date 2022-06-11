@@ -16,6 +16,8 @@ struct SettingNicknameView: View {
             Text("당신의 이름을 니어캣에게 알려주세요!")
                 .foregroundColor(.yellow)
                 .font(.system(size: 34))
+                .padding(.top, 45)
+                .padding(.bottom, 15)
             Text("니어캣에게 이름을 알려주세요")
 //                .foregroundColor(.white)
                 .font(.system(size: 24))
@@ -23,13 +25,17 @@ struct SettingNicknameView: View {
 //                .foregroundColor(.white)
                 .font(.system(size: 24))
             Image("img_standing")
+                .padding(.bottom, 40.0)
+                .padding(.top, 15)
+
             TextField("",text: $nickname)
                 .placeholder(when: nickname.isEmpty) {
                     Text("User Name").foregroundColor(.white)
                 }
                 .limitText($nickname, to: 10)
                 .foregroundColor(.white)
-                .frame(width: 200,height: 30)
+                .font(.system(size: 34, design: .default))
+                .frame(width: 200,height: 34)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
