@@ -12,6 +12,10 @@ struct MPCSessionConstants {
     static let kKeyIdentity: String = "identity"
 }
 
+protocol MultipeerConnectivityManagerDelegate: AnyObject {
+    func connectedDevicesChanged(devices: [String])
+}
+
 class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate {
     var peerDataHandler: ((Data, MCPeerID) -> Void)?
     var peerConnectedHandler: ((MCPeerID) -> Void)?
@@ -22,9 +26,10 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     private let mcAdvertiser: MCNearbyServiceAdvertiser
     private let mcBrowser: MCNearbyServiceBrowser
     private let identityString: String
-    private let maxNumPeers: Int
+    //    private let maxNumPeers: Int
+    weak var delegate: MultipeerConnectivityManagerDelegate?
 
-    init(service: String, identity: String, maxPeers: Int) {
+    init(service: String, identity: String) {
         serviceString = service
         identityString = identity
         mcSession = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .required)
@@ -32,7 +37,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                                                  discoveryInfo: [MPCSessionConstants.kKeyIdentity: identityString],
                                                  serviceType: serviceString)
         mcBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceString)
-        maxNumPeers = maxPeers
+        //        maxNumPeers = maxPeers
 
         super.init()
         mcSession.delegate = self
@@ -76,9 +81,9 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                 handler(peerID)
             }
         }
-        if mcSession.connectedPeers.count == maxNumPeers {
-            self.suspend()
-        }
+        //        if mcSession.connectedPeers.count == maxNumPeers {
+        //            self.suspend()
+        //        }
     }
 
     private func peerDisconnected(peerID: MCPeerID) {
@@ -88,9 +93,9 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
             }
         }
 
-        if mcSession.connectedPeers.count < maxNumPeers {
-            self.start()
-        }
+        //        if mcSession.connectedPeers.count < maxNumPeers {
+        self.start()
+        //        }
     }
 
     // MARK: - `MCSessionDelegate`.
@@ -105,6 +110,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         @unknown default:
             fatalError("Unhandled MCSessionState")
         }
+        delegate?.connectedDevicesChanged(devices: session.connectedPeers.map{$0.displayName})
     }
 
     internal func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
@@ -139,9 +145,12 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         guard let identityValue = info?[MPCSessionConstants.kKeyIdentity] else {
             return
         }
-        if identityValue == identityString && mcSession.connectedPeers.count < maxNumPeers {
+        if identityValue == identityString {
             browser.invitePeer(peerID, to: mcSession, withContext: nil, timeout: 10)
         }
+        //        if identityValue == identityString && mcSession.connectedPeers.count < maxNumPeers {
+        //            browser.invitePeer(peerID, to: mcSession, withContext: nil, timeout: 10)
+        //        }
     }
 
     internal func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -154,8 +163,8 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                              withContext context: Data?,
                              invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         // Accept the invitation only if the number of peers is less than the maximum.
-        if self.mcSession.connectedPeers.count < maxNumPeers {
-            invitationHandler(true, mcSession)
-        }
+        //        if self.mcSession.connectedPeers.count < maxNumPeers {
+        invitationHandler(true, mcSession)
+        //        }
     }
 }

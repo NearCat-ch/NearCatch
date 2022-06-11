@@ -81,10 +81,11 @@ class NISessionManager: NSObject, ObservableObject {
         if mpc == nil {
             // Prevent Simulator from finding devices.
             #if targetEnvironment(simulator)
-            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch", maxPeers: 1)
+            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch")
             #else
-            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch", maxPeers: 1)
+            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch")
             #endif
+            mpc?.delegate = self
             mpc?.peerConnectedHandler = connectedToPeer
             mpc?.peerDataHandler = dataReceivedHandler
             mpc?.peerDisconnectedHandler = disconnectedFromPeer
@@ -94,13 +95,9 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     func connectedToPeer(peer: MCPeerID) {
-        guard let myToken = session?.discoveryToken else {
-            fatalError("Unexpectedly failed to initialize nearby interaction session.")
-        }
+        guard let myToken = session?.discoveryToken else { return }
 
-        if connectedPeer != nil {
-            fatalError("Already connected to a peer.")
-        }
+        guard connectedPeer == nil else { return }
 
         if !sharedTokenWithPeer {
             shareMyDiscoveryToken(token: myToken)
@@ -133,9 +130,8 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        if connectedPeer != peer {
-            fatalError("Received token from unexpected peer.")
-        }
+        guard connectedPeer == peer else { return }
+
         // Create a configuration.
         peerDiscoveryToken = token
 
@@ -153,10 +149,7 @@ extension NISessionManager: NISessionDelegate {
             fatalError("don't have peer token")
         }
         
-        DispatchQueue.main.async { [self] in
-            peersCnt = nearbyObjects.count
-        }
-        
+        // TODO: 가장 가까운 피어 혹은 관심사가 비슷한 피어 찾는 로직으로 구성
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return obj.discoveryToken == peerToken
@@ -173,10 +166,6 @@ extension NISessionManager: NISessionDelegate {
     func session(_ session: NISession, didRemove nearbyObjects: [NINearbyObject], reason: NINearbyObject.RemovalReason) {
         guard let peerToken = peerDiscoveryToken else {
             fatalError("don't have peer token")
-        }
-        
-        DispatchQueue.main.async { [self] in
-            peersCnt = peersCnt - nearbyObjects.count
         }
         
         // Find the right peer.
@@ -234,5 +223,13 @@ extension NISessionManager: NISessionDelegate {
 
         // Recreate a valid session in other failure cases.
         startup()
+    }
+}
+
+extension NISessionManager: MultipeerConnectivityManagerDelegate {
+    func connectedDevicesChanged(devices: [String]) {
+        DispatchQueue.main.async { [self] in
+            peersCnt = devices.count
+        }
     }
 }

@@ -35,7 +35,7 @@ struct HomeView: View {
                 }
                 Text(
                     toggle ?
-                    "\(niObject.peersCnt)명"
+                    "근처에 \(niObject.peersCnt)개의\n 별이 있어요!"
                     : "니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                     .font(.system(size: 28))
                     .multilineTextAlignment(.center)
