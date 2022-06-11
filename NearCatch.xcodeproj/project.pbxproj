@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */; };
+		0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74F2851E2AF0081C832 /* PageControlView.swift */; };
 		16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B70284F313B007A1BB5 /* NearCatchApp.swift */; };
 		16514B73284F313B007A1BB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B72284F313B007A1BB5 /* ContentView.swift */; };
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNicknameView.swift; sourceTree = "<group>"; };
+		0EBDD74F2851E2AF0081C832 /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
 		16514B6D284F313B007A1BB5 /* NearCatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearCatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16514B70284F313B007A1BB5 /* NearCatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCatchApp.swift; sourceTree = "<group>"; };
 		16514B72284F313B007A1BB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EBDD74A2851DECB0081C832 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */,
+				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
 		16514B64284F313B007A1BB5 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +124,7 @@
 		16AEB3152851C0120034CC0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0EBDD74A2851DECB0081C832 /* Tutorial */,
 				16514B72284F313B007A1BB5 /* ContentView.swift */,
 				6F5711752851D7EE00B094C2 /* Profile */,
 				16AEB3182851C0650034CC0F /* Home */,
@@ -272,6 +286,7 @@
 				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
+				0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */,
 				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				21F1AD35285336810016185A /* CustomSheet.swift in Sources */,
 				16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */,
@@ -284,6 +299,7 @@
 				21F1AD372853368B0016185A /* ProfilePicture.swift in Sources */,
 				21F1AD33285336720016185A /* Bubble.swift in Sources */,
 				1674F8882851D006006BC61A /* SharedTestView.swift in Sources */,
+				0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */,
 				21F1AD31285336640016185A /* NearCat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
