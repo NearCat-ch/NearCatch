@@ -13,9 +13,8 @@ struct NearCatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            PageControlView()
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

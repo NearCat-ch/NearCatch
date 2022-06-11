@@ -88,7 +88,7 @@ struct pageControl : UIViewRepresentable {
     
     func makeUIView(context: UIViewRepresentableContext<pageControl>) -> UIPageControl {
         let page = UIPageControl()
-        page.currentPageIndicatorTintColor = .yellow
+        page.currentPageIndicatorTintColor = UIColor(red: 255/255, green: 236/255, blue: 108/255, alpha: 100.0)
         page.numberOfPages = 3
         page.pageIndicatorTintColor = .white
 //        page.isSelected = false
