@@ -13,7 +13,7 @@ struct StarBubble: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(.white.opacity(0.5))
+                .fill(.white.opacity(0.5)) 
             
             Circle()
                 .fill(.white.opacity(0.5))
@@ -28,7 +28,7 @@ struct StarBubble: View {
             Image("img_bubble_86px")
             
             Text("\(count)")
-                .font(.largeTitle)
+                .font(.custom("온글잎 의연체", size: 34))
             
         }
         .frame(width: 86, height: 86)
