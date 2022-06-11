@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var toggle: Bool = false
+    @StateObject var niObject = NISessionManager()
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Button {
-                
+            
             } label: {
                 Circle()
                     .frame(width: 40, height: 40)
@@ -20,16 +23,26 @@ struct HomeView: View {
             
             VStack(spacing: 24) {
                 Button {
-                    
+                    if toggle {
+                        niObject.stop()
+                    } else {
+                        niObject.start()
+                    }
+                    toggle = !toggle
                 } label: {
                     Circle()
                         .frame(width: 220, height: 220)
                 }
-                Text("Hello")
+                Text(
+                    toggle ?
+                    "근처에 \(niObject.peersCnt)개의\n 별이 있어요!"
+                    : "니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                     .font(.system(size: 28))
+                    .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        
     }
 }
 
