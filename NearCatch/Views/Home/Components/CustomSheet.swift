@@ -29,7 +29,7 @@ struct CustomSheetPreviewView: View {
         // MARK: 주의!! 최상단 뷰에 넣어줘야 함!
         .customSheet(isPresented: $test) {
             VStack(spacing: 20) {
-                Text("닉쿤님과 대화해보세요!".partialColor(["닉쿤"], .theme.yellow))
+                Text("닉쿤님과 대화해보세요!".partialColor(["닉쿤"], .PrimaryColor))
                 
                 Spacer()
                     
@@ -71,7 +71,7 @@ struct CustomSheet<Content: View>: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.theme.background)
+                .fill(Color.ThirdColor)
         )
         .padding(20)
     }
