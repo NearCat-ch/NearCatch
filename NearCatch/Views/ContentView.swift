@@ -19,7 +19,7 @@ struct ContentView: View {
             HomeView()
             
             if !isContentReady {
-                LottieView()
+                LottieView(jsonName: "lodingAnim")
                     .background(Color.white.edgesIgnoringSafeArea(.all))
                     .transition(.opacity)
             }
