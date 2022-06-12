@@ -81,12 +81,11 @@ class HapticManager: ObservableObject {
     }
     
     func updateHaptic(dist: Float?, matchingCount: Int) {
-//        guard let dist = dist else { return }
-
-        let intensityValue = linearInterpolation(alpha: 0.5, min: 0.05, max: 1)
-        print(intensityValue)
+        guard let dist = dist else { return }
+        let intensityValue = linearInterpolation(alpha: dist, min: 0, max: 10)
+//        advancedPlayer.playbackRate = intensityValue
         let intensityParameter = CHHapticDynamicParameter(parameterID: .hapticIntensityControl,
-                                                          value: 0,
+                                                          value: intensityValue,
                                                           relativeTime: 0)
         
         do {
@@ -98,7 +97,7 @@ class HapticManager: ObservableObject {
     }
     
     private func linearInterpolation(alpha: Float, min: Float, max: Float) -> Float {
-        return min + alpha * (max - min)
+        return alpha / (max - min)
     }
     
     func initializeHaptic() {
@@ -107,6 +106,7 @@ class HapticManager: ObservableObject {
         do {
             advancedPlayer = try? engine.makeAdvancedPlayer(with: pattern)
             advancedPlayer?.loopEnabled = true
+            advancedPlayer.playbackRate = 1
             startPlayer(advancedPlayer)
         } catch {
             print("erro...")
@@ -147,6 +147,7 @@ class HapticManager: ObservableObject {
 //        guard supportsHaptics else { return }
         do {
 //            try startHapticEngineIfNecessary()
+            print("start")
             try player.start(atTime: CHHapticTimeImmediate)
         } catch let error {
             print("Error starting haptic player: \(error)")
