@@ -26,7 +26,7 @@ struct ProfileView: View {
                         Text(nickname)
                             .font(.custom("온글잎 의연체", size: 42))
                             .foregroundColor(.white)
-                    }
+                    }.padding(EdgeInsets(top:0, leading:0, bottom:-20, trailing:0))
                     HStack{
                         VStack{
                             NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
@@ -35,12 +35,12 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.yellow, innerOpacity:1)
+                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
                             })
                             Text("관심사 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
-                                .foregroundColor(.yellow)
-                        }.padding(EdgeInsets(top: 25, leading: 38, bottom: 0, trailing: 38))
+                                .foregroundColor(.PrimaryColor)
+                        }.padding(EdgeInsets(top: 0, leading: 38, bottom: -50, trailing: 38))
                         VStack{
                             NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("설정")
@@ -48,6 +48,7 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                     }
+                    ProfileInterestCard()
                 }
                     
             }
