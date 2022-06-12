@@ -68,10 +68,10 @@ class NISessionManager: NSObject, ObservableObject {
                 let config = NINearbyPeerConfiguration(peerToken: peerToken)
                 session?.run(config)
             } else {
-                return
-                //                fatalError("Unable to get self discovery token, is this session invalidated?")
+                fatalError("Unable to get self discovery token, is this session invalidated?")
             }
         } else {
+            // 1. MPC 작동
             startupMPC()
         }
     }
@@ -94,19 +94,24 @@ class NISessionManager: NSObject, ObservableObject {
         mpc?.invalidate()
         mpc?.start()
     }
-
+    
+    // MPC peerConnectedHandeler에 의해 피어 연결
+    // 2. 피어 연결 (NI 디스커버리 토큰을 공유)
     func connectedToPeer(peer: MCPeerID) {
         guard let myToken = session?.discoveryToken else {
             fatalError("Unexpectedly failed to initialize nearby interaction session.")
         }
-
+        
+        // 3. 나의 NI 디스커버리 토큰 공유
         if !sharedTokenWithPeer {
             shareMyDiscoveryToken(token: myToken)
         }
-
+        
+        // 4. 연결된 피어 저장
         connectedPeer = peer
     }
 
+    // MPC peerDisconnectedHander에 의해 피어 연결 해제
     func disconnectedFromPeer(peer: MCPeerID) {
         if connectedPeer == peer {
             connectedPeer = nil
@@ -115,6 +120,8 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     // TODO: 데이터(프로필 정보) 리시빙 가능하도록 수정
+    // MPC peerDataHandler에 의해 데이터 리시빙
+    // 5. 상대 토큰 수신
     func dataReceivedHandler(data: Data, peer: MCPeerID) {
         guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
             fatalError("Unexpectedly failed to decode discovery token.")
@@ -134,11 +141,14 @@ class NISessionManager: NSObject, ObservableObject {
         guard connectedPeer == peer else { return }
 
         // Create a configuration.
+        // 상대 토큰 저장
         peerDiscoveryToken = token
-
+        
+        // 6. 피어토큰으로 NI 세션 설정
         let config = NINearbyPeerConfiguration(peerToken: token)
-
+        
         // Run the session.
+        // 7. NI 세션 시작
         session?.run(config)
     }
 }
@@ -150,9 +160,6 @@ extension NISessionManager: NISessionDelegate {
             fatalError("don't have peer token")
         }
         
-        print("세션1")
-        
-        // TODO: 가장 가까운 피어 혹은 관심사가 비슷한 피어 찾는 로직으로 구성
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return obj.discoveryToken == peerToken
@@ -170,8 +177,6 @@ extension NISessionManager: NISessionDelegate {
         guard let peerToken = peerDiscoveryToken else {
             fatalError("don't have peer token")
         }
-        
-        print("세션2")
         
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
