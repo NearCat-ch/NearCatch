@@ -16,7 +16,6 @@
 		16514B73284F313B007A1BB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B72284F313B007A1BB5 /* ContentView.swift */; };
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
 		16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B77284F313D007A1BB5 /* Preview Assets.xcassets */; };
-		16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B79284F313D007A1BB5 /* Persistence.swift */; };
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
 		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
@@ -38,6 +37,7 @@
 		7072D6EB28549A71008594E5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7072D6EA28549A71008594E5 /* Lottie */; };
 		7072D6ED28549B28008594E5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6EC28549B28008594E5 /* LottieView.swift */; };
 		7072D6F028549BBD008594E5 /* lodingAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6EF28549BBD008594E5 /* lodingAnim.json */; };
+		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +51,6 @@
 		16514B72284F313B007A1BB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		16514B74284F313D007A1BB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16514B77284F313D007A1BB5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		16514B79284F313D007A1BB5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		16514B7C284F313D007A1BB5 /* NearCatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NearCatch.xcdatamodel; sourceTree = "<group>"; };
 		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		7072D6E8285341F1008594E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7072D6EC28549B28008594E5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		7072D6EF28549BBD008594E5 /* lodingAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lodingAnim.json; sourceTree = "<group>"; };
+		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +117,7 @@
 		16514B64284F313B007A1BB5 = {
 			isa = PBXGroup;
 			children = (
+				71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */,
 				16514B6F284F313B007A1BB5 /* NearCatch */,
 				16514B6E284F313B007A1BB5 /* Products */,
 			);
@@ -207,7 +208,6 @@
 		16AEB31A2851C0A60034CC0F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				16514B79284F313D007A1BB5 /* Persistence.swift */,
 				164A4A712854C3A000CA8B0A /* NIUtils */,
 			);
 			path = Utils;
@@ -334,7 +334,6 @@
 			files = (
 				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,
 				7072D6E228533929008594E5 /* Colors.swift in Sources */,
-				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */,
@@ -352,6 +351,7 @@
 				6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */,
 				21F1AD372853368B0016185A /* ProfilePicture.swift in Sources */,
 				21F1AD33285336720016185A /* Bubble.swift in Sources */,
+				71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */,
 				219F895E2854DE93003AF02A /* PermissionCheckView.swift in Sources */,
 				0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */,
 				164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */,
@@ -485,7 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UYQK5W3Y6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -518,7 +518,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UYQK5W3Y6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
