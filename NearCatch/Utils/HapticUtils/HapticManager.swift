@@ -11,16 +11,16 @@ import CoreHaptics
 
 class HapticManager: ObservableObject {
     
-    init() {
-        self.createAndStartHapticEngine()
-        self.createContinuousHapticPlayer()
-    }
-    
     private var engine: CHHapticEngine!
-    private var continuousPlayer: CHHapticAdvancedPatternPlayer!
+    private var advancedPlayer: CHHapticAdvancedPatternPlayer!
     
     private let initialIntensity: Float = 1.0
     private let initialSharpness: Float = 0.5
+    
+    init() {
+        self.createAndStartHapticEngine()
+        self.initializeHaptic()
+    }
     
     func createAndStartHapticEngine() {
         do {
@@ -65,7 +65,7 @@ class HapticManager: ObservableObject {
                 try self.engine.start()
                 
                 // Recreate the continuous player.
-                self.createContinuousHapticPlayer()
+                self.initializeHaptic()
                 
             } catch {
                 print("Failed to start the engine")
@@ -80,70 +80,87 @@ class HapticManager: ObservableObject {
         }
     }
     
-    func createContinuousHapticPlayer() {
-        // Create an intensity parameter:
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity,
-                                               value: initialIntensity)
-        
-        // Create a sharpness parameter:
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness,
-                                               value: initialSharpness)
-        
-        // Create a continuous event with a long duration from the parameters.
-        let continuousEvent = CHHapticEvent(eventType: .hapticContinuous,
-                                            parameters: [intensity, sharpness],
-                                            relativeTime: 0,
-                                            duration: 100)
-        
-        do {
-            // Create a pattern from the continuous haptic event.
-            let pattern = try CHHapticPattern(events: [continuousEvent], parameters: [])
-            
-            // Create a player from the continuous haptic pattern.
-            continuousPlayer = try engine.makeAdvancedPlayer(with: pattern)
-            
-        } catch let error {
-            print("Pattern Player Creation Error: \(error)")
-        }
-    }
-    
-    func changeHaptic(yaw: Float, pitch: Float) {
-        // The intensity should be highest at the top, opposite of the iOS y-axis direction, so subtract.
-        //        let dynamicIntensity: Float = 1 - Float(normalizedLocation.y)
-        
-        // Dynamic parameters range from -0.5 to 0.5 to map the final sharpness to the [0,1] range.
-        //        let dynamicSharpness: Float = Float(normalizedLocation.x) - 0.5
-        
-        // Create dynamic parameters for the updated intensity & sharpness.
+    func updateHaptic(dist: Float?, matchingCount: Int) {
+//        guard let dist = dist else { return }
+
+        let intensityValue = linearInterpolation(alpha: 0.5, min: 0.05, max: 1)
+        print(intensityValue)
         let intensityParameter = CHHapticDynamicParameter(parameterID: .hapticIntensityControl,
-                                                          value: min(yaw * yaw + pitch * pitch, 0.2),
+                                                          value: 0,
                                                           relativeTime: 0)
         
-        let sharpnessParameter = CHHapticDynamicParameter(parameterID: .hapticSharpnessControl,
-                                                          value: 0.1,
-                                                          relativeTime: 0)
-        
-        // Send dynamic parameters to the haptic player.
         do {
-            try continuousPlayer.sendParameters([intensityParameter, sharpnessParameter],
-                                                atTime: 0)
+            try advancedPlayer.sendParameters([intensityParameter], atTime: 0)
         } catch let error {
             print("Dynamic Parameter Error: \(error)")
         }
         
+    }
+    
+    private func linearInterpolation(alpha: Float, min: Float, max: Float) -> Float {
+        return min + alpha * (max - min)
+    }
+    
+    func initializeHaptic() {
+        let pattern = createPatternFromAHAP("NearCatchHeartbeat")!
+        
         do {
-            // Begin playing continuous pattern.
-            try continuousPlayer.start(atTime: CHHapticTimeImmediate)
-        } catch let error {
-            print("Error starting the continuous haptic player: \(error)")
+            advancedPlayer = try? engine.makeAdvancedPlayer(with: pattern)
+            advancedPlayer?.loopEnabled = true
+            startPlayer(advancedPlayer)
+        } catch {
+            print("erro...")
         }
+    }
+    
+    private func createPatternFromAHAP(_ filename: String) -> CHHapticPattern? {
+        // Get the URL for the pattern in the app bundle.
+        let patternURL = Bundle.main.url(forResource: filename, withExtension: "ahap")!
+        
+        do {
+//            try engine.playPattern(from: patternURL)
+            // Read JSON data from the URL.
+            let patternJSONData = try Data(contentsOf: patternURL, options: [])
+            
+            // Create a dictionary from the JSON data.
+            let dict = try JSONSerialization.jsonObject(with: patternJSONData, options: [])
+            
+            if let patternDict = dict as? [CHHapticPattern.Key: Any] {
+                // Create a pattern from the dictionary.
+                return try CHHapticPattern(dictionary: patternDict)
+            }
+        } catch let error {
+            print("Error creating haptic pattern: \(error)")
+        }
+        return nil
     }
     
     func endHaptic() {
         do {
-            try continuousPlayer.stop(atTime: CHHapticTimeImmediate)
+            try advancedPlayer.stop(atTime: CHHapticTimeImmediate)
         } catch let error {
             print("Error stopping the continuous haptic player: \(error)")
+        }
+    }
+    
+    func startPlayer(_ player: CHHapticPatternPlayer) {
+//        guard supportsHaptics else { return }
+        do {
+//            try startHapticEngineIfNecessary()
+            try player.start(atTime: CHHapticTimeImmediate)
+        } catch let error {
+            print("Error starting haptic player: \(error)")
+        }
+    }
+    
+    func stopPlayer(_ player: CHHapticPatternPlayer) {
+//        guard supportsHaptics else { return }
+        
+        do {
+//            try startHapticEngineIfNecessary()
+            try player.stop(atTime: CHHapticTimeImmediate)
+        } catch let error {
+            print("Error stopping haptic player: \(error)")
         }
     }
 }

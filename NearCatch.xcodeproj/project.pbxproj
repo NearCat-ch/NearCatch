@@ -22,6 +22,7 @@
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 		21352D502855907A00429DC0 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21352D4F2855907A00429DC0 /* HapticManager.swift */; };
 		21352D522855C89700429DC0 /* NearCatchHeartbeat.ahap in Resources */ = {isa = PBXBuildFile; fileRef = 21352D512855C89700429DC0 /* NearCatchHeartbeat.ahap */; };
+		21352D542855CAA800429DC0 /* HapticTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21352D532855CAA800429DC0 /* HapticTestView.swift */; };
 		219F895E2854DE93003AF02A /* PermissionCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219F895D2854DE93003AF02A /* PermissionCheckView.swift */; };
 		219F89602854E036003AF02A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219F895F2854E036003AF02A /* SearchView.swift */; };
 		21F1AD2B285336360016185A /* HomeMainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD2A285336360016185A /* HomeMainButton.swift */; };
@@ -59,6 +60,7 @@
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		21352D4F2855907A00429DC0 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		21352D512855C89700429DC0 /* NearCatchHeartbeat.ahap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NearCatchHeartbeat.ahap; sourceTree = "<group>"; };
+		21352D532855CAA800429DC0 /* HapticTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticTestView.swift; sourceTree = "<group>"; };
 		219F895D2854DE93003AF02A /* PermissionCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionCheckView.swift; sourceTree = "<group>"; };
 		219F895F2854E036003AF02A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		21F1AD2A285336360016185A /* HomeMainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainButton.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				21352D512855C89700429DC0 /* NearCatchHeartbeat.ahap */,
 				21352D4F2855907A00429DC0 /* HapticManager.swift */,
+				21352D532855CAA800429DC0 /* HapticTestView.swift */,
 			);
 			path = HapticUtils;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				21F1AD2D285336470016185A /* CircleButton.swift in Sources */,
 				16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */,
 				7072D6ED28549B28008594E5 /* LottieView.swift in Sources */,
+				21352D542855CAA800429DC0 /* HapticTestView.swift in Sources */,
 				164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */,
 				21F1AD2B285336360016185A /* HomeMainButton.swift in Sources */,
 				21F1AD39285336940016185A /* Extension.swift in Sources */,
