@@ -48,9 +48,9 @@ struct SettingNicknameView: View {
     }
 }
 
-// Mark: placeholder 색상 변경을 위한 View 확장
+// Mark: 텍스트필드 placeholder 색상 변경, 텍스트필드 글자수 제한을 위한 View 확장
 extension View {
-    // placeholder 함수
+    // placeholder 설정 함수.
     func placeholder<Content: View>(
         when shouldShow: Bool,
         alignment: Alignment = .center,
@@ -62,6 +62,7 @@ extension View {
         }
     }
     
+    // 텍스트 필드 글자수 제한.
     func limitText(_ text: Binding<String>, to characterLimit: Int) -> some View {
             self
                 .onChange(of: text.wrappedValue) { _ in
@@ -70,6 +71,7 @@ extension View {
         }
     
 }
+
 
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {
