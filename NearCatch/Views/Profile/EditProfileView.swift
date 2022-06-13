@@ -9,20 +9,14 @@ import SwiftUI
 
 struct EditProfileView: View {
     @State var nickname:String = "마이즈"
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView{
             ZStack{
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    HStack{
-                        Spacer()
-                            .frame(width:23)
-                        NavigationLink(destination: ProfileView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)})
-                        Spacer()
-                    }
                     Spacer()
-                        .frame(height:50)
                     ZStack{
                         SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
                     }
@@ -56,12 +50,23 @@ struct EditProfileView: View {
                             .foregroundColor(.white)
                     }
                     Spacer()
-                        .frame(height:240)
+                        .frame(height:200)
                     SharedRectangularButton(rectWidth:350, rectColor:.PrimaryColor, text:"수정하기", textColor:.black)
                     Spacer()
                 }
             }
-        }.navigationBarHidden(true)
+            .toolbar{
+                ToolbarItemGroup(placement:.navigationBarLeading) {
+                    Button {
+                    action: do { self.presentationMode.wrappedValue.dismiss() }
+                    } label:{
+                        NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
+                        })
+                    }
+                }
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 
