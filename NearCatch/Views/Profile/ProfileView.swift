@@ -17,6 +17,7 @@ struct ProfileView: View {
                     .edgesIgnoringSafeArea([.top])
                 VStack{
                     Spacer()
+                        .frame(height:70)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
@@ -27,7 +28,7 @@ struct ProfileView: View {
                     }
                     HStack{
                         VStack{
-                            NavigationLink(destination: EditProfileView(), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: EditProfileView(nickname:nickname), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("프로필 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
@@ -56,8 +57,7 @@ struct ProfileView: View {
                     Button {
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
-                        })
+                        SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
                     }
                 }
             }

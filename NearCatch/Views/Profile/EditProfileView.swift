@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State var nickname:String = "마이즈"
+    @State var nickname:String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView{
@@ -29,6 +29,7 @@ struct EditProfileView: View {
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
                                 .padding(EdgeInsets(top:0, leading:50, bottom:0, trailing:50))
+                            
                             HStack{
                                 Spacer()
                                     .frame(width:225)
@@ -51,7 +52,12 @@ struct EditProfileView: View {
                     }
                     Spacer()
                         .frame(height:200)
-                    SharedRectangularButton(rectWidth:350, rectColor:.PrimaryColor, text:"수정하기", textColor:.black)
+                    Button{
+                        print(Text("Hello"))
+                    } label:{
+                        SharedRectangularButton(rectWidth:350, rectColor:.PrimaryColor, text:"수정하기", textColor:.black)
+                    }.disabled(nickname.isEmpty || nickname.count > 10)
+                    
                     Spacer()
                 }
             }
@@ -60,8 +66,7 @@ struct EditProfileView: View {
                     Button {
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
-                        })
+                        SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
                     }
                 }
             }
@@ -72,6 +77,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView()
+        EditProfileView(nickname:"마이즈")
     }
 }
