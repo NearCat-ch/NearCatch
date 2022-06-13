@@ -56,9 +56,7 @@ struct EditProfileView: View {
                 }
                 Spacer()
                         .frame(height: 180)
-                Rectangle()
-                    .fill(Color.PrimaryColor)
-                    .frame(width:350, height:50)
+                SharedRectangularButton(rectWidth:350, rectColor:.PrimaryColor, text:"수정하기", textColor:.black)
             }
         }.edgesIgnoringSafeArea([.top])
     }
