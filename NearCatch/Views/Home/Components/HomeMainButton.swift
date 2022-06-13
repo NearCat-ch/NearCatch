@@ -41,10 +41,9 @@ struct HomeMainButton: View {
                         .frame(width: 190, height: 190)
                     
                     if state == .ready {
-                        Image("img_magnifying")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 66)
+                        LottieView(jsonName: "NearCatStanding")
+                            .frame(height: 230)
+                        
                     } else {
                         LottieView(jsonName: "Star", loopMode: .loop)
 //                        Image("img_stars")

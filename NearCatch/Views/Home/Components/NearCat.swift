@@ -16,9 +16,11 @@ struct NearCat: View {
         case .ready:
             EmptyView()
         case .finding:
-            Image("img_serch_60px")
+            LottieView(jsonName: "NearCatHurray")
+                .frame(height: 120)
         case .found:
-            Image("img_hurray")
+            LottieView(jsonName: "NearCatHurray")
+                .frame(height: 120)
         }
     }
 }
