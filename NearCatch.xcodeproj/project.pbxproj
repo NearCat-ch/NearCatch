@@ -292,9 +292,9 @@
 			children = (
 				7072D6EC28549B28008594E5 /* LottieView.swift */,
 				70A028272857148A0099A619 /* Heart.json */,
-				70A0282F285726360099A619 /* Star.json */,
 				70A02831285726BF0099A619 /* Background.json */,
 				70A028292857245B0099A619 /* NearCatStanding.json */,
+				70A0282F285726360099A619 /* Star.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
