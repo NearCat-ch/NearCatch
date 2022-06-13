@@ -68,7 +68,8 @@ class NISessionManager: NSObject, ObservableObject {
                 let config = NINearbyPeerConfiguration(peerToken: peerToken)
                 session?.run(config)
             } else {
-                fatalError("Unable to get self discovery token, is this session invalidated?")
+                return
+                //                fatalError("Unable to get self discovery token, is this session invalidated?")
             }
         } else {
             startupMPC()
@@ -95,9 +96,9 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     func connectedToPeer(peer: MCPeerID) {
-        guard let myToken = session?.discoveryToken else { return }
-
-        guard connectedPeer == nil else { return }
+        guard let myToken = session?.discoveryToken else {
+            fatalError("Unexpectedly failed to initialize nearby interaction session.")
+        }
 
         if !sharedTokenWithPeer {
             shareMyDiscoveryToken(token: myToken)
@@ -149,6 +150,8 @@ extension NISessionManager: NISessionDelegate {
             fatalError("don't have peer token")
         }
         
+        print("세션1")
+        
         // TODO: 가장 가까운 피어 혹은 관심사가 비슷한 피어 찾는 로직으로 구성
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
@@ -167,6 +170,8 @@ extension NISessionManager: NISessionDelegate {
         guard let peerToken = peerDiscoveryToken else {
             fatalError("don't have peer token")
         }
+        
+        print("세션2")
         
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
@@ -228,8 +233,6 @@ extension NISessionManager: NISessionDelegate {
 
 extension NISessionManager: MultipeerConnectivityManagerDelegate {
     func connectedDevicesChanged(devices: [String]) {
-        DispatchQueue.main.async { [self] in
-            peersCnt = devices.count
-        }
+        peersCnt = devices.count
     }
 }

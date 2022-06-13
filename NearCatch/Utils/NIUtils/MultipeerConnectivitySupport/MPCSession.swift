@@ -110,7 +110,9 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         @unknown default:
             fatalError("Unhandled MCSessionState")
         }
-        delegate?.connectedDevicesChanged(devices: session.connectedPeers.map{$0.displayName})
+        DispatchQueue.main.async {
+            self.delegate?.connectedDevicesChanged(devices: session.connectedPeers.map{$0.displayName})
+        }
     }
 
     internal func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
