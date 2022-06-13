@@ -11,10 +11,10 @@ struct ProfileInterestCard: View {
     var body: some View {
         ZStack{
             Image("img_hurray")
-                .padding(EdgeInsets(top:0, leading:0, bottom:220, trailing:240))
+                .padding(EdgeInsets(top:0, leading:0, bottom:200, trailing:240))
             RoundedRectangle(cornerRadius:30)
                 .fill(Color.ThirdColor)
-                .frame(width:350, height:206)
+                .frame(width:350, height:180)
             Text("내 관심사")
                 .font(.custom("온글잎 의연체", size:34))
                 .foregroundColor(Color.white)
