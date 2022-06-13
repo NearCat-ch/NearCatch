@@ -34,17 +34,17 @@
 		21F1AD39285336940016185A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD38285336940016185A /* Extension.swift */; };
 		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
-		7020CBE9285664BC006D07E7 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Background.json */; };
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FE9AC0E2856FE1C00336D8C /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */; };
-		7020CBE9285664BC006D07E7 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Star.json */; };
 		7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6DF285337E8008594E5 /* Colors.xcassets */; };
 		7072D6E228533929008594E5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6E128533929008594E5 /* Colors.swift */; };
 		7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */; };
 		7072D6EB28549A71008594E5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7072D6EA28549A71008594E5 /* Lottie */; };
 		7072D6ED28549B28008594E5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6EC28549B28008594E5 /* LottieView.swift */; };
-		7072D6F028549BBD008594E5 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6EF28549BBD008594E5 /* Star.json */; };
 		70A028282857148A0099A619 /* Heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028272857148A0099A619 /* Heart.json */; };
+		70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028292857245B0099A619 /* NearCatStanding.json */; };
+		70A02830285726360099A619 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A0282F285726360099A619 /* Star.json */; };
+		70A02832285726BF0099A619 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A02831285726BF0099A619 /* Background.json */; };
 		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,17 +77,17 @@
 		21F1AD38285336940016185A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
-		7020CBE8285664BC006D07E7 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		7020CBE8285664BC006D07E7 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Star.json; path = LottieJson/Star.json; sourceTree = SOURCE_ROOT; };
 		7072D6DF285337E8008594E5 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7072D6E128533929008594E5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "온글잎 의연체.ttf"; sourceTree = "<group>"; };
 		7072D6E8285341F1008594E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7072D6EC28549B28008594E5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		7072D6EF28549BBD008594E5 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
 		70A028272857148A0099A619 /* Heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Heart.json; sourceTree = "<group>"; };
+		70A028292857245B0099A619 /* NearCatStanding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatStanding.json; sourceTree = "<group>"; };
+		70A0282F285726360099A619 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
+		70A02831285726BF0099A619 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
 		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,9 +285,10 @@
 			isa = PBXGroup;
 			children = (
 				7072D6EC28549B28008594E5 /* LottieView.swift */,
-				7072D6EF28549BBD008594E5 /* Star.json */,
-				7020CBE8285664BC006D07E7 /* Background.json */,
 				70A028272857148A0099A619 /* Heart.json */,
+				70A0282F285726360099A619 /* Star.json */,
+				70A02831285726BF0099A619 /* Background.json */,
+				70A028292857245B0099A619 /* NearCatStanding.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -356,13 +357,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7020CBE9285664BC006D07E7 /* Background.json in Resources */,
+				70A02832285726BF0099A619 /* Background.json in Resources */,
 				7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */,
+				70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */,
 				70A028282857148A0099A619 /* Heart.json in Resources */,
+				70A02830285726360099A619 /* Star.json in Resources */,
 				16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */,
 				21352D522855C89700429DC0 /* NearCatchHeartbeat.ahap in Resources */,
 				7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */,
-				7072D6F028549BBD008594E5 /* Star.json in Resources */,
 				16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

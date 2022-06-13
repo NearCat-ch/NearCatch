@@ -19,8 +19,8 @@ struct ContentView: View {
             HomeView()
             
             if !isContentReady {
-                LottieView(jsonName: "Heart")
-                    .background(Color.white.edgesIgnoringSafeArea(.all))
+                LottieView(jsonName: "NearCatStanding")
+                    .background(Color.black.edgesIgnoringSafeArea(.all))
                     .transition(.opacity)
             }
             
