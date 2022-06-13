@@ -17,7 +17,7 @@ struct HomeView: View {
                 .resizable()
                 .ignoresSafeArea()
             
-            LottieView(jsonName: "Star")
+            LottieView(jsonName: "Background")
             
             VStack {
                 HStack {
