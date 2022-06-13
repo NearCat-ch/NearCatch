@@ -13,6 +13,7 @@ struct ProfileView: View {
         NavigationView{
             ZStack{
                 Image("img_background")
+                    .edgesIgnoringSafeArea([.top])
                 VStack{
                     HStack{
                         Spacer()
@@ -21,6 +22,8 @@ struct ProfileView: View {
                         })
                         Spacer()
                     }
+                    Spacer()
+                        .frame(height:40)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
@@ -52,10 +55,9 @@ struct ProfileView: View {
                     }
                     ProfileInterestCard()
                         .padding(EdgeInsets(top:30, leading:0, bottom:-30, trailing:0))
+                    Spacer()
                 }
-                    
             }
-            .edgesIgnoringSafeArea([.top])
         }.navigationBarHidden(true)
         
         
