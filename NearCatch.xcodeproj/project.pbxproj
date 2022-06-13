@@ -36,7 +36,6 @@
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FE9AC0E2856FE1C00336D8C /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */; };
-		7020CBE9285664BC006D07E7 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Star.json */; };
 		7020CBE9285664BC006D07E7 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Background.json */; };
 		7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6DF285337E8008594E5 /* Colors.xcassets */; };
 		7072D6E228533929008594E5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6E128533929008594E5 /* Colors.swift */; };
@@ -79,7 +78,6 @@
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		7020CBE8285664BC006D07E7 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Star.json; path = LottieJson/Star.json; sourceTree = SOURCE_ROOT; };
 		7020CBE8285664BC006D07E7 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
 		7072D6DF285337E8008594E5 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7072D6E128533929008594E5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -531,12 +529,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = UYQK5W3Y6T;
+				DEVELOPMENT_TEAM = VT69ZW2DRC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = asdf;
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = asdfasdf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -568,8 +566,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = asdf;
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = asdfasdf;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

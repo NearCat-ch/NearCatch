@@ -19,6 +19,8 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var sharedTokenWithPeer = false
     @Published var latestNearbyObject: NINearbyObject?
     @Published var peersCnt: Int = 0
+    
+    @Published var isPermissionDenied = false
 
     override init() {
         super.init()
@@ -223,7 +225,7 @@ extension NISessionManager: NISessionDelegate {
         // If the app lacks user approval for Nearby Interaction, present
         // an option to go to Settings where the user can update the access.
         if case NIError.userDidNotAllow = error {
-            return
+            isPermissionDenied = true
         }
 
         // Recreate a valid session in other failure cases.
