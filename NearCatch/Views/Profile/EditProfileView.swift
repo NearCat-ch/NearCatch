@@ -27,17 +27,32 @@ struct EditProfileView: View {
                 }
                 Spacer()
                     .frame(height:50)
-                HStack {
-                    VStack {
+                VStack {
+                    ZStack {
                         TextField("니어캣", text: $nickname)
                             .font(.custom("온글잎 의연체", size:34))
                             .foregroundColor(Color.white)
                             .multilineTextAlignment(.center)
                             .padding(EdgeInsets(top:0, leading:50, bottom:0, trailing:50))
-                        Rectangle()
-                            .frame(width:260, height: 1)
-                            .foregroundColor(.white)
+                        HStack{
+                            Spacer()
+                                .frame(width:225)
+                            if nickname != "" {
+                                Button {
+                                    nickname = ""
+                                } label: {
+                                    Image("icn_cancle")
+                                        .resizable()
+                                        .frame(width:25, height:25)
+                                }
+                                
+                            }
+                        }
+                        
                     }
+                    Rectangle()
+                        .frame(width:260, height: 1)
+                        .foregroundColor(.white)
                 }
                 Spacer()
                         .frame(height: 180)
