@@ -16,7 +16,6 @@
 		16514B73284F313B007A1BB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B72284F313B007A1BB5 /* ContentView.swift */; };
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
 		16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B77284F313D007A1BB5 /* Preview Assets.xcassets */; };
-		16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16514B79284F313D007A1BB5 /* Persistence.swift */; };
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
 		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
@@ -54,7 +53,6 @@
 		16514B72284F313B007A1BB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		16514B74284F313D007A1BB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16514B77284F313D007A1BB5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		16514B79284F313D007A1BB5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		16514B7C284F313D007A1BB5 /* NearCatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NearCatch.xcdatamodel; sourceTree = "<group>"; };
 		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 		16AEB31A2851C0A60034CC0F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				16514B79284F313D007A1BB5 /* Persistence.swift */,
 				21352D4E2855902600429DC0 /* HapticUtils */,
 				164A4A712854C3A000CA8B0A /* NIUtils */,
 			);
@@ -353,7 +350,6 @@
 				21352D502855907A00429DC0 /* HapticManager.swift in Sources */,
 				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,
 				7072D6E228533929008594E5 /* Colors.swift in Sources */,
-				16514B7A284F313D007A1BB5 /* Persistence.swift in Sources */,
 				16514B73284F313B007A1BB5 /* ContentView.swift in Sources */,
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */,
