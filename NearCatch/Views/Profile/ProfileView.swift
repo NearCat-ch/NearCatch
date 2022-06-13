@@ -13,6 +13,7 @@ struct ProfileView: View {
         NavigationView{
             ZStack{
                 Image("img_background")
+                    .edgesIgnoringSafeArea([.top])
                 VStack{
                     HStack{
                         Spacer()
@@ -21,6 +22,8 @@ struct ProfileView: View {
                         })
                         Spacer()
                     }
+                    Spacer()
+                        .frame(height:40)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
@@ -44,7 +47,7 @@ struct ProfileView: View {
                                 .foregroundColor(.PrimaryColor)
                         }.padding(EdgeInsets(top: 0, leading: 35, bottom: -60, trailing: 35))
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: SetView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("설정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
@@ -52,10 +55,9 @@ struct ProfileView: View {
                     }
                     ProfileInterestCard()
                         .padding(EdgeInsets(top:30, leading:0, bottom:-30, trailing:0))
+                    Spacer()
                 }
-                    
             }
-            .edgesIgnoringSafeArea([.top])
         }.navigationBarHidden(true)
         
         
