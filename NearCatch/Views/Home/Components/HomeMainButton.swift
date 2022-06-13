@@ -46,7 +46,7 @@ struct HomeMainButton: View {
                             .scaledToFit()
                             .frame(width: 66)
                     } else {
-                        LottieView(jsonName: "Heart", loopMode: .loop)
+                        LottieView(jsonName: "Star", loopMode: .loop)
 //                        Image("img_stars")
 //                            .resizable()
 //                            .scaledToFit()
