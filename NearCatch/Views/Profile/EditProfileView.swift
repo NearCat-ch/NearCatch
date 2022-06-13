@@ -15,14 +15,12 @@ struct EditProfileView: View {
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    Spacer()
-                        .frame(height:40)
                     HStack{
                         Spacer()
                             .frame(width:23)
                         NavigationLink(destination: ProfileView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)})
                         Spacer()
-                    }.padding(.top, -40)
+                    }
                     Spacer()
                         .frame(height:50)
                     ZStack{
