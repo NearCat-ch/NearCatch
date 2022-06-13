@@ -38,8 +38,8 @@
 		6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */; };
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FE9AC0E2856FE1C00336D8C /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */; };
-		7020CBE9285664BC006D07E7 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Star.json */; };
 		7020CBE9285664BC006D07E7 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 7020CBE8285664BC006D07E7 /* Background.json */; };
+		7043123B2857B8F7001D25EB /* Fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = 7043123A2857B8F7001D25EB /* Fireworks.json */; };
 		7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6DF285337E8008594E5 /* Colors.xcassets */; };
 		7072D6E228533929008594E5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6E128533929008594E5 /* Colors.swift */; };
 		7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */; };
@@ -83,8 +83,8 @@
 		6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRectangularButton.swift; sourceTree = "<group>"; };
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		7020CBE8285664BC006D07E7 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Star.json; path = LottieJson/Star.json; sourceTree = SOURCE_ROOT; };
 		7020CBE8285664BC006D07E7 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
+		7043123A2857B8F7001D25EB /* Fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Fireworks.json; sourceTree = "<group>"; };
 		7072D6DF285337E8008594E5 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7072D6E128533929008594E5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "온글잎 의연체.ttf"; sourceTree = "<group>"; };
@@ -294,6 +294,7 @@
 				7072D6EF28549BBD008594E5 /* Star.json */,
 				7020CBE8285664BC006D07E7 /* Background.json */,
 				70A028272857148A0099A619 /* Heart.json */,
+				7043123A2857B8F7001D25EB /* Fireworks.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -367,6 +368,7 @@
 				70A028282857148A0099A619 /* Heart.json in Resources */,
 				16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */,
 				21352D522855C89700429DC0 /* NearCatchHeartbeat.ahap in Resources */,
+				7043123B2857B8F7001D25EB /* Fireworks.json in Resources */,
 				7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */,
 				7072D6F028549BBD008594E5 /* Star.json in Resources */,
 				16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */,
