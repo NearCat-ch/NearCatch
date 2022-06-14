@@ -17,10 +17,10 @@ struct NearCat: View {
             EmptyView()
         case .finding:
             LottieView(jsonName: "NearCatTelescope")
-                .frame(height: 100)
+                .frame(height: 120)
         case .found:
             LottieView(jsonName: "NearCatHurray")
-                .frame(height: 100)
+                .frame(height: 120)
         }
     }
 }
