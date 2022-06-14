@@ -57,7 +57,7 @@ struct ProfileView: View {
                     Button {
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
+                        SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
                     }
                 }
             }

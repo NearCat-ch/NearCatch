@@ -25,7 +25,7 @@ struct EditProfileView: View {
                         .frame(height:50)
                     VStack {
                         ZStack {
-                            TextField("니어캣", text: $nickname)
+                            TextField("", text: $nickname)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
@@ -70,7 +70,7 @@ struct EditProfileView: View {
                     Button {
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
+                        SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
                     }
                 }
             }
