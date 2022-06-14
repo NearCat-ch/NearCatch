@@ -46,10 +46,8 @@ struct HeartBubble: View {
                 .fill(.white.opacity(0.5))
                 .padding(4)
             
-            
-            Image("img_heart")
-                .resizable()
-                .scaledToFit()
+            LottieView(jsonName: "Heart", loopMode: .loop)
+//            Image("img_heart"))
                 .frame(width: 58, height: 58)
             
             Image("img_bubble_86px")
