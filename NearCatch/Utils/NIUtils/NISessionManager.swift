@@ -12,24 +12,28 @@ import UIKit
 
 class TranData: NSObject, NSCoding {
     let token : NIDiscoveryToken
-    let isMatched : Bool
+    let isBumped : Bool
     let keywords : [Int]
+    let nickname : String
     
-    init(token : NIDiscoveryToken, isMatched : Bool = false, keywords : [Int] = []) {
+    init(token : NIDiscoveryToken, isMatched : Bool = false, keywords : [Int], nickname : String = "") {
         self.token = token
-        self.isMatched = isMatched
+        self.isBumped = isMatched
         self.keywords = keywords
+        self.nickname = nickname
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(self.token, forKey: "token")
-        coder.encode(self.isMatched, forKey: "isMatched")
+        coder.encode(self.isBumped, forKey: "isMatched")
         coder.encode(self.keywords, forKey: "keywords")
+        coder.encode(self.nickname, forKey: "nickname")
     }
     
     required init?(coder: NSCoder) {
         self.token = coder.decodeObject(forKey: "token") as! NIDiscoveryToken
-        self.isMatched = coder.decodeBool(forKey: "isMatched")
+        self.isBumped = coder.decodeBool(forKey: "isMatched")
+        self.nickname = coder.decodeObject(forKey: "nickname") as! String
         self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
     }
 }
@@ -41,14 +45,17 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
-
+    var matchedName = ""
+    
     var mpc: MPCSession?
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     
-    let myKeywords = [1, 2, 3, 4, 5] // 하드 코딩
+    // 하드 코딩
+    let myNickname = "빅썬"
+    let myKeywords = [1, 2, 3, 4, 5]
 
     @Published var isPermissionDenied = false
 
@@ -136,21 +143,39 @@ class NISessionManager: NSObject, ObservableObject {
         }
     }
     
-    // TODO: 데이터(프로필 정보) 리시빙 가능하도록 수정
     // MPC peerDataHandler에 의해 데이터 리시빙
-    // 5. 상대 토큰 수신
+    // 5. 상대 데이터 수신
     func dataReceivedHandler(data: Data, peer: MCPeerID) {
         guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? TranData else {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        let discoveryToken = receivedData.token
-        
-        peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+        // 매치된 상태일 경우
+        if receivedData.isBumped {
+            isBumped = true
+            gameState = .ready
+            matchedName = receivedData.nickname
+            stop()
+        } else { // 일반 전송
+            let discoveryToken = receivedData.token
+            
+            peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+            print(receivedData.keywords)
+        }
     }
 
     func shareMyDiscoveryToken(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token)
+        let tranData = TranData(token: token, keywords: myKeywords)
+        
+        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
+            fatalError("Unexpectedly failed to encode discovery token.")
+        }
+        
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+    }
+    
+    func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
+        let tranData = TranData(token: token, isMatched: true, keywords: myKeywords, nickname: myNickname)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             fatalError("Unexpectedly failed to encode discovery token.")
@@ -186,9 +211,8 @@ extension NISessionManager: NISessionDelegate {
         guard let nearbyObjectUpdate = peerObj else { return }
 
         if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
-            isBumped = true
-            gameState = .ready
-            stop()
+            guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
+            shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
         }
     }
     

@@ -78,7 +78,9 @@ struct HomeView: View {
             }
             .customSheet(isPresented: $niObject.isBumped) {
                 VStack(spacing: 20) {
-                    Text("닉쿤님과 대화해보세요!".partialColor(["닉쿤"], .PrimaryColor))
+                    Text("\(niObject.matchedName)님과 대화해보세요!"
+                        .partialColor(["\(niObject.matchedName)"],
+                                      .PrimaryColor))
                     
                     Spacer()
                         
