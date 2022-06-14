@@ -9,7 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var niObject = NISessionManager()
+    let localNetAuth = LocalNetworkAuthorization()
     @State var gameState : GameState = .ready
+    @State var isLocalNetworkPermissionDenied = false
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         ZStack() {
@@ -19,7 +22,7 @@ struct HomeView: View {
             
             LottieView(jsonName: "Background")
             
-            if niObject.isPermissionDenied {
+            if isLocalNetworkPermissionDenied || niObject.isPermissionDenied {
                 PermissionCheckView()
             } else {
                 ZStack {
@@ -73,7 +76,11 @@ struct HomeView: View {
                 }
             }
         }
-        
+        .onChange(of: scenePhase) { newValue in
+            localNetAuth.requestAuthorization { auth in
+                isLocalNetworkPermissionDenied = !auth
+            }
+        }
     }
 }
 
