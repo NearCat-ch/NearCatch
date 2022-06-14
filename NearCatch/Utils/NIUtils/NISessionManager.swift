@@ -16,11 +16,14 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var matechedObject: NINearbyObject? // TODO: 매치할 오브젝트 저장
     @Published var peersCnt: Int = 0
     
+
     var mpc: MPCSession?
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
+
+    @Published var isPermissionDenied = false
 
     override init() {
         super.init()
@@ -201,7 +204,7 @@ extension NISessionManager: NISessionDelegate {
         // If the app lacks user approval for Nearby Interaction, present
         // an option to go to Settings where the user can update the access.
         if case NIError.userDidNotAllow = error {
-            return
+            isPermissionDenied = true
         }
 
         // Recreate a valid session in other failure cases.

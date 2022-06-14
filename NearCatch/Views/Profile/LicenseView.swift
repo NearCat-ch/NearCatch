@@ -1,28 +1,21 @@
 //
-//  SetView.swift
+//  LicenseView.swift
 //  NearCatch
 //
-//  Created by HWANG-C-K on 2022/06/13.
+//  Created by HWANG-C-K on 2022/06/14.
 //
 
 import SwiftUI
 
-struct SetView: View {
+struct LicenseView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
-        NavigationView{
-            ZStack{
+        NavigationView {
+            ZStack {
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    Spacer()
-                        .frame(height:70)
-                    SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
-                    NavigationLink(destination:LicenseView(), label: {
-                        SettingButton(text:"라이센스")
-                    })
                     
-                    Spacer()
                 }
             }
             .toolbar{
@@ -38,8 +31,8 @@ struct SetView: View {
     }
 }
 
-struct SetView_Previews: PreviewProvider {
+struct LicenseView_Previews: PreviewProvider {
     static var previews: some View {
-        SetView()
+        LicenseView()
     }
 }
