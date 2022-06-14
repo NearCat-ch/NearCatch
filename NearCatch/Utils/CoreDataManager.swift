@@ -22,10 +22,10 @@ class CoreDataManager {
     }
 
 
-    func createProfile(nicknameAttribute: String) {
+    func createProfile(nickname: String) {
         
-        let mydata = Mydata(context: persistentContainer.viewContext)
-        mydata.nicknameAttribute = nicknameAttribute
+        let profile = Profile(context: persistentContainer.viewContext)
+        profile.nickname = nickname
         
         
         do {
@@ -35,9 +35,9 @@ class CoreDataManager {
         }
     }
 
-    func readAllProfile() -> [Mydata] {
+    func readAllProfile() -> [Profile] {
         
-        let fetchRequest: NSFetchRequest<Mydata> = Mydata.fetchRequest()
+        let fetchRequest: NSFetchRequest<Profile> = Profile.fetchRequest()
         
         do{
             return try persistentContainer.viewContext.fetch(fetchRequest)
@@ -56,9 +56,9 @@ class CoreDataManager {
         }
     }
     
-    func deleteProfile(mydata: Mydata) {
+    func deleteProfile(profile: Profile) {
         
-        persistentContainer.viewContext.delete(mydata)
+        persistentContainer.viewContext.delete(profile)
         
         do{
             try persistentContainer.viewContext.save()
