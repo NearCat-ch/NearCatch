@@ -10,6 +10,30 @@ import NearbyInteraction
 import MultipeerConnectivity
 import UIKit
 
+class TranData: NSObject, NSCoding {
+    let token : NIDiscoveryToken
+    let isMatched : Bool
+    let keywords : [Int]
+    
+    init(token : NIDiscoveryToken, isMatched : Bool = false, keywords : [Int] = []) {
+        self.token = token
+        self.isMatched = isMatched
+        self.keywords = keywords
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(self.token, forKey: "token")
+        coder.encode(self.isMatched, forKey: "isMatched")
+        coder.encode(self.keywords, forKey: "keywords")
+    }
+    
+    required init?(coder: NSCoder) {
+        self.token = coder.decodeObject(forKey: "token") as! NIDiscoveryToken
+        self.isMatched = coder.decodeBool(forKey: "isMatched")
+        self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
+    }
+}
+
 class NISessionManager: NSObject, ObservableObject {
 
     @Published var connectedPeers = [MCPeerID]()
@@ -23,6 +47,8 @@ class NISessionManager: NSObject, ObservableObject {
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
+    
+    let myKeywords = [1, 2, 3, 4, 5] // 하드 코딩
 
     @Published var isPermissionDenied = false
 
@@ -109,19 +135,24 @@ class NISessionManager: NSObject, ObservableObject {
             sessions[peer] = nil
         }
     }
-
+    
     // TODO: 데이터(프로필 정보) 리시빙 가능하도록 수정
     // MPC peerDataHandler에 의해 데이터 리시빙
     // 5. 상대 토큰 수신
     func dataReceivedHandler(data: Data, peer: MCPeerID) {
-        guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
+        guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? TranData else {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
+        
+        let discoveryToken = receivedData.token
+        
         peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
     }
 
     func shareMyDiscoveryToken(token: NIDiscoveryToken, peer: MCPeerID) {
-        guard let encodedData = try?  NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else {
+        let tranData = TranData(token: token)
+        
+        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
@@ -240,7 +271,7 @@ extension NISessionManager {
             return .unknown
         }
         
-        print(nearbyObject.distance!)
+        //        print(nearbyObject.distance!)
         
         let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
         let directionAvailable = nearbyObject.direction != nil
@@ -254,5 +285,11 @@ extension NISessionManager {
         }
         
         return .outOfFOV
+    }
+}
+
+extension Data {
+    func subdata(in range: ClosedRange<Index>) -> Data {
+        return subdata(in: range.lowerBound ..< range.upperBound + 1)
     }
 }
