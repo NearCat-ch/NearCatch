@@ -21,19 +21,21 @@ struct ContentView: View {
             if !isContentReady {
                 
                 ZStack{
-                    Image("img_background")
-                        .ignoresSafeArea(.all)
+//                    Image("img_background")
+//                        .ignoresSafeArea(.all)
                     
-                    LottieView(jsonName: "NearCatStanding")
+                    Color.white.ignoresSafeArea(.all)
+                    
+                    LottieView(jsonName: "Splash")
                         .transition(.opacity)
-                    
+                        .frame(width: 150)
                 }
                
             }
             
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {withAnimation{isContentReady.toggle()}
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {withAnimation{isContentReady.toggle()}
             })
         }
     }
