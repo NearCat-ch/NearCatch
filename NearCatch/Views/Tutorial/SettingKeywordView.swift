@@ -18,16 +18,16 @@ struct SettingKeywordView: View {
         
         VStack {
             Spacer()
-            Text("관심사를 선택해주세요!")
-            Text("최소 5개 이상 선택해야 해요!")
-            Text("\(togglecount.keywordCounter) / 10")
+            Text("관심사를 선택해주세요!").font(.custom("온글잎 의연체", size: 34))
+            Text("최소 5개 이상 선택해야 해요!").font(.custom("온글잎 의연체", size: 22))
+            Text("\(togglecount.keywordCounter) / 10").font(.custom("온글잎 의연체", size: 34))
             Spacer()
             
             ScrollView(.horizontal) {
                 VStack(alignment: .leading){
                     HStack{
                         ForEach(0..<14, id: \.self) { i in
-                            if self.togglecount.keywordCounter <= 10 {
+//                            if self.togglecount.keywordCounter <= 10 {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
@@ -48,10 +48,10 @@ struct SettingKeywordView: View {
                                         }
                                     }
                                 }
-                            }
-                            else {
+              //              }
+           //                 else {
                                 //팝업 10개까지만 선택할 수 있습니다?
-                            }
+         //                   }
                             
                         }
                     }
@@ -182,8 +182,8 @@ struct SettingKeywordView: View {
             Spacer()
           
 // 관심사 저장버튼
-                
-              
+            NavigationLink(destination: HomeView(), label: {  SharedRectangularButton(rectWidth:150, rectColor:.PrimaryColor, text:"관심사 저장", textColor:.black)})
+         
             
             Spacer()
             
@@ -207,6 +207,7 @@ struct TagViewModifier: ViewModifier {
             .foregroundColor(forgroundColor)
             .padding(.horizontal).padding(.vertical, 10)
             .background(Capsule().fill(backgroundColor))
+            .shadow(radius: 5)
     }
 }
 
