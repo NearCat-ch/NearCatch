@@ -19,9 +19,16 @@ struct ContentView: View {
             HomeView()
             
             if !isContentReady {
-                LottieView(jsonName: "NearCatStanding")
-                    .background(Color.white.edgesIgnoringSafeArea(.all))
-                    .transition(.opacity)
+                
+                ZStack{
+                    Image("img_background")
+                        .ignoresSafeArea(.all)
+                    
+                    LottieView(jsonName: "NearCatStanding")
+                        .transition(.opacity)
+                    
+                }
+               
             }
             
         }

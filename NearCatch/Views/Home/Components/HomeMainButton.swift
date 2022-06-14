@@ -46,10 +46,6 @@ struct HomeMainButton: View {
                         
                     } else {
                         LottieView(jsonName: "Star", loopMode: .loop)
-//                        Image("img_stars")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 93, height: 93)
                     }
                                 
                     Image("img_bubble_197px")
