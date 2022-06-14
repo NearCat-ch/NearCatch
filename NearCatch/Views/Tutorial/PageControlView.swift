@@ -75,9 +75,8 @@ struct PageControlView: View {
                 else if $0.translation.width > 100 {
                     if self.currentPage > 0 {
                         withAnimation{
-                            self.currentPage += 1
+                            self.currentPage -= 1
                         }
-                        self.currentPage -= 1
                     }
                     else {
                         self.offset = .zero

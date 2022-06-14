@@ -9,15 +9,20 @@ import SwiftUI
 import PhotosUI
 
 struct SettingProfileImageView: View {
+    // 시트 변경 관련(골랐다? -> 다음 시트)
+//    @State var activeSheet: ActiveSheet?
+    
+    // 띄워지는 사진 <-> inputImage
     @Binding var profileimage: Image?
     
     // show
-    @State var showImagePicker: Bool = false
-    @State private var inputImage: UIImage?
-    @State var checkPermission: Bool = false
+//    @State var showImagePicker: Bool = false
     
+    // 최종 고른 사진
+//    @State private var inputImage: UIImage?
+//    @State var checkPermission: Bool = false
     @State var isPresented = false
-    @State var imageWasImported = false
+//    @State var imageWasImported = false
     
     var inlineColorText: AttributedString = partialColorString(allString:"재간둥이 니어캣", allStringColor:.white,partialString:"니어캣",partialStringColor:Color(red: 255/255, green: 236/255, blue: 108/255))
     let accessLevel: PHAccessLevel = .readWrite
@@ -39,43 +44,9 @@ struct SettingProfileImageView: View {
             // 이미지 클릭 버튼
             Button(action: {
                 
-                let accessLevel: PHAccessLevel = .readWrite
-                let status = PHPhotoLibrary.authorizationStatus(for: accessLevel)
-                switch status {
-                case .authorized:
-                    break
-                case .limited:
-                    print("limited")
-                    break
-                case .denied:
-                    print("denied")
-                    break
-                case .notDetermined:
-                    print("notDetermined")
-                    PHPhotoLibrary.requestAuthorization { authorizationStatus in
-                        switch authorizationStatus {
-                        case .limited:
-                            break
-                        case .authorized:
-                            print("authorization granted")
-                            break
-                        case .denied:
-                            print("denied")
-                            break
-                        default:
-                            print("Unimplemented")
-                            break
-                        }
-                    }
-                    break
-                default:
-                    break
-                }
-                
-                
 //                if checkPermission{
                 withAnimation{
-                    self.showImagePicker.toggle()
+                    self.isPresented.toggle()
                 }
 //                }
                 
@@ -108,7 +79,8 @@ struct SettingProfileImageView: View {
             }
             
             
-            
+            Image("img_sunglass_68px")
+                .padding(.top, 30.0)
             Text("기본 프로필")
                 .foregroundColor(.white)
                 .font(.custom("온글잎 의연체", size: 22))
@@ -117,20 +89,20 @@ struct SettingProfileImageView: View {
             
             
         }
-        .onChange(of: inputImage) { _ in loadImage() }
-        .sheet(isPresented: $showImagePicker) {
+//        .onChange(of: inputImage) { _ in loadImage() }
+        .sheet(isPresented: $isPresented) {
 //            ImagePicker(imageToImport: $inputImage, isPresented: $isPresented, imageWasImported: $imageWasImported)
-//            OpenGallary(isShown: $showImagePicker, image: $profileimage)
+            ImagePicker(isShown: $isPresented, image: $profileimage)
         }
         
     }
     
     
     
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        profileimage = Image(uiImage: inputImage)
-    }
+//    func loadImage() {
+//        guard let inputImage = inputImage else { return }
+//        profileimage = Image(uiImage: inputImage)
+//    }
 }
 
 

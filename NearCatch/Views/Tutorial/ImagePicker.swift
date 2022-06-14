@@ -2,64 +2,123 @@ import PhotosUI
 import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var isShown: Bool
+    @Binding var image: Image?
     
-    @Binding var imageToImport: UIImage?
-    @Binding var isPresented: Bool
-    @Binding var imageWasImported: Bool
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> some UIViewController {
-        
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        
-        let imagePicker = PHPickerViewController(configuration: configuration)
-        imagePicker.delegate = context.coordinator
-        return imagePicker
+    // UIViewControllerRepresentable 프로토콜 준수
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        // 피커 생성.
+        let picker = UIImagePickerController()
+        // coordinator 정의 후 picker의 delegate를 설정.
+        picker.delegate = context.coordinator
+        return picker
     }
     
-    func updateUIViewController(_ uiViewController: ImagePicker.UIViewControllerType, context: UIViewControllerRepresentableContext<ImagePicker>) {}
-    
-    func makeCoordinator() -> ImagePicker.Coordinator {
-        return Coordinator(parent: self)
+    // UIViewControllerRepresentable 프로토콜 준수
+    func updateUIViewController(_ uiViewController: UIImagePickerController,
+                                context: UIViewControllerRepresentableContext<ImagePicker>) {
+
     }
     
-    class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        
-        var parent: ImagePicker
-        
-        init(parent: ImagePicker) {
-            self.parent = parent
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(isShown: $isShown, image: $image)
+    }
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+        let isShown: Binding<Bool>
+        let image: Binding<Image?>
+
+        init(isShown: Binding<Bool>, image: Binding<Image?>) {
+            self.isShown = isShown
+            self.image = image
         }
-        
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            
-            picker.dismiss(animated: true)
-            
-            if results.count != 1 {
-                return
-            }
-            
-            if let image = results.first {
-                
-                print("Aqui")
-                
-                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    image.itemProvider.loadObject(ofClass: UIImage.self) { image, error  in
-                        
-                        if let image = image {
-                            print("Importou imagem")
-                            self.parent.imageToImport = image as? UIImage
-                            self.parent.imageWasImported.toggle()
-                        }
-                    }
-                }
-            }
-            
-            self.parent.isPresented.toggle()
+
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            self.image.wrappedValue = Image(uiImage: uiImage)
+            self.isShown.wrappedValue = false
         }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            isShown.wrappedValue = false
+        }
+
     }
+    
+    
+
+
+
 }
+
+
+
+
+//
+//struct ImagePicker: UIViewControllerRepresentable {
+//
+//    @Binding var imageToImport: UIImage?
+//    @Binding var isPresented: Bool
+//    @Binding var imageWasImported: Bool
+//
+//    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> some UIViewController {
+//
+//        var configuration = PHPickerConfiguration()
+//        configuration.selectionLimit = 1
+//        configuration.filter = .images
+//        let imagePicker = PHPickerViewController(configuration: configuration)
+//        imagePicker.delegate = context.coordinator
+//        return imagePicker
+//    }
+//
+//    func updateUIViewController(_ uiViewController: ImagePicker.UIViewControllerType, context: UIViewControllerRepresentableContext<ImagePicker>) {}
+//
+//    func makeCoordinator() -> ImagePicker.Coordinator {
+//        return Coordinator(parent: self)
+//    }
+//
+//    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+//
+//        var parent: ImagePicker
+//
+//        init(parent: ImagePicker) {
+//            self.parent = parent
+//        }
+//
+//        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//
+//            picker.dismiss(animated: true)
+//
+//            if results.count != 1 {
+//                return
+//            }
+//            print("여기인?")
+//            if let image = results.first {
+//
+//                print("이히히 여기")
+//
+//                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
+//                    image.itemProvider.loadObject(ofClass: UIImage.self) { image, error  in
+//
+//                        if let image = image {
+//                            print("Import images")
+//                            self.parent.imageToImport = image as? UIImage
+//                            self.parent.imageWasImported.toggle()
+//                        }
+//                    }
+//                }
+//            }
+//
+//            self.parent.isPresented.toggle()
+//        }
+//    }
+//}
+
+
+
+
 
 
 //
