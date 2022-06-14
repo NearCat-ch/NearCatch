@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var niObject = NISessionManager()
     let localNetAuth = LocalNetworkAuthorization()
+    @StateObject var niObject = NISessionManager()
     @State var gameState : GameState = .ready
     @State var isLocalNetworkPermissionDenied = false
     @Environment(\.scenePhase) var scenePhase
+    @State var isLaunched = true
     
     var body: some View {
         ZStack() {
@@ -55,6 +56,12 @@ struct HomeView: View {
                             HomeMainButton(state: $gameState) {
                                 niObject.start()
                                 gameState = .finding
+                                if isLaunched {
+                                    localNetAuth.requestAuthorization { auth in
+                                        isLocalNetworkPermissionDenied = !auth
+                                    }
+                                    isLaunched = false
+                                }
                             }
                             Text("니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                                 .font(.custom("온글잎 의연체", size: 28))
@@ -77,8 +84,10 @@ struct HomeView: View {
             }
         }
         .onChange(of: scenePhase) { newValue in
-            localNetAuth.requestAuthorization { auth in
-                isLocalNetworkPermissionDenied = !auth
+            if !isLaunched {
+                localNetAuth.requestAuthorization { auth in
+                    isLocalNetworkPermissionDenied = !auth
+                }
             }
         }
     }
