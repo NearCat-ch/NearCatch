@@ -16,7 +16,7 @@ struct ContentView: View {
         
         ZStack{
             
-            ProfileView()
+            HomeView()
             
             if !isContentReady {
                 LottieView(jsonName: "NearCatStanding")
