@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingNicknameView: View {
     
     let coreDM: CoreDataManager
-    @State private var lotOfMydata: [Mydata] = [Mydata]()
+    @State private var lotOfMydata: [Profile] = [Profile]()
     private func populateMydatum() {
         lotOfMydata = coreDM.readAllProfile()
     }

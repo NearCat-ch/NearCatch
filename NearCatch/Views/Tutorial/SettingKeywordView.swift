@@ -182,7 +182,17 @@ struct SettingKeywordView: View {
             Spacer()
           
 // 관심사 저장버튼
-            NavigationLink(destination: HomeView(), label: {  SharedRectangularButton(rectWidth:150, rectColor:.PrimaryColor, text:"관심사 저장", textColor:.black)})
+            Button("관심사 저장", action: {
+                
+                
+                
+            }).foregroundColor(.black)
+                .padding(.horizontal, 30).padding(.vertical, 10)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.PrimaryColor))
+                .shadow(radius: 1)
+                
+                
+             
          
             
             Spacer()
