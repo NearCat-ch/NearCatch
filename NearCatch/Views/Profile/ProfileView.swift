@@ -8,50 +8,56 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var nickname = "나"
+    @State private var nickname = "마이즈"
     var body: some View {
         NavigationView{
             ZStack{
                 Image("img_background")
+                    .edgesIgnoringSafeArea([.top])
                 VStack{
                     HStack{
-                        NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
-                            .padding(EdgeInsets(top: 0, leading: 23, bottom: 0, trailing: 0))})
+                        Spacer()
+                            .frame(width:23)
+                        NavigationLink(destination: ProfileView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
+                        })
                         Spacer()
                     }
+                    Spacer()
+                        .frame(height:40)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
                         }
                         Text(nickname)
-                            .font(.system(size: 42))
+                            .font(.custom("온글잎 의연체", size: 42))
                             .foregroundColor(.white)
-                    }
+                    }.padding(EdgeInsets(top:0, leading:0, bottom:-20, trailing:0))
                     HStack{
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: EditProfileView(), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("프로필 수정")
-                                .font(.system(size:22))
+                                .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.yellow, innerOpacity:1)
+                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
                             })
                             Text("관심사 수정")
-                                .font(.system(size:22))
-                                .foregroundColor(.yellow)
-                        }.padding(EdgeInsets(top: 25, leading: 38, bottom: 0, trailing: 38))
+                                .font(.custom("온글잎 의연체", size: 22))
+                                .foregroundColor(.PrimaryColor)
+                        }.padding(EdgeInsets(top: 0, leading: 35, bottom: -60, trailing: 35))
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: SetView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("설정")
-                                .font(.system(size:22))
+                                .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
                     }
+                    ProfileInterestCard()
+                        .padding(EdgeInsets(top:30, leading:0, bottom:-30, trailing:0))
+                    Spacer()
                 }
-                    
             }
-            .edgesIgnoringSafeArea([.top])
         }.navigationBarHidden(true)
         
         
