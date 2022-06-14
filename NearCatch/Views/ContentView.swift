@@ -19,14 +19,23 @@ struct ContentView: View {
             HomeView()
             
             if !isContentReady {
-                LottieView(jsonName: "NearCatStanding")
-                    .background(Color.white.edgesIgnoringSafeArea(.all))
-                    .transition(.opacity)
+                
+                ZStack{
+//                    Image("img_background")
+//                        .ignoresSafeArea(.all)
+                    
+                    Color.white.ignoresSafeArea(.all)
+                    
+                    LottieView(jsonName: "Splash")
+                        .transition(.opacity)
+                        .frame(width: 150)
+                }
+               
             }
             
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {withAnimation{isContentReady.toggle()}
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {withAnimation{isContentReady.toggle()}
             })
         }
     }

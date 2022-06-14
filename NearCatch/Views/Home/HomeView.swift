@@ -16,9 +16,10 @@ struct HomeView: View {
     @State var isLaunched = true
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
+
         NavigationView{
             ZStack() {
-                Image("img_basicbackground")
+                Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
                 
@@ -28,6 +29,27 @@ struct HomeView: View {
                     PermissionCheckView()
                 } else {
                     ZStack {
+
+        ZStack() {
+            Image("img_background")
+                .resizable()
+                .ignoresSafeArea()
+            
+            LottieView(jsonName: "Background")
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    CircleButton(imageName: "icn_person") {
+                        
+                    }
+                    .frame(width: 40, height: 40)
+                    .padding(20)
+                }
+                Spacer()
+                if gameState == .finding {
+                    Tip {
+
                         VStack {
                             Spacer()
                             if niObject.gameState == .finding {
