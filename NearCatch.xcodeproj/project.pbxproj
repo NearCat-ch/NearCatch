@@ -46,16 +46,12 @@
 		7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */; };
 		7072D6EB28549A71008594E5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7072D6EA28549A71008594E5 /* Lottie */; };
 		7072D6ED28549B28008594E5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6EC28549B28008594E5 /* LottieView.swift */; };
-
-		7072D6F028549BBD008594E5 /* lodingAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6EF28549BBD008594E5 /* lodingAnim.json */; };
-		7169F5322857068700A04934 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5312857068700A04934 /* TagView.swift */; };
-		7169F5342857165800A04934 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5332857165800A04934 /* TagViewModel.swift */; };
-
 		70A028282857148A0099A619 /* Heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028272857148A0099A619 /* Heart.json */; };
 		70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028292857245B0099A619 /* NearCatStanding.json */; };
 		70A02830285726360099A619 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A0282F285726360099A619 /* Star.json */; };
 		70A02832285726BF0099A619 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A02831285726BF0099A619 /* Background.json */; };
-
+		7169F5322857068700A04934 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5312857068700A04934 /* TagView.swift */; };
+		7169F5342857165800A04934 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5332857165800A04934 /* TagViewModel.swift */; };
 		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
 		71F63CAE2855D8BB00D44AC2 /* SettingKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */; };
 /* End PBXBuildFile section */
@@ -101,16 +97,12 @@
 		7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "온글잎 의연체.ttf"; sourceTree = "<group>"; };
 		7072D6E8285341F1008594E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7072D6EC28549B28008594E5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-
-		7072D6EF28549BBD008594E5 /* lodingAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lodingAnim.json; sourceTree = "<group>"; };
-		7169F5312857068700A04934 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		7169F5332857165800A04934 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
-
 		70A028272857148A0099A619 /* Heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Heart.json; sourceTree = "<group>"; };
 		70A028292857245B0099A619 /* NearCatStanding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatStanding.json; sourceTree = "<group>"; };
 		70A0282F285726360099A619 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
 		70A02831285726BF0099A619 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
-
+		7169F5312857068700A04934 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		7169F5332857165800A04934 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeywordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -573,7 +565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UYQK5W3Y6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -606,7 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UYQK5W3Y6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
