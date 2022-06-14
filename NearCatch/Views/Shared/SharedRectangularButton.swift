@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SharedRectangularButton: View {
-    @State var rectWidth:CGFloat
-    @State var rectColor:Color
-    @State var text:String
-    @State var textColor:Color
+    var rectWidth:CGFloat
+    var rectColor:Color
+    var text:String
+    var textColor:Color
     
     var body: some View {
         ZStack{

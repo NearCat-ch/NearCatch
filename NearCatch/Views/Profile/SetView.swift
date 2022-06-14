@@ -15,9 +15,8 @@ struct SetView: View {
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    HStack{
-                        Spacer()
-                    }
+                    SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
+                    
                 }
             }
             .toolbar{

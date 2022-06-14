@@ -10,6 +10,7 @@ import SwiftUI
 struct EditProfileView: View {
     @State var nickname:String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -28,8 +29,8 @@ struct EditProfileView: View {
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
-                                .padding(EdgeInsets(top:0, leading:50, bottom:0, trailing:50))
-                            
+                                .frame(width:200)
+                                .textInputAutocapitalization(.never)
                             HStack{
                                 Spacer()
                                     .frame(width:225)
@@ -41,7 +42,6 @@ struct EditProfileView: View {
                                             .resizable()
                                             .frame(width:25, height:25)
                                     }
-                                    
                                 }
                             }
                             
@@ -49,13 +49,17 @@ struct EditProfileView: View {
                         Rectangle()
                             .frame(width:260, height: 1)
                             .foregroundColor(.white)
+                        Text("\(nickname.count) / 10")
+                            .font(.custom("온글잎 의연체", size:30))
+                            .foregroundColor((nickname.isEmpty || nickname.count > 10) ? Color.red : Color.white)
+                        
                     }
                     Spacer()
-                        .frame(height:200)
+                        .frame(height:180)
                     Button{
-                        print(Text("Hello"))
+                        action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        SharedRectangularButton(rectWidth:350, rectColor:.PrimaryColor, text:"수정하기", textColor:.black)
+                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.gray : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
                     
                     Spacer()
