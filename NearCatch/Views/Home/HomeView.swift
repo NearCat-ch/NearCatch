@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     let localNetAuth = LocalNetworkAuthorization()
     @StateObject var niObject = NISessionManager()
-    @State var gameState : GameState = .ready
     @State var isLocalNetworkPermissionDenied = false
     @Environment(\.scenePhase) var scenePhase
     
@@ -31,7 +30,7 @@ struct HomeView: View {
                     ZStack {
                         VStack {
                             Spacer()
-                            if gameState == .finding {
+                            if niObject.gameState == .finding {
                                 Tip {
                                     VStack {
                                         Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .PrimaryColor))
@@ -45,11 +44,11 @@ struct HomeView: View {
                         }
                         
                         VStack(spacing: 24) {
-                            switch gameState {
+                            switch niObject.gameState {
                             case .ready:
-                                HomeMainButton(state: $gameState) {
+                                HomeMainButton(state: $niObject.gameState) {
                                     niObject.start()
-                                    gameState = .finding
+                                    niObject.gameState = .finding
                                     if isLaunched {
                                         localNetAuth.requestAuthorization { auth in
                                             isLocalNetworkPermissionDenied = !auth
@@ -61,21 +60,39 @@ struct HomeView: View {
                                     .font(.custom("온글잎 의연체", size: 28))
                                     .multilineTextAlignment(.center)
                             case .finding:
-                                HomeMainButton(state: $gameState) {
+                                HomeMainButton(state: $niObject.gameState) {
                                     niObject.stop()
-                                    gameState = .ready
+                                    niObject.gameState = .ready
                                 }
                                 StarBubble(count: niObject.peersCnt)
                             case .found:
-                                HomeMainButton(state: $gameState) {
+                                HomeMainButton(state: $niObject.gameState) {
                                     niObject.stop()
-                                    gameState = .ready
+                                    niObject.gameState = .ready
                                 }
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
+            }
+            .customSheet(isPresented: $niObject.isBumped) {
+                VStack(spacing: 20) {
+                    Text("\(niObject.matchedName)님과 대화해보세요!"
+                        .partialColor(["\(niObject.matchedName)"],
+                                      .PrimaryColor))
+                    
+                    Spacer()
+                        
+                    ProfilePicture(imageData: Data())
+                        .frame(width: 120, height: 120)
+                    
+                    Spacer()
+                    
+                    Text("우리들의 공통점")
+                        .font(.callout)
+                }
+                .frame(width: 300, height: 300)
             }
             .onChange(of: scenePhase) { newValue in
                 if !isLaunched {
@@ -91,8 +108,8 @@ struct HomeView: View {
                     })
                 }
             }
-        }.navigationBarHidden(true)
-        
+        }
+        .navigationBarHidden(true)
     }
 }
 
