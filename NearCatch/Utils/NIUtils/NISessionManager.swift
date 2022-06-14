@@ -15,7 +15,8 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var connectedPeers = [MCPeerID]()
     @Published var matechedObject: NINearbyObject? // TODO: 매치할 오브젝트 저장
     @Published var peersCnt: Int = 0
-    
+    @Published var gameState : GameState = .ready
+    @Published var isBumped: Bool = false
 
     var mpc: MPCSession?
     var sessions = [MCPeerID:NISession]()
@@ -153,9 +154,11 @@ extension NISessionManager: NISessionDelegate {
 
         guard let nearbyObjectUpdate = peerObj else { return }
 
-        // Update the latest nearby object.
-        let dis = NSString(format: "%.2f", nearbyObjectUpdate.distance!)
-        print("\(peerTokensMapping[nearbyObjectUpdate.discoveryToken]!.displayName)의 거리\n \(dis)")
+        if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
+            isBumped = true
+            gameState = .ready
+            stop()
+        }
     }
     
     func session(_ session: NISession, didRemove nearbyObjects: [NINearbyObject], reason: NINearbyObject.RemovalReason) {
@@ -236,6 +239,8 @@ extension NISessionManager {
         if nearbyObject.distance == nil && nearbyObject.direction == nil {
             return .unknown
         }
+        
+        print(nearbyObject.distance!)
         
         let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
         let directionAvailable = nearbyObject.direction != nil
