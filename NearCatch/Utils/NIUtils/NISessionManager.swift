@@ -41,11 +41,10 @@ class TranData: NSObject, NSCoding {
 class NISessionManager: NSObject, ObservableObject {
 
     @Published var connectedPeers = [MCPeerID]()
-    @Published var matchedObject: TranData? // TODO: 매치할 오브젝트 저장
+    @Published var matechedObject: NINearbyObject? // TODO: 매치할 오브젝트 저장
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
-  
     var matchedName = ""
     
     var mpc: MPCSession?
@@ -54,21 +53,9 @@ class NISessionManager: NSObject, ObservableObject {
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     
-
     // 하드 코딩
     let myNickname = "빅썬"
-
-    //MARK: TEST
-    @Published var text: String = "" {
-        didSet {
-            myKeywords = []
-            for i in text {
-                myKeywords.append(Int(String(i)) ?? 0)
-            }
-        }
-    }
-    
-    var myKeywords: [Int] = [] // 하드 코딩
+    let myKeywords = [1, 2, 3, 4, 5]
 
     @Published var isPermissionDenied = false
 
@@ -211,28 +198,6 @@ class NISessionManager: NSObject, ObservableObject {
         // 7. NI 세션 시작
         sessions[peer]?.run(config)
     }
-    
-    private func compareForCheckMatchedObject(_ data: TranData? = nil) {
-        if let newTranData = data {
-            if let nowTranData = self.matchedObject {
-                
-                let withNowData = calMatchingKeywords(myKeywords, nowTranData.keywords)
-                let withNewData = calMatchingKeywords(myKeywords, newTranData.keywords)
-                
-                self.matchedObject = withNowData.count < withNewData.count ? newTranData : nowTranData
-                
-            } else {
-                self.matchedObject = data
-            }
-        } else {
-            
-        }
-    }
-    
-    private func calMatchingKeywords(_ first: [Int], _ second: [Int]) -> [Int] {
-        let matching = first.filter { !second.contains($0) }
-        return matching
-    }
 }
 
 // MARK: - `NISessionDelegate`.
@@ -253,7 +218,6 @@ extension NISessionManager: NISessionDelegate {
     
     func session(_ session: NISession, didRemove nearbyObjects: [NINearbyObject], reason: NINearbyObject.RemovalReason) {
         // Find the right peer.
-        print("\(myKeywords): \(matchedObject?.keywords ?? [])")
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return peerTokensMapping[obj.discoveryToken] != nil
         }
