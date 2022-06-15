@@ -59,7 +59,7 @@ class NISessionManager: NSObject, ObservableObject {
     //MARK: 하드 코딩
     var matchedName = ""
     let myNickname = "빅썬"
-    let myKeywords: [Int] = [1, 2, 3, 4, 5] // 하드 코딩
+    let myKeywords: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] // 하드 코딩
 
     override init() {
         super.init()
@@ -163,6 +163,7 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
+        // 3개 이상일 때만 매치
         if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
             compareForCheckMatchedObject(receivedData)
             hapticManager.startHaptic()
@@ -170,15 +171,15 @@ class NISessionManager: NSObject, ObservableObject {
         
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            isBumped = true
+            self.isBumped = true
             gameState = .ready
             matchedName = receivedData.nickname
+            shareMyData(token: receivedData.token, peer: peer)
             stop()
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
             peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
-            print(receivedData.keywords)
         }
     }
 
@@ -228,7 +229,7 @@ extension NISessionManager: NISessionDelegate {
         
         guard let nearbyObjectUpdate = peerObj else { return }
 
-        if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
+        if isNearby(nearbyObjectUpdate.distance ?? 0.5) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
             shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
             return
@@ -305,35 +306,10 @@ extension NISessionManager: MultipeerConnectivityManagerDelegate {
 // MARK: - 거리에 따라 반응 로직
 
 extension NISessionManager {
-
-    enum DistanceDirectionState {
-        case closeUpInFOV, notCloseUpInFOV, outOfFOV, unknown
-    }
     
     // 범프
     func isNearby(_ distance: Float) -> Bool {
         return distance < nearbyDistanceThreshold
-    }
-    
-    func getDistanceDirectionState(from nearbyObject: NINearbyObject) -> DistanceDirectionState {
-        if nearbyObject.distance == nil && nearbyObject.direction == nil {
-            return .unknown
-        }
-        
-        print(nearbyObject.distance!)
-        
-        let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
-        let directionAvailable = nearbyObject.direction != nil
-        
-        if isNearby && directionAvailable {
-            return .closeUpInFOV
-        }
-        
-        if !isNearby && directionAvailable {
-            return .notCloseUpInFOV
-        }
-        
-        return .outOfFOV
     }
     
     private func compareForCheckMatchedObject(_ data: TranData) {
