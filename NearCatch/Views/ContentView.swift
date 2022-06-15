@@ -25,6 +25,7 @@ struct ContentView: View {
                 LottieView(jsonName: "Splash")
                     .frame(width: 120)
                     .transition(.opacity)
+                    .offset(y: -20)
                 
             }
             
