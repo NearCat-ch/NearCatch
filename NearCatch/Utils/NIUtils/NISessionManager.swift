@@ -16,9 +16,9 @@ class TranData: NSObject, NSCoding {
     let keywords : [Int]
     let nickname : String
     
-    init(token : NIDiscoveryToken, isMatched : Bool = false, keywords : [Int], nickname : String = "") {
+    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "") {
         self.token = token
-        self.isBumped = isMatched
+        self.isBumped = isBumped
         self.keywords = keywords
         self.nickname = nickname
     }
@@ -41,10 +41,11 @@ class TranData: NSObject, NSCoding {
 class NISessionManager: NSObject, ObservableObject {
 
     @Published var connectedPeers = [MCPeerID]()
-    @Published var matechedObject: NINearbyObject? // TODO: 매치할 오브젝트 저장
+    @Published var matchedObject: TranData? // 매치된 오브젝트
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
+  
     var matchedName = ""
     
     var mpc: MPCSession?
@@ -53,9 +54,22 @@ class NISessionManager: NSObject, ObservableObject {
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     
+    let hapticManager = HapticManager()
+    
     // 하드 코딩
     let myNickname = "빅썬"
-    let myKeywords = [1, 2, 3, 4, 5]
+
+    //MARK: TEST
+    @Published var text: String = "" {
+        didSet {
+            myKeywords = []
+            for i in text {
+                myKeywords.append(Int(String(i)) ?? 0)
+            }
+        }
+    }
+    
+    var myKeywords: [Int] = [] // 하드 코딩
 
     @Published var isPermissionDenied = false
 
@@ -82,6 +96,7 @@ class NISessionManager: NSObject, ObservableObject {
         sessions.removeAll()
         peerTokensMapping.removeAll()
         peersCnt = 0
+        hapticManager.endHaptic()
     }
 
     func startup() {
@@ -92,6 +107,7 @@ class NISessionManager: NSObject, ObservableObject {
 
         // 1. MPC 작동
         startupMPC()
+        hapticManager.startHaptic()
     }
 
     // MARK: - MPC를 사용하여 디스커버리 토큰 공유
@@ -141,6 +157,13 @@ class NISessionManager: NSObject, ObservableObject {
             connectedPeers = connectedPeers.filter { $0 != peer }
             sessions[peer] = nil
         }
+        
+        // 매칭된 상대가 해제 될 경우 제거
+        guard let matchedToken = matchedObject?.token else { return }
+        if peerTokensMapping[matchedToken] == peer {
+            matchedObject = nil
+            gameState = .finding
+        }
     }
     
     // MPC peerDataHandler에 의해 데이터 리시빙
@@ -150,7 +173,9 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        // 매치된 상태일 경우
+        compareForCheckMatchedObject(receivedData)
+        
+        //  범프된 상태일 경우
         if receivedData.isBumped {
             isBumped = true
             gameState = .ready
@@ -175,7 +200,7 @@ class NISessionManager: NSObject, ObservableObject {
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token, isMatched: true, keywords: myKeywords, nickname: myNickname)
+        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             fatalError("Unexpectedly failed to encode discovery token.")
@@ -213,6 +238,15 @@ extension NISessionManager: NISessionDelegate {
         if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
             shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            return
+        }
+        
+        // 매칭된 사람일 경우 진동 변화
+        guard let matchedToken = matchedObject?.token else { return }
+        if nearbyObjectUpdate.discoveryToken == matchedToken {
+            // TODO: 거리에 따라 진동
+            hapticManager.updateHaptic(dist: peerObj?.distance ?? 0,
+                                       matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
     
@@ -295,7 +329,7 @@ extension NISessionManager {
             return .unknown
         }
         
-        //        print(nearbyObject.distance!)
+//        print(nearbyObject.distance!)
         
         let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
         let directionAvailable = nearbyObject.direction != nil
@@ -309,6 +343,29 @@ extension NISessionManager {
         }
         
         return .outOfFOV
+    }
+    
+    private func compareForCheckMatchedObject(_ data: TranData) {
+        
+        guard self.matchedObject != data else { return }
+        
+        if let nowTranData = self.matchedObject {
+            
+            let withCurCnt : Int = calMatchingKeywords(myKeywords, nowTranData.keywords)
+            let withNewCnt : Int = calMatchingKeywords(myKeywords, data.keywords)
+            
+            self.matchedObject = withCurCnt < withNewCnt ? data : nowTranData
+            
+        } else {
+            self.matchedObject = data
+            gameState = .found
+        }
+        
+    }
+    
+    private func calMatchingKeywords(_ first: [Int], _ second: [Int]) -> Int {
+        let cnt = Set(first).intersection(second).count
+        return cnt
     }
 }
 
