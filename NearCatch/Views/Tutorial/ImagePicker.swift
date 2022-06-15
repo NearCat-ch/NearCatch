@@ -1,57 +1,176 @@
 import PhotosUI
 import SwiftUI
 
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var isShown: Bool
-    @Binding var image: Image?
+struct ImagePicker: View {
     
-    // UIViewControllerRepresentable 프로토콜 준수
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        // 피커 생성.
-        let picker = UIImagePickerController()
-        // coordinator 정의 후 picker의 delegate를 설정.
-        picker.delegate = context.coordinator
-        return picker
-    }
+    private let threeColumnGrid = [
+            GridItem(.flexible(minimum: 40), spacing: 2),
+            GridItem(.flexible(minimum: 40), spacing: 2),
+            GridItem(.flexible(minimum: 40), spacing: 2),
+        ]
     
-    // UIViewControllerRepresentable 프로토콜 준수
-    func updateUIViewController(_ uiViewController: UIImagePickerController,
-                                context: UIViewControllerRepresentableContext<ImagePicker>) {
+    @Binding var profileImage: UIImage?
+    @Binding var show: Bool
+    @State var tempImage: Img?
+    @State var disabled = true
+    @State var grid : [Img] = []
+    //    @State var selectedid =
+    
+    var body: some View {
+        VStack {
+            // 만약 선택된 사진들이 없다면?
+            if !self.grid.isEmpty{
+                HStack{
+                    Button(action: {
+                        self.show.toggle()
+                    }){
+                        Text("취소")
+                    }.padding()
+                    Spacer()
+                    Button(action: {
+                        // 사진 집어넣기 로직 필요
+                        if self.tempImage != nil {
+                            self.profileImage = tempImage!.image
+                        }
+                        self.show.toggle()
+                    }) {
+                        Text("등록")
+                            .fontWeight(.heavy)
+                    }.padding()
+                    
+                }
+                // 앨범에서 선택한 사진들이 들어갈 스크롤 뷰
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    //                        VStack{
+                    
+                    // 수정중
+                    LazyVGrid(columns: threeColumnGrid, alignment: .leading, spacing: 2) {
+                        ForEach(0..<self.grid.count, id: \.self) { i in
+    //                        HStack{
+                                ImageView(data: $grid[i], tempImage: $tempImage, grid: $grid)
 
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(isShown: $isShown, image: $image)
-    }
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    //                        }
+                        }
+                    }
+                    
 
-        let isShown: Binding<Bool>
-        let image: Binding<Image?>
-
-        init(isShown: Binding<Bool>, image: Binding<Image?>) {
-            self.isShown = isShown
-            self.image = image
+                    
+                    //                        }
+                }
+                
+                
+            }
+            else {
+                // 설정이 deny 되었을때
+                if self.disabled{
+                    Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
+                        .font(.custom("온글잎 의연체", size: 20))
+                    Text("Setting에서 권한 설정을 변경해주세요")
+                        .font(.custom("온글잎 의연체", size: 30))
+                }
+                else {
+                    // 선택된 사진이 한장도 없을때!
+                    if self.grid.count == 0{
+                        Text("선택된 사진이 없습니다.")
+                            .font(.custom("온글잎 의연체", size: 30))
+                    }
+                }
+                
+            }
         }
-
-        func imagePickerController(_ picker: UIImagePickerController,
-                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            self.image.wrappedValue = Image(uiImage: uiImage)
-            self.isShown.wrappedValue = false
+        .onAppear{
+            PHPhotoLibrary.requestAuthorization { (status) in
+                if status == .authorized {
+                    self.getAllImages()
+                    self.disabled = false
+                }
+                else {
+                    print("디나이")
+                    self.disabled = true
+                }
+            }
         }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            isShown.wrappedValue = false
-        }
-
     }
     
-    
-
-
-
+    func getAllImages(){
+        let opt = PHFetchOptions()
+        opt.includeHiddenAssets = false
+        
+        let req = PHAsset.fetchAssets(with: .image, options: .none)
+        
+        DispatchQueue.global(qos: .background).async {
+            let options = PHImageRequestOptions()
+            options.isSynchronous = true
+            
+            var iteration : [Img] = []
+            for i in stride(from: 0, to: req.count, by: 1) {
+                
+                if i < req.count {
+                    PHCachingImageManager.default().requestImage(for: req[i], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image,_) in
+                        let data = Img(image: image!, selected: false, asset: req[i])
+                        iteration.append(data)
+                    }
+                    
+                }
+                print(iteration.count)
+                self.grid = iteration
+            }
+        }
+    }
 }
+
+//struct ImagePicker: UIViewControllerRepresentable {
+//    @Binding var isShown: Bool
+//    @Binding var image: Image?
+//
+//    // UIViewControllerRepresentable 프로토콜 준수
+//    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+//        // 피커 생성.
+//        let picker = UIImagePickerController()
+//        // coordinator 정의 후 picker의 delegate를 설정.
+//        picker.delegate = context.coordinator
+//        return picker
+//    }
+//
+//    // UIViewControllerRepresentable 프로토콜 준수
+//    func updateUIViewController(_ uiViewController: UIImagePickerController,
+//                                context: UIViewControllerRepresentableContext<ImagePicker>) {
+//
+//    }
+//
+//    func makeCoordinator() -> Coordinator {
+//        return Coordinator(isShown: $isShown, image: $image)
+//    }
+//
+//    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+//
+//        let isShown: Binding<Bool>
+//        let image: Binding<Image?>
+//
+//        init(isShown: Binding<Bool>, image: Binding<Image?>) {
+//            self.isShown = isShown
+//            self.image = image
+//        }
+//
+//        func imagePickerController(_ picker: UIImagePickerController,
+//                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+//            self.image.wrappedValue = Image(uiImage: uiImage)
+//            self.isShown.wrappedValue = false
+//        }
+//
+//        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//            isShown.wrappedValue = false
+//        }
+//
+//    }
+//
+//
+//
+//
+//
+//}
 
 
 
@@ -121,14 +240,12 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 
 
-//
+////
 //struct ImagePicker: UIViewControllerRepresentable {
 //    @Binding var image: UIImage?
 //
 //    // UIViewControllerRepresentable 프로토콜 준수
 //    func makeUIViewController(context: Context) -> PHPickerViewController {
-//
-//
 //
 //        // configuration 설정하여, 하고싶은 것 제어
 //        var config = PHPickerConfiguration()
@@ -161,7 +278,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 //            self.parent = parent
 //        }
 //
-//        //꼭 정의해줘야하는 메서드. 선택한 미디어 정보들에 대한 메서드임. result에 내가 선택한 asset들이 들어가있음.
+//        //꼭 정의해줘야하는 메서드. 선택한 미디어 정보들에 대한 메서드임. result에 내가 선택한 asset들이 들어가있음. 우리는 1개만 넣을거니까 한개 들어가 있을것.
 //        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 //            // picker를 dismiss 시켜줌.
 //            picker.dismiss(animated: true)

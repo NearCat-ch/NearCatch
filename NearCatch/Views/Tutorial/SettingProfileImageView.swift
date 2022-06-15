@@ -13,7 +13,7 @@ struct SettingProfileImageView: View {
 //    @State var activeSheet: ActiveSheet?
     
     // 띄워지는 사진 <-> inputImage
-    @Binding var profileimage: Image?
+    @Binding var profileImage: UIImage?
     
     // show
 //    @State var showImagePicker: Bool = false
@@ -51,7 +51,7 @@ struct SettingProfileImageView: View {
 //                }
                 
             }) {
-                if self.profileimage == nil {
+                if self.profileImage == nil {
                     ZStack {
                         Circle()
                             .fill(.white.opacity(0.3))
@@ -69,11 +69,15 @@ struct SettingProfileImageView: View {
                     ZStack{
                         Circle()
                             .fill(.white.opacity(0.3))
-                        self.profileimage?
+                            .frame(width: 215, height: 215)
+                        Image(uiImage: self.profileImage!)
                             .resizable()
                             .clipShape(Circle())
-                            .frame(width: 200, height: 200)
-                    }.frame(width: 215, height: 215)
+                            .scaledToFit()
+                            
+                            
+                            
+                    }.frame(width: 260, height: 260)
                         .padding(.top, 25)
                 }
             }
@@ -89,20 +93,13 @@ struct SettingProfileImageView: View {
             
             
         }
-//        .onChange(of: inputImage) { _ in loadImage() }
         .sheet(isPresented: $isPresented) {
 //            ImagePicker(imageToImport: $inputImage, isPresented: $isPresented, imageWasImported: $imageWasImported)
-            ImagePicker(isShown: $isPresented, image: $profileimage)
+            ImagePicker(profileImage: $profileImage, show: $isPresented)
         }
         
     }
-    
-    
-    
-//    func loadImage() {
-//        guard let inputImage = inputImage else { return }
-//        profileimage = Image(uiImage: inputImage)
-//    }
+
 }
 
 
@@ -120,6 +117,6 @@ func partialColorString(allString: String,allStringColor: Color ,partialString: 
     
 struct SettingProfileImageView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingProfileImageView(profileimage: .constant(nil))
+        SettingProfileImageView(profileImage: .constant(nil))
     }
 }

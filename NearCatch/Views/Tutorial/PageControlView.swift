@@ -11,7 +11,7 @@ struct PageControlView: View {
     @State var currentPage = 1
     @State private var offset: CGSize = .zero
     @State var nickname: String = ""
-    @State var profileImage: Image?
+    @State var profileImage: UIImage?
     var body: some View {
         ZStack{
             Image("img_background")
@@ -43,7 +43,7 @@ struct PageControlView: View {
                             
                     }
                     else if currentPage == 1 {
-                        SettingProfileImageView(profileimage: $profileImage)
+                        SettingProfileImageView(profileImage: $profileImage)
 
                     }
                     else {
