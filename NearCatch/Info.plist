@@ -5,6 +5,7 @@
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_nearcatch._tcp</string>
+		<string>_nearcatch._udp</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

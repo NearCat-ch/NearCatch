@@ -78,6 +78,7 @@ struct HomeView: View {
                                     niObject.stop()
                                     niObject.gameState = .ready
                                 }
+                                HeartBubble()
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
