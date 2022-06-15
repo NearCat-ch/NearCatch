@@ -1,4 +1,4 @@
-![MC2-Team13-githubLogo](https://user-images.githubusercontent.com/74142881/173847180-729eb59a-159c-41e6-814c-d6df6f824f61.png)
+![MC2-Team13-githubLogo](https://user-images.githubusercontent.com/74142881/173856265-7f0bd435-1b49-4698-b98c-ab6ba7b4c352.png)
 
 # :iphone: Near Catch 니어 캐치
 
