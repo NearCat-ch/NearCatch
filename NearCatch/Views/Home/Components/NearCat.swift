@@ -14,19 +14,25 @@ struct NearCat: View {
     var body: some View {
         switch state {
         case .ready:
-            Image("img_hurray")
-        case .finding, .found:
-            Image("img_serch_60px")
+            EmptyView()
+        case .finding:
+            LottieView(jsonName: "NearCatTelescope")
+                .frame(height: 120)
+        case .found:
+            LottieView(jsonName: "NearCatHurray")
+                .frame(height: 120)
         }
     }
 }
 
 struct NearCat_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        VStack(spacing: 50) {
             NearCat(state: .constant(.ready))
             
             NearCat(state: .constant(.finding))
+            
+            NearCat(state: .constant(.found))
         }
         .padding(20)
         .previewLayout(.sizeThatFits)

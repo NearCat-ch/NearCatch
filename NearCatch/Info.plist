@@ -6,6 +6,10 @@
 	<string>photo use</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_nearcatch._tcp</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>온글잎 의연체.ttf</string>

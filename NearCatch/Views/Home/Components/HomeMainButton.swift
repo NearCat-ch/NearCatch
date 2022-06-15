@@ -18,39 +18,45 @@ struct HomeMainButton: View {
     }
     
     var body: some View {
-        Button {
-            action()
-        } label: {
-            ZStack {
-                Circle()
-                    .strokeBorder(Color(.darkGray))
-                    .background(
-                        Circle().fill(.white.opacity(0.5))
-                    )
-                
-                Circle()
-                    .fill(.white)
-                    .padding(8)
-                
-                Image("img_space")
-                    .resizable()
-                    .frame(width: 190, height: 190)
-                
-                if state == .ready {
-                    Image("img_magnifying")
+        VStack(spacing: -54) {
+            
+            NearCat(state: $state)
+            
+            Button {
+                action()
+            } label: {
+                ZStack {
+                    Circle()
+                        .strokeBorder(Color(.darkGray))
+                        .background(
+                            Circle().fill(.white.opacity(0.5))
+                        )
+                    
+                    Circle()
+                        .fill(.white)
+                        .padding(8)
+                    
+                    Image("img_space")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 66)
-                } else {
-                    Image("img_stars")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 93, height: 93)
+                        .frame(width: 190, height: 190)
+                    
+                    if state == .ready {
+                        LottieView(jsonName: "NearCatStanding")
+                            .frame(height: 230)
+                            .offset(y: 10)
+                        
+                    } else {
+                        LottieView(jsonName: "Star", loopMode: .loop)
+//                        Image("img_stars")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 93, height: 93)
+                    }
+                                
+                    Image("img_bubble_197px")
                 }
-                            
-                Image("img_bubble_197px")
+                .frame(width: 220, height: 220)
             }
-            .frame(width: 220, height: 220)
         }
     }
 }
@@ -61,6 +67,8 @@ struct HomeMainButton_Previews: PreviewProvider {
             HomeMainButton(state: .constant(.ready)) { }
             
             HomeMainButton(state: .constant(.finding)) { }
+            
+            HomeMainButton(state: .constant(.found)) { }
         }
         .padding(50)
         .previewLayout(.sizeThatFits)

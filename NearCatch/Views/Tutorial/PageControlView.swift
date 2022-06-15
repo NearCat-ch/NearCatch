@@ -39,7 +39,7 @@ struct PageControlView: View {
                 
                 VStack {
                     if currentPage == 0 {
-                        SettingNicknameView(nickname: $nickname)
+                        SettingNicknameView(coreDM: CoreDataManager(), nickname: $nickname)
                             
                     }
                     else if currentPage == 1 {

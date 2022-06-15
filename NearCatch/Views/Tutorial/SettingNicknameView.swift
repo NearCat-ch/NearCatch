@@ -9,6 +9,12 @@ import SwiftUI
 
 struct SettingNicknameView: View {
     
+    let coreDM: CoreDataManager
+    @State private var lotOfMydata: [Profile] = [Profile]()
+    private func populateMydatum() {
+        lotOfMydata = coreDM.readAllProfile()
+    }
+    
     @Binding var nickname: String
     
     var body: some View {
@@ -91,6 +97,6 @@ extension View {
 
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingNicknameView(nickname: .constant(""))
+        SettingNicknameView(coreDM: CoreDataManager(), nickname: .constant(""))
     }
 }
