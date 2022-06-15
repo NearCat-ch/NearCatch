@@ -12,7 +12,8 @@ struct NearCatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PageControlView()
+//            ContentView()
         }
     }
 }
