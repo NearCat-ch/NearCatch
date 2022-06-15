@@ -44,6 +44,14 @@ struct HomeView: View {
                         }
                         
                         VStack(spacing: 24) {
+                          
+                            //MARK: 서로 다른 관심사 환경 위한 TEST
+                            TextField("123", text: $niObject.text)
+                                .padding()
+                                .background(Color.green)
+                                .padding()
+                                .keyboardType(.numberPad)
+                            
                             switch niObject.gameState {
                             case .ready:
                                 HomeMainButton(state: $niObject.gameState) {
