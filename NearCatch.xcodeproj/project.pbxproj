@@ -48,6 +48,7 @@
 		7043123B2857B8F7001D25EB /* Fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = 7043123A2857B8F7001D25EB /* Fireworks.json */; };
 		7043123F2857C4A7001D25EB /* NearCatHurray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7043123E2857C4A7001D25EB /* NearCatHurray.json */; };
 		704312412857CBF4001D25EB /* NearCatTelescope.json in Resources */ = {isa = PBXBuildFile; fileRef = 704312402857CBF4001D25EB /* NearCatTelescope.json */; };
+		7052F4792859D2580083EE02 /* Splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 7052F4782859D2580083EE02 /* Splash.json */; };
 		7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6DF285337E8008594E5 /* Colors.xcassets */; };
 		7072D6E228533929008594E5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7072D6E128533929008594E5 /* Colors.swift */; };
 		7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */; };
@@ -57,7 +58,6 @@
 		70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028292857245B0099A619 /* NearCatStanding.json */; };
 		70A02830285726360099A619 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A0282F285726360099A619 /* Star.json */; };
 		70A02832285726BF0099A619 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A02831285726BF0099A619 /* Background.json */; };
-		70EB531F2859A7370090074C /* Splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 70EB531E2859A7370090074C /* Splash.json */; };
 		7169F5322857068700A04934 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5312857068700A04934 /* TagView.swift */; };
 		7169F5342857165800A04934 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5332857165800A04934 /* TagViewModel.swift */; };
 		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
@@ -107,6 +107,7 @@
 		7043123A2857B8F7001D25EB /* Fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Fireworks.json; sourceTree = "<group>"; };
 		7043123E2857C4A7001D25EB /* NearCatHurray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatHurray.json; sourceTree = "<group>"; };
 		704312402857CBF4001D25EB /* NearCatTelescope.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = NearCatTelescope.json; path = LottieJson/NearCatTelescope.json; sourceTree = SOURCE_ROOT; };
+		7052F4782859D2580083EE02 /* Splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Splash.json; sourceTree = "<group>"; };
 		7072D6DF285337E8008594E5 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		7072D6E128533929008594E5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7072D6E628533F4D008594E5 /* 온글잎 의연체.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "온글잎 의연체.ttf"; sourceTree = "<group>"; };
@@ -116,7 +117,6 @@
 		70A028292857245B0099A619 /* NearCatStanding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatStanding.json; sourceTree = "<group>"; };
 		70A0282F285726360099A619 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
 		70A02831285726BF0099A619 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
-		70EB531E2859A7370090074C /* Splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Splash.json; sourceTree = "<group>"; };
 		7169F5312857068700A04934 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		7169F5332857165800A04934 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -333,7 +333,7 @@
 				70A028292857245B0099A619 /* NearCatStanding.json */,
 				7043123E2857C4A7001D25EB /* NearCatHurray.json */,
 				704312402857CBF4001D25EB /* NearCatTelescope.json */,
-				70EB531E2859A7370090074C /* Splash.json */,
+				7052F4782859D2580083EE02 /* Splash.json */,
 				70A0282F285726360099A619 /* Star.json */,
 				70A028272857148A0099A619 /* Heart.json */,
 				7043123A2857B8F7001D25EB /* Fireworks.json */,
@@ -406,7 +406,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				70A02832285726BF0099A619 /* Background.json in Resources */,
-				70EB531F2859A7370090074C /* Splash.json in Resources */,
 				7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */,
 				70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */,
 				704312412857CBF4001D25EB /* NearCatTelescope.json in Resources */,
@@ -417,6 +416,7 @@
 				21352D522855C89700429DC0 /* NearCatchHeartbeat.ahap in Resources */,
 				7043123B2857B8F7001D25EB /* Fireworks.json in Resources */,
 				7072D6E728533F4D008594E5 /* 온글잎 의연체.ttf in Resources */,
+				7052F4792859D2580083EE02 /* Splash.json in Resources */,
 				16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
