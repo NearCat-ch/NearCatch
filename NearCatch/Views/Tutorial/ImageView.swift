@@ -16,7 +16,9 @@ struct ImageView: View {
     var body: some View {
         ZStack {
             Image(uiImage: self.data.image)
+                
                 .resizable()
+//                .frame(height: 150)
 //                .scaledToFit()
             if self.data.selected{
                 

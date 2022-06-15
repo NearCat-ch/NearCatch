@@ -69,15 +69,14 @@ struct SettingProfileImageView: View {
                     ZStack{
                         Circle()
                             .fill(.white.opacity(0.3))
-                            .frame(width: 215, height: 215)
                         Image(uiImage: self.profileImage!)
                             .resizable()
                             .clipShape(Circle())
-                            .scaledToFit()
+                            .scaledToFill()
+                            .frame(width: 200, height: 200)
                             
                             
-                            
-                    }.frame(width: 260, height: 260)
+                    }.frame(width: 215, height: 215)
                         .padding(.top, 25)
                 }
             }

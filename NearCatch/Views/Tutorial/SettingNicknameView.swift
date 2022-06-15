@@ -25,24 +25,40 @@ struct SettingNicknameView: View {
                 .foregroundColor(.white)
                 .font(.custom("온글잎 의연체", size: 24))
             Image("img_standing")
-                .padding(.bottom, 40.0)
+                .padding(.bottom, 20.0)
                 .padding(.top, 15)
-
-            TextField("",text: $nickname)
-                .placeholder(when: nickname.isEmpty) {
-                    Text("User Name").foregroundColor(.white)
+            
+            ZStack {
+                
+                TextField("",text: $nickname)
+                    .placeholder(when: nickname.isEmpty) {
+                        Text("User Name").foregroundColor(.white)
+                    }
+                    .limitText($nickname, to: 10)
+                    .foregroundColor(.white)
+                    .font(.custom("온글잎 의연체", size: 34))
+                    .frame(width: 200,height: 34)
+                    .multilineTextAlignment(.center)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+    //            Text("\(nickname)")
+                HStack{
+                    Spacer()
+                    Image("icn_cancle")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .onTapGesture {
+                            self.nickname = ""
+                        }
                 }
-                .limitText($nickname, to: 10)
-                .foregroundColor(.white)
-                .font(.custom("온글잎 의연체", size: 34))
-                .frame(width: 200,height: 34)
-                .multilineTextAlignment(.center)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-//            Text("\(nickname)")
+                .frame(width: 250)
+                
+                
+            }
             Divider()
                 .frame(width: 250, height: 1)
                 .background(Color.white)
+
             
         }
     }
