@@ -128,9 +128,9 @@
 		0EBDD74A2851DECB0081C832 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */,
 				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
 				71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */,
+				0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */,
 				7169F5312857068700A04934 /* TagView.swift */,
 				7169F5332857165800A04934 /* TagViewModel.swift */,
 			);
@@ -159,7 +159,6 @@
 		16514B64284F313B007A1BB5 = {
 			isa = PBXGroup;
 			children = (
-				71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */,
 				16514B6F284F313B007A1BB5 /* NearCatch */,
 				16514B6E284F313B007A1BB5 /* Products */,
 			);
@@ -251,6 +250,7 @@
 		16AEB31A2851C0A60034CC0F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */,
 				21352D4E2855902600429DC0 /* HapticUtils */,
 				164A4A712854C3A000CA8B0A /* NIUtils */,
 			);
@@ -577,7 +577,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = UYQK5W3Y6T;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -610,7 +610,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = UYQK5W3Y6T;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;

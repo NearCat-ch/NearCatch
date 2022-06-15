@@ -12,7 +12,6 @@ struct Tag {
     var name: String
     var isSelected: Bool = false
     // var color = isSelected true ? Color.PrimaryColor : Color.SecondaryColor
-    // var size: Double
 }
 
 class ToggleCount: ObservableObject {
