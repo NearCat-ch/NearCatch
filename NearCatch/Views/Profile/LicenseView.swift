@@ -16,7 +16,7 @@ struct LicenseView: View {
                     .edgesIgnoringSafeArea([.top])
                 VStack{
                     Spacer()
-                        .frame(height:50)
+                        .frame(height:70)
                     ZStack{
                         RoundedRectangle(cornerRadius:10)
                             .fill(Color.white)

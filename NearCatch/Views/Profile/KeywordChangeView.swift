@@ -25,6 +25,22 @@ struct KeywordChangeView: View {
                         .frame(width:50, height:5)
                 }
                 Spacer()
+                    .frame(height:70)
+                HStack {
+                    Text("관심사")
+                        .font(.custom("온글잎 의연체", size:34))
+                        .foregroundColor(.PrimaryColor)
+                    Text("수정")
+                        .font(.custom("온글잎 의연체", size:34))
+                        .foregroundColor(.white)
+                }
+                Text("최소 5개 이상 선택하셔야합니다!")
+                    .font(.custom("온글잎 의연체", size:22))
+                    .foregroundColor(.white)
+                Text("5 / 10")
+                    .font(.custom("온글잎 의연체", size:34))
+                    .foregroundColor(.white)
+                Spacer()
             }
         }
     }

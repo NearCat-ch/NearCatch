@@ -16,7 +16,7 @@ struct SetView: View {
                     .edgesIgnoringSafeArea([.top])
                 VStack{
                     Spacer()
-                        .frame(height:50)
+                        .frame(height:70)
                     SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
                     NavigationLink(destination:LicenseView(), label: {
                         SettingButton(text:"라이센스")

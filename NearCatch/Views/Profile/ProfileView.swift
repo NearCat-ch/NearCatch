@@ -18,7 +18,7 @@ struct ProfileView: View {
                     .edgesIgnoringSafeArea([.top])
                 VStack{
                     Spacer()
-                        .frame(height:50)
+                        .frame(height:70)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
@@ -53,7 +53,7 @@ struct ProfileView: View {
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
-                    }.padding([.top], -5)
+                    }.padding([.top], -20)
                     ProfileInterestCard()
                         .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()
