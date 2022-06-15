@@ -18,7 +18,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             ZStack() {
-                Image("img_basicbackground")
+                Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
                 

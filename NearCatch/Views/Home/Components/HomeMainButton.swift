@@ -43,6 +43,7 @@ struct HomeMainButton: View {
                     if state == .ready {
                         LottieView(jsonName: "NearCatStanding")
                             .frame(height: 230)
+                            .offset(y: 10)
                         
                     } else {
                         LottieView(jsonName: "Star", loopMode: .loop)
