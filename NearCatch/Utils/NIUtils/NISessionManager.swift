@@ -54,7 +54,8 @@ class NISessionManager: NSObject, ObservableObject {
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     
-
+    let hapticManager = HapticManager()
+    
     // 하드 코딩
     let myNickname = "빅썬"
 
@@ -95,6 +96,7 @@ class NISessionManager: NSObject, ObservableObject {
         sessions.removeAll()
         peerTokensMapping.removeAll()
         peersCnt = 0
+        hapticManager.endHaptic()
     }
 
     func startup() {
@@ -105,6 +107,7 @@ class NISessionManager: NSObject, ObservableObject {
 
         // 1. MPC 작동
         startupMPC()
+        hapticManager.startHaptic()
     }
 
     // MARK: - MPC를 사용하여 디스커버리 토큰 공유
@@ -242,6 +245,8 @@ extension NISessionManager: NISessionDelegate {
         guard let matchedToken = matchedObject?.token else { return }
         if nearbyObjectUpdate.discoveryToken == matchedToken {
             // TODO: 거리에 따라 진동
+            hapticManager.updateHaptic(dist: peerObj?.distance ?? 0,
+                                       matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
     

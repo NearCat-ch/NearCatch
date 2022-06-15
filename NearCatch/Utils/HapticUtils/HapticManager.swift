@@ -9,7 +9,7 @@ import SwiftUI
 import CoreMotion
 import CoreHaptics
 
-class HapticManager: ObservableObject {
+class HapticManager {
     
     private var engine: CHHapticEngine!
     private var advancedPlayer: CHHapticAdvancedPatternPlayer!
@@ -17,6 +17,7 @@ class HapticManager: ObservableObject {
     init() {
         self.createAndStartHapticEngine()
         self.initializeHaptic()
+        self.startHaptic()
     }
     
     private func createAndStartHapticEngine() {
@@ -78,6 +79,10 @@ class HapticManager: ObservableObject {
         do {
             try engine.start()
             startPlayer(advancedPlayer)
+            let intensityParameter = CHHapticDynamicParameter(parameterID: .hapticIntensityControl,
+                                                              value: 0,
+                                                              relativeTime: 0)
+            try advancedPlayer.sendParameters([intensityParameter], atTime: 0)
         } catch {
             print("asdfasdf")
         }
@@ -90,13 +95,12 @@ class HapticManager: ObservableObject {
             print("Error stopping the continuous haptic player: \(error)")
         }
     }
-    
-    func updateHaptic(dist: Float?, matchingPercent: Float) {
+    func updateHaptic(dist: Float?, matchingPercent: Int) {
         guard let dist = dist else { return }
-        let intensityValue = linearInterpolation(alpha: dist, min: 0, max: 10)
-        advancedPlayer.playbackRate = 1 + matchingPercent
+        let intensityValue = dist / 9
+        advancedPlayer.playbackRate = 1 + Float(matchingPercent) / 5
         let intensityParameter = CHHapticDynamicParameter(parameterID: .hapticIntensityControl,
-                                                          value: intensityValue,
+                                                          value: 1 - intensityValue,
                                                           relativeTime: 0)
         
         do {
@@ -105,7 +109,7 @@ class HapticManager: ObservableObject {
             print("Dynamic Parameter Error: \(error)")
         }
     }
-    
+
     private func linearInterpolation(alpha: Float, min: Float, max: Float) -> Float {
         return alpha / (max - min)
     }
