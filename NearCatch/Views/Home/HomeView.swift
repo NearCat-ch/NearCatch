@@ -23,6 +23,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
                 
                 LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 
                 if isLocalNetworkPermissionDenied || niObject.isPermissionDenied {
                     PermissionCheckView()
