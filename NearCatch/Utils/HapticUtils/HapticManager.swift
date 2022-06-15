@@ -11,9 +11,9 @@ import CoreHaptics
 
 class HapticManager {
     
-    private var engine: CHHapticEngine!
+    private var engine: CHHapticEngine?
     // 'Advanced' PatternPlayer만 재생 컨트롤(멈춤, 반복재생, 뒤로가기 ...) 등이 가능함
-    private var advancedPlayer: CHHapticAdvancedPatternPlayer!
+    private var advancedPlayer: CHHapticAdvancedPatternPlayer?
     
     init() {
         self.createAndStartHapticEngine()
@@ -26,7 +26,11 @@ class HapticManager {
         do {
             engine = try CHHapticEngine()
         } catch let error {
-            fatalError("Engine Creation Error: \(error)")
+            print(error.localizedDescription)
+        }
+        
+        guard let engine = engine else {
+            return
         }
         
         // 햅틱 엔진 오직 햅틱만 ( 원래는 소리도 같이 넣는 게 정석 )
@@ -59,7 +63,7 @@ class HapticManager {
         engine.resetHandler = {
             print("Reset Handler: Restarting the engine.")
             do {
-                try self.engine.start()
+                try self.engine?.start()
                 self.initializeHaptic()
             } catch {
                 print("Failed to start the engine")
@@ -72,9 +76,9 @@ class HapticManager {
         let pattern = createPatternFromAHAP("NearCatchHeartbeat")!
         
         do {
-            advancedPlayer = try engine.makeAdvancedPlayer(with: pattern)
+            advancedPlayer = try engine?.makeAdvancedPlayer(with: pattern)
             advancedPlayer?.loopEnabled = true
-            advancedPlayer.playbackRate = 1
+            advancedPlayer?.playbackRate = 1
         } catch {
             print("error...")
         }
@@ -82,8 +86,10 @@ class HapticManager {
     
     // 햅틱 시작
     func startHaptic() {
+        guard let advancedPlayer = advancedPlayer else { return }
+
         do {
-            try engine.start()
+            try engine?.start()
             startPlayer(advancedPlayer)
             
             // 햅틱을 미리 시작해두고 NISession이 생성될 때 반응하기 위해 일단 intensity를 0으로 두어 햅틱이 안느껴지도록 함
@@ -98,6 +104,8 @@ class HapticManager {
     
     // 햅틱 종료
     func endHaptic() {
+        guard let advancedPlayer = advancedPlayer else { return }
+        
         do {
             try advancedPlayer.stop(atTime: CHHapticTimeImmediate)
         } catch let error {
@@ -107,6 +115,7 @@ class HapticManager {
     
     // 진동 속도, 세기 기준은 일단 임의로 지정함.
     func updateHaptic(dist: Float?, matchingPercent: Int) {
+        guard let advancedPlayer = advancedPlayer else { return }
         guard let dist = dist else { return }
         // 최대 9mm 상정하고 0~1사이의 값 만든 후 hapticIntensityControl의 최대값인 1에서 빼주는 식으로 진동 세기 구현
         let intensityValue = dist / 9
