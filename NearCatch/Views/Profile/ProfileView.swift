@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State var nickname = "가나다라마바사아자차"
+    @State var nickname = "니어캣"
+    @State var profileImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showingSheet = false
     var body: some View {
@@ -21,7 +22,21 @@ struct ProfileView: View {
                         .frame(height:70)
                     VStack{
                         ZStack{
-                            SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
+                            if self.profileImage == nil {
+                                SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
+                            }
+                            else {
+                                ZStack{
+                                    Circle()
+                                        .fill(.white.opacity(0.3))
+                                    Image(uiImage: self.profileImage!)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .scaledToFill()
+                                        .frame(width: 190, height: 190)
+                                }.frame(width: 215, height: 215)
+                                    .padding(.top, 25)
+                            }
                         }
                         Text(nickname)
                             .font(.custom("온글잎 의연체", size: 42))
@@ -29,7 +44,7 @@ struct ProfileView: View {
                     }
                     HStack{
                         VStack{
-                            NavigationLink(destination: EditProfileView(nickname:nickname), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: EditProfileView(nickname:nickname, profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("프로필 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
