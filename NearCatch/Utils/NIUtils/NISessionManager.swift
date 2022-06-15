@@ -143,6 +143,7 @@ class NISessionManager: NSObject, ObservableObject {
         // 연결 해제시 연결된 피어 제거
         if connectedPeers.contains(peer) {
             connectedPeers = connectedPeers.filter { $0 != peer }
+            sessions[peer]?.invalidate()
             sessions[peer] = nil
         }
         
@@ -219,9 +220,7 @@ class NISessionManager: NSObject, ObservableObject {
 
 // MARK: - `NISessionDelegate`.
 extension NISessionManager: NISessionDelegate {
-    func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
-        print("세션1")
-        
+    func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {        
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return peerTokensMapping[obj.discoveryToken] != nil
@@ -238,8 +237,7 @@ extension NISessionManager: NISessionDelegate {
         // 매칭된 사람일 경우 진동 변화
         guard let matchedToken = matchedObject?.token else { return }
         if nearbyObjectUpdate.discoveryToken == matchedToken {
-            // TODO: 거리에 따라 진동
-            hapticManager.updateHaptic(dist: peerObj?.distance ?? 0,
+            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 0,
                                        matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
@@ -292,7 +290,6 @@ extension NISessionManager: NISessionDelegate {
         if case NIError.userDidNotAllow = error {
             isPermissionDenied = true
         }
-
         // Recreate a valid session in other failure cases.
         startup()
     }
