@@ -54,6 +54,7 @@
 		70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A028292857245B0099A619 /* NearCatStanding.json */; };
 		70A02830285726360099A619 /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A0282F285726360099A619 /* Star.json */; };
 		70A02832285726BF0099A619 /* Background.json in Resources */ = {isa = PBXBuildFile; fileRef = 70A02831285726BF0099A619 /* Background.json */; };
+		70EB531F2859A7370090074C /* Splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 70EB531E2859A7370090074C /* Splash.json */; };
 		7169F5322857068700A04934 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5312857068700A04934 /* TagView.swift */; };
 		7169F5342857165800A04934 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169F5332857165800A04934 /* TagViewModel.swift */; };
 		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
@@ -109,6 +110,7 @@
 		70A028292857245B0099A619 /* NearCatStanding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatStanding.json; sourceTree = "<group>"; };
 		70A0282F285726360099A619 /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
 		70A02831285726BF0099A619 /* Background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Background.json; path = LottieJson/Background.json; sourceTree = SOURCE_ROOT; };
+		70EB531E2859A7370090074C /* Splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Splash.json; sourceTree = "<group>"; };
 		7169F5312857068700A04934 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		7169F5332857165800A04934 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -130,9 +132,9 @@
 		0EBDD74A2851DECB0081C832 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */,
 				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
 				71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */,
+				0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */,
 				7169F5312857068700A04934 /* TagView.swift */,
 				7169F5332857165800A04934 /* TagViewModel.swift */,
 			);
@@ -161,7 +163,6 @@
 		16514B64284F313B007A1BB5 = {
 			isa = PBXGroup;
 			children = (
-				71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */,
 				16514B6F284F313B007A1BB5 /* NearCatch */,
 				16514B6E284F313B007A1BB5 /* Products */,
 			);
@@ -253,6 +254,7 @@
 		16AEB31A2851C0A60034CC0F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */,
 				21352D4E2855902600429DC0 /* HapticUtils */,
 				164A4A712854C3A000CA8B0A /* NIUtils */,
 			);
@@ -322,6 +324,7 @@
 				70A028292857245B0099A619 /* NearCatStanding.json */,
 				7043123E2857C4A7001D25EB /* NearCatHurray.json */,
 				704312402857CBF4001D25EB /* NearCatTelescope.json */,
+				70EB531E2859A7370090074C /* Splash.json */,
 				70A0282F285726360099A619 /* Star.json */,
 				70A028272857148A0099A619 /* Heart.json */,
 				7043123A2857B8F7001D25EB /* Fireworks.json */,
@@ -394,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70A02832285726BF0099A619 /* Background.json in Resources */,
+				70EB531F2859A7370090074C /* Splash.json in Resources */,
 				7072D6E0285337E8008594E5 /* Colors.xcassets in Resources */,
 				70A0282A2857245B0099A619 /* NearCatStanding.json in Resources */,
 				704312412857CBF4001D25EB /* NearCatTelescope.json in Resources */,
@@ -581,7 +585,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = UYQK5W3Y6T;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -614,7 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = UYQK5W3Y6T;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
