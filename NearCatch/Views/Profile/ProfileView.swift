@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @State var nickname = "가나다라마바사아자차"
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showingSheet = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -17,7 +18,7 @@ struct ProfileView: View {
                     .edgesIgnoringSafeArea([.top])
                 VStack{
                     Spacer()
-                        .frame(height:70)
+                        .frame(height:50)
                     VStack{
                         ZStack{
                             SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
@@ -34,8 +35,14 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                         VStack{
-                            NavigationLink(destination: SetView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
-                            })
+                            Button {
+                                self.showingSheet.toggle()
+                            } label:{
+                                SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
+                            }
+                            .sheet(isPresented: $showingSheet) {
+                                KeywordChangeView()
+                            }
                             Text("관심사 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.PrimaryColor)
@@ -46,7 +53,7 @@ struct ProfileView: View {
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
-                    }
+                    }.padding([.top], -5)
                     ProfileInterestCard()
                         .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()

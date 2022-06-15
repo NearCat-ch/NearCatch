@@ -40,6 +40,7 @@
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FCBC3982858763D00A1D7D1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCBC3972858763D00A1D7D1 /* SettingButton.swift */; };
 		6FCBC39A28587A5100A1D7D1 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCBC39928587A5100A1D7D1 /* LicenseView.swift */; };
+		6FDAA77F285880DF0068C64B /* KeywordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAA77E285880DF0068C64B /* KeywordChangeView.swift */; };
 		6FE9AC0E2856FE1C00336D8C /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */; };
 		7043123B2857B8F7001D25EB /* Fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = 7043123A2857B8F7001D25EB /* Fireworks.json */; };
 		7043123F2857C4A7001D25EB /* NearCatHurray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7043123E2857C4A7001D25EB /* NearCatHurray.json */; };
@@ -94,6 +95,7 @@
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FCBC3972858763D00A1D7D1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		6FCBC39928587A5100A1D7D1 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
+		6FDAA77E285880DF0068C64B /* KeywordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordChangeView.swift; sourceTree = "<group>"; };
 		6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		7043123A2857B8F7001D25EB /* Fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Fireworks.json; sourceTree = "<group>"; };
 		7043123E2857C4A7001D25EB /* NearCatHurray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NearCatHurray.json; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				6FE9AC0D2856FE1C00336D8C /* EditProfileView.swift */,
 				6F02F89828571FF40016DF26 /* SetView.swift */,
 				6FCBC39928587A5100A1D7D1 /* LicenseView.swift */,
+				6FDAA77E285880DF0068C64B /* KeywordChangeView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FDAA77F285880DF0068C64B /* KeywordChangeView.swift in Sources */,
 				21352D502855907A00429DC0 /* HapticManager.swift in Sources */,
 				6F02F89928571FF40016DF26 /* SetView.swift in Sources */,
 				6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */,

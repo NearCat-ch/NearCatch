@@ -15,6 +15,14 @@ struct LicenseView: View {
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
+                    Spacer()
+                        .frame(height:50)
+                    ZStack{
+                        RoundedRectangle(cornerRadius:10)
+                            .fill(Color.white)
+                            .frame(width:350, height:600)
+                    }
+                    Spacer()
                     
                 }
             }
