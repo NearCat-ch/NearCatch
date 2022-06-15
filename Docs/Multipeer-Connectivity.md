@@ -24,3 +24,4 @@ Multipeer Connectivity 프레임워크는 세 가지 데이터 전송 형식을 
 ## Reference
 https://www.ralfebert.com/ios-app-development/multipeer-connectivity/ <br>
 https://nshipster.com/multipeer-connectivity/
+https://www.toptal.com/ios/ <br> collusion-ios-multipeerconnectivity
