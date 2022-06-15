@@ -3,6 +3,8 @@ See LICENSE folder for this sample’s licensing information.
 
 Abstract:
 An object that manages the interaction session.
+ 
+Edited by Wonhyuk Choi on 2022/06/09.
 */
 
 import Foundation
@@ -45,33 +47,19 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
-  
-    var matchedName = ""
+    @Published var isPermissionDenied = false
     
     var mpc: MPCSession?
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
-    
     let hapticManager = HapticManager()
     
-    // 하드 코딩
+    //MARK: 하드 코딩
+    var matchedName = ""
     let myNickname = "빅썬"
-
-    //MARK: TEST
-    @Published var text: String = "" {
-        didSet {
-            myKeywords = []
-            for i in text {
-                myKeywords.append(Int(String(i)) ?? 0)
-            }
-        }
-    }
-    
-    var myKeywords: [Int] = [] // 하드 코딩
-
-    @Published var isPermissionDenied = false
+    let myKeywords: [Int] = [1, 2, 3, 4, 5] // 하드 코딩
 
     override init() {
         super.init()
@@ -95,6 +83,7 @@ class NISessionManager: NSObject, ObservableObject {
         connectedPeers.removeAll()
         sessions.removeAll()
         peerTokensMapping.removeAll()
+        matchedObject = nil
         peersCnt = 0
         hapticManager.endHaptic()
     }
@@ -107,7 +96,6 @@ class NISessionManager: NSObject, ObservableObject {
 
         // 1. MPC 작동
         startupMPC()
-        hapticManager.startHaptic()
     }
 
     // MARK: - MPC를 사용하여 디스커버리 토큰 공유
@@ -162,6 +150,7 @@ class NISessionManager: NSObject, ObservableObject {
         guard let matchedToken = matchedObject?.token else { return }
         if peerTokensMapping[matchedToken] == peer {
             matchedObject = nil
+            hapticManager.endHaptic()
             gameState = .finding
         }
     }
@@ -173,7 +162,10 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        compareForCheckMatchedObject(receivedData)
+        if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
+            compareForCheckMatchedObject(receivedData)
+            hapticManager.startHaptic()
+        }
         
         //  범프된 상태일 경우
         if receivedData.isBumped {
@@ -228,11 +220,13 @@ class NISessionManager: NSObject, ObservableObject {
 // MARK: - `NISessionDelegate`.
 extension NISessionManager: NISessionDelegate {
     func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
+        print("세션1")
+        
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return peerTokensMapping[obj.discoveryToken] != nil
         }
-
+        
         guard let nearbyObjectUpdate = peerObj else { return }
 
         if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
@@ -329,7 +323,7 @@ extension NISessionManager {
             return .unknown
         }
         
-//        print(nearbyObject.distance!)
+        print(nearbyObject.distance!)
         
         let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
         let directionAvailable = nearbyObject.direction != nil
