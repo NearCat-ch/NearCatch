@@ -25,12 +25,14 @@ Insert gif or link to demo
 
 ## :fireworks: Screenshots
 
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841461-d8faf5eb-c80c-4c33-a674-f04fc84dd402.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841455-8c515910-599f-46fb-88a7-2aa75a448291.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841440-28308b16-a824-4d8d-b074-9bd2b08ab696.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841464-47e53466-5ea6-42c0-8f4e-3905d3804ab1.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841432-50f9b5d9-1b48-4256-9eea-430cc898d75e.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173841447-073f2f04-d876-4f8a-8538-fbe27bb2a28e.png)
+
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845489-8a10572b-86b3-48df-b407-6dde962e5a13.png)
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845502-ac5fe7f8-ce3e-40e7-a974-b2b248fb08a3.png)
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845505-2cd0a6b2-f64c-483e-b340-bd6d0d48a6a4.png)
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845509-1b33de95-3e87-4ab2-bd0b-5bda5d53bbb4.png)
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845513-cb0707fd-6432-4818-b29c-6e98c53c5015.png)
+![App Screenshot](https://user-images.githubusercontent.com/74142881/173845517-a7926515-d480-4ef2-8fee-33c0ed2b20e3.png)
+
 
 
 ## :sparkles: Skills & Tech Stack
