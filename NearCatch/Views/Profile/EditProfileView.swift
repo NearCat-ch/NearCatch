@@ -49,10 +49,18 @@ struct EditProfileView: View {
                     VStack {
                         ZStack {
                             TextField("", text: $nickname)
+                                .placeholder(when:nickname.isEmpty){
+                                    Text("User Name")
+                                        .font(.custom("온글잎 의연체", size:34))
+                                        .foregroundColor(Color.white)
+                                        .opacity(0.3)
+                                }
+                                .limitText($nickname, to: 10)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
                                 .frame(width:200)
+                                .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
                             HStack{
                                 Spacer()
@@ -67,7 +75,6 @@ struct EditProfileView: View {
                                     }
                                 }
                             }
-                            
                         }
                         Rectangle()
                             .frame(width:260, height: 1)
@@ -82,7 +89,7 @@ struct EditProfileView: View {
                     Button{
                         action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.gray : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
+                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
                     Spacer()
                 }
@@ -93,6 +100,7 @@ struct EditProfileView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {
+                        self.profileImage = nil
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
                         SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
