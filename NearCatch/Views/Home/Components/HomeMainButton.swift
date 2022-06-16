@@ -51,8 +51,16 @@ struct HomeMainButton: View {
                 }
                 .frame(width: 220, height: 220)
             }
+            .buttonStyle(HomeMainButtonStyle())
         }
         .offset(y: -120)
+    }
+}
+
+struct HomeMainButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.9 : 1)
     }
 }
 

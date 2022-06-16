@@ -13,10 +13,9 @@ struct LicenseView: View {
         NavigationView {
             ZStack {
                 Image("img_background")
-                    .edgesIgnoringSafeArea([.top])
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
-                    Spacer()
-                        .frame(height:70)
                     ZStack{
                         RoundedRectangle(cornerRadius:10)
                             .fill(Color.white)

@@ -13,10 +13,9 @@ struct SetView: View {
         NavigationView{
             ZStack{
                 Image("img_background")
-                    .edgesIgnoringSafeArea([.top])
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
-                    Spacer()
-                        .frame(height:70)
                     SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
                     NavigationLink(destination:LicenseView(), label: {
                         SettingButton(text:"라이센스")

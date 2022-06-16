@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct PageControlView: View {
-    @State var currentPage = 1
+    @State var currentPage = 0
     @State private var offset: CGSize = .zero
     @State var nickname: String = ""
     @State var profileImage: UIImage?
+    @Binding var isUserReady: Bool
+    
     var body: some View {
         ZStack{
             Image("img_background")
@@ -39,14 +41,18 @@ struct PageControlView: View {
                 
                 VStack {
                     if currentPage == 0 {
-                        SettingNicknameView(coreDM: CoreDataManager(), nickname: $nickname)
+
+                        SettingNicknameView(nickname: $nickname, currentPage:$currentPage)
+
                             
+
                     }
                     else if currentPage == 1 {
                         SettingProfileImageView(profileImage: $profileImage)
 
                     }
                     else {
+                        SettingKeywordView(nickname: $nickname, profileImage: $profileImage, isUserReady: $isUserReady)
 //                        Image("img_shooting")
                     }
                 }
@@ -117,6 +123,6 @@ struct pageControl : UIViewRepresentable {
 
 struct PageControlView_Previews: PreviewProvider {
     static var previews: some View {
-        PageControlView()
+        PageControlView(isUserReady: .constant(false))
     }
 }

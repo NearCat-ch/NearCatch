@@ -28,20 +28,7 @@ struct CustomSheetPreviewView: View {
         }
         // MARK: 주의!! 최상단 뷰에 넣어줘야 함!
         .customSheet(isPresented: $test) {
-            VStack(spacing: 20) {
-                Text("닉쿤님과 대화해보세요!".partialColor(["닉쿤"], .PrimaryColor))
-                
-                Spacer()
-                    
-                ProfilePicture(imageData: Data())
-                    .frame(width: 120, height: 120)
-                
-                Spacer()
-                
-                Text("우리들의 공통점")
-                    .font(.callout)
-            }
-            .frame(width: 300, height: 300)
+            Match(imageData: nil, nickName: "에반", keywords: [1, 2, 3])
         }
     }
 }

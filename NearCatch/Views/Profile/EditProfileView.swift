@@ -6,25 +6,41 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct EditProfileView: View {
-    @State var nickname:String
+    @Binding var nickname:String
     @Binding var profileImage: UIImage?
     @State var isPresented = false
+    @State var tempImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationView{
             ZStack{
                 Image("img_background")
-                    .edgesIgnoringSafeArea([.top])
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
                     Spacer()
                     ZStack{
                         Button(action: {
-                            withAnimation{
-                                self.isPresented.toggle()
+                            PHPhotoLibrary.requestAuthorization { (status) in
+                                if status == .authorized {
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
+                                else {
+                                    print("디나이")
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
                             }
+//
+//                            withAnimation{
+//                                self.isPresented.toggle()
+//                            }
                         }) {
                             if self.profileImage == nil {
                                 SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
@@ -33,11 +49,15 @@ struct EditProfileView: View {
                                 ZStack{
                                     Circle()
                                         .fill(.white.opacity(0.3))
-                                    Image(uiImage: self.profileImage!)
+                                    Image(uiImage: self.tempImage ?? UIImage())
                                         .resizable()
                                         .clipShape(Circle())
                                         .scaledToFill()
                                         .frame(width: 200, height: 200)
+                                        .onAppear{
+                                            self.tempImage = self.profileImage
+                                        }
+                                        
                                         
                                 }.frame(width: 190, height: 190)
                                     .padding(.top, 25)
@@ -49,10 +69,18 @@ struct EditProfileView: View {
                     VStack {
                         ZStack {
                             TextField("", text: $nickname)
+                                .placeholder(when:nickname.isEmpty){
+                                    Text("User Name")
+                                        .font(.custom("온글잎 의연체", size:34))
+                                        .foregroundColor(Color.white)
+                                        .opacity(0.3)
+                                }
+                                .limitText($nickname, to: 10)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
                                 .frame(width:200)
+                                .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
                             HStack{
                                 Spacer()
@@ -67,7 +95,6 @@ struct EditProfileView: View {
                                     }
                                 }
                             }
-                            
                         }
                         Rectangle()
                             .frame(width:260, height: 1)
@@ -80,14 +107,21 @@ struct EditProfileView: View {
                     Spacer()
                         .frame(height:180)
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            self.profileImage = self.tempImage
+                            CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
+                            CoreDataManager.coreDM.updateProfile()
+                            CoreDataManager.coreDM.readAllPicture()[0].content = profileImage
+                            CoreDataManager.coreDM.updateProfile()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
-                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.gray : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
+                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
                     Spacer()
                 }
                 .sheet(isPresented: $isPresented) {
-                    ImagePicker(profileImage: $profileImage, show: $isPresented)
+                    ImagePicker(profileImage: $tempImage, show: $isPresented)
                 }
             }
             .toolbar{
@@ -106,6 +140,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(nickname:"마이즈", profileImage: .constant(nil))
+        EditProfileView(nickname:.constant("마이즈"), profileImage: .constant(nil))
     }
 }

@@ -34,5 +34,7 @@ struct SharedCustomButton: View {
 struct SharedCustomButton_Previews: PreviewProvider {
     static var previews: some View {
         SharedCustomButton(icon: "icn_edit", circleSize: 50, color:Color.white, innerOpacity:0.5)
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }
