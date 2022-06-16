@@ -113,22 +113,7 @@ struct HomeView: View {
             }
         }
         .customSheet(isPresented: $niObject.isBumped) {
-            VStack(spacing: 20) {
-                Text("\(niObject.matchedName)님과 대화해보세요!"
-                    .partialColor(["\(niObject.matchedName)"],
-                                  .PrimaryColor))
-                
-                Spacer()
-                
-                ProfilePicture(imageData: Data())
-                    .frame(width: 120, height: 120)
-                
-                Spacer()
-                
-                Text("우리들의 공통점")
-                    .font(.callout)
-            }
-            .frame(width: 300, height: 300)
+            Match()
         }
     }
 }
