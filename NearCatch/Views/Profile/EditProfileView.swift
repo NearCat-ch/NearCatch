@@ -17,7 +17,8 @@ struct EditProfileView: View {
         NavigationView{
             ZStack{
                 Image("img_background")
-                    .edgesIgnoringSafeArea([.top])
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
                     Spacer()
                     ZStack{

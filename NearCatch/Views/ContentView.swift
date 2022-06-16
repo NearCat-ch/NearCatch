@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    let coreDM = CoreDataManager()
     @State private var nickname: [Profile] = [Profile]()
     @State private var profileImage: [Picture] = []
     @State private var keywords: [Keyword] = []
@@ -55,9 +54,9 @@ struct ContentView: View {
     
     
     private func populateProfiles() {
-        nickname = coreDM.readAllProfile()
-        profileImage = coreDM.readAllPicture()
-        keywords = coreDM.readKeyword()
+        nickname = CoreDataManager.coreDM.readAllProfile()
+        profileImage = CoreDataManager.coreDM.readAllPicture()
+        keywords = CoreDataManager.coreDM.readKeyword()
     }
 }
 

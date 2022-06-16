@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingNicknameView: View {
     
     @Binding var nickname: String
+    @Binding var currentPage: Int
     
     var body: some View {
         VStack{
@@ -36,6 +37,11 @@ struct SettingNicknameView: View {
             ZStack {
                 
                 TextField("",text: $nickname)
+                    .onSubmit {
+                        withAnimation{
+                            self.currentPage += 1
+                        }
+                    }
                     .placeholder(when: nickname.isEmpty) {
                         Text("User Name").foregroundColor(.white.opacity(0.5))
                     }
@@ -46,6 +52,7 @@ struct SettingNicknameView: View {
                     .multilineTextAlignment(.center)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
+                    
     //            Text("\(nickname)")
                 HStack{
                     Spacer()
@@ -96,6 +103,6 @@ extension View {
 
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingNicknameView(nickname: .constant(""))
+        SettingNicknameView(nickname: .constant(""), currentPage: .constant(0))
     }
 }
