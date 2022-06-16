@@ -20,12 +20,13 @@ struct PageControlView: View {
                 pageControl(current: $currentPage)
                 ZStack {
                     if currentPage == 0 {
-                        SettingNicknameView(coreDM: CoreDataManager(), nickname: $nickname)
+                        SettingNicknameView(nickname: $nickname)
                     }
                     else if currentPage == 1 {
 //                        Image("img_star_33px")
                     }
                     else {
+                        SettingKeywordView(nickname: $nickname)
 //                        Image("img_shooting")
                     }
                 }
