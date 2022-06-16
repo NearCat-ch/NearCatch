@@ -15,7 +15,8 @@ struct KeywordChangeView: View {
     var body: some View {
         ZStack {
             Image("img_background")
-                .edgesIgnoringSafeArea([.top])
+                .resizable()
+                .ignoresSafeArea()
             VStack{
                 Button(
                     action: {
