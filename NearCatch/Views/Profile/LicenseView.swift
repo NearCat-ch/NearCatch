@@ -13,7 +13,8 @@ struct LicenseView: View {
         NavigationView {
             ZStack {
                 Image("img_background")
-                    .edgesIgnoringSafeArea([.top])
+                    .resizable()
+                    .ignoresSafeArea()
                 VStack{
                     Spacer()
                         .frame(height:70)
