@@ -22,7 +22,7 @@ struct Tip<InnerView>: View where InnerView: View {
         .font(.body)
         .multilineTextAlignment(.center)
         .padding(.horizontal, 20)
-        .padding(.vertical, 40)
+        .padding(.vertical, 32)
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.ThirdColor)

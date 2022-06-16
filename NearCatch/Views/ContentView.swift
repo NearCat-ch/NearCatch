@@ -19,14 +19,19 @@ struct ContentView: View {
             HomeView()
             
             if !isContentReady {
-                LottieView(jsonName: "NearCatStanding")
-                    .background(Color.white.edgesIgnoringSafeArea(.all))
+                
+                Color.white.ignoresSafeArea(.all)
+                
+                LottieView(jsonName: "Splash")
+                    .frame(width: 120)
                     .transition(.opacity)
+                    .offset(y: -20)
+                
             }
             
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {withAnimation{isContentReady.toggle()}
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {withAnimation{isContentReady.toggle()}
             })
         }
     }

@@ -25,32 +25,48 @@ struct SettingNicknameView: View {
                 .foregroundColor(.white)
                 .font(.custom("온글잎 의연체", size: 24))
             Image("img_standing")
-                .padding(.bottom, 40.0)
+                .padding(.bottom, 20.0)
                 .padding(.top, 15)
-
-            TextField("",text: $nickname)
-                .placeholder(when: nickname.isEmpty) {
-                    Text("User Name").foregroundColor(.white)
+            
+            ZStack {
+                
+                TextField("",text: $nickname)
+                    .placeholder(when: nickname.isEmpty) {
+                        Text("User Name").foregroundColor(.white)
+                    }
+                    .limitText($nickname, to: 10)
+                    .foregroundColor(.white)
+                    .font(.custom("온글잎 의연체", size: 34))
+                    .frame(width: 200,height: 34)
+                    .multilineTextAlignment(.center)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+    //            Text("\(nickname)")
+                HStack{
+                    Spacer()
+                    Image("icn_cancle")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .onTapGesture {
+                            self.nickname = ""
+                        }
                 }
-                .limitText($nickname, to: 10)
-                .foregroundColor(.white)
-                .font(.custom("온글잎 의연체", size: 34))
-                .frame(width: 200,height: 34)
-                .multilineTextAlignment(.center)
-                .disableAutocorrection(true)
-                .autocapitalization(.none)
-//            Text("\(nickname)")
+                .frame(width: 250)
+                
+                
+            }
             Divider()
                 .frame(width: 250, height: 1)
                 .background(Color.white)
+
             
         }
     }
 }
 
-// Mark: placeholder 색상 변경을 위한 View 확장
+// Mark: 텍스트필드 placeholder 색상 변경, 텍스트필드 글자수 제한을 위한 View 확장
 extension View {
-    // placeholder 함수
+    // placeholder 설정 함수.
     func placeholder<Content: View>(
         when shouldShow: Bool,
         alignment: Alignment = .center,
@@ -62,6 +78,7 @@ extension View {
         }
     }
     
+    // 텍스트 필드 글자수 제한.
     func limitText(_ text: Binding<String>, to characterLimit: Int) -> some View {
             self
                 .onChange(of: text.wrappedValue) { _ in
@@ -70,6 +87,7 @@ extension View {
         }
     
 }
+
 
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {

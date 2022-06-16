@@ -8,22 +8,46 @@
 import SwiftUI
 
 struct PageControlView: View {
-    @State var currentPage = 0
+    @State var currentPage = 1
     @State private var offset: CGSize = .zero
     @State var nickname: String = ""
+    @State var profileImage: UIImage?
     var body: some View {
         ZStack{
             Image("img_background")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             VStack{
-                pageControl(current: $currentPage)
-                ZStack {
+                ZStack{
+                    pageControl(current: $currentPage)
+                        .frame(height: 30)
+                    if currentPage == 1{
+                        Button(action: {
+                            self.currentPage += 1
+                        }){
+                            VStack{
+                            }.frame(maxWidth: .infinity, idealHeight: 28)
+                            Text("건너뛰기")
+                                .multilineTextAlignment(.trailing)
+                                .padding(.trailing)
+                                .font(.custom("온글잎 의연체", size: 28))
+                                .foregroundColor(Color(red: 174/255, green: 174/255, blue: 178/255))
+                        }
+                    }
+                }
+                
+                
+                VStack {
                     if currentPage == 0 {
+
                         SettingNicknameView(nickname: $nickname)
+
+                            
+
                     }
                     else if currentPage == 1 {
-//                        Image("img_star_33px")
+                        SettingProfileImageView(profileImage: $profileImage)
+
                     }
                     else {
                         SettingKeywordView(nickname: $nickname)
@@ -42,7 +66,11 @@ struct PageControlView: View {
             .onEnded{
                 if $0.translation.width < -100 {
                     if self.currentPage < 3 {
-                        self.currentPage += 1
+                        withAnimation{
+                            self.currentPage += 1
+                        }
+                        
+                            
                     }
                     else {
                         self.offset = .zero
@@ -50,7 +78,9 @@ struct PageControlView: View {
                 }
                 else if $0.translation.width > 100 {
                     if self.currentPage > 0 {
-                        self.currentPage -= 1
+                        withAnimation{
+                            self.currentPage -= 1
+                        }
                     }
                     else {
                         self.offset = .zero
@@ -62,24 +92,7 @@ struct PageControlView: View {
                 
             }
         )
-        
-        
-//
-        
-//        VStack {
-//            TabView {
-//                SettingNicknameView()
-//                SettingNicknameView()
-//            }
-//            .tabViewStyle(.page)
-//            .indexViewStyle(.page(backgroundDisplayMode: .never))
-//            .background(.black)
-//        }
-        
     }
-    
-    
-    
 }
 
 

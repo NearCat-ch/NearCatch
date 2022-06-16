@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct SetView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView{
             ZStack{
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    HStack{
-                        Spacer()
-                            .frame(width:23)
-                        NavigationLink(destination: ProfileView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)})
-                        Spacer()
+                    Spacer()
+                        .frame(height:70)
+                    SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
+                    NavigationLink(destination:LicenseView(), label: {
+                        SettingButton(text:"라이센스")
+                    })
+                    
+                    Spacer()
+                }
+            }
+            .toolbar{
+                ToolbarItemGroup(placement:.navigationBarLeading) {
+                    Button {
+                    action: do { self.presentationMode.wrappedValue.dismiss() }
+                    } label:{
+                        SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
                     }
                 }
             }

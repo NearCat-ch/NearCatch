@@ -8,40 +8,56 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var nickname = "마이즈"
+    @State var nickname = "니어캣"
+    @State var profileImage: UIImage?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showingSheet = false
     var body: some View {
         NavigationView{
             ZStack{
                 Image("img_background")
                     .edgesIgnoringSafeArea([.top])
                 VStack{
-                    HStack{
-                        Spacer()
-                            .frame(width:23)
-                        NavigationLink(destination: ProfileView(), label: {SharedCustomButton(icon: "icn_chevron", circleSize:40, color:Color.white, innerOpacity:0.5)
-                        })
-                        Spacer()
-                    }
                     Spacer()
-                        .frame(height:40)
+                        .frame(height:70)
                     VStack{
                         ZStack{
-                            SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
+                            if self.profileImage == nil {
+                                SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
+                            }
+                            else {
+                                ZStack{
+                                    Circle()
+                                        .fill(.white.opacity(0.3))
+                                    Image(uiImage: self.profileImage!)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .scaledToFill()
+                                        .frame(width: 190, height: 190)
+                                }.frame(width: 215, height: 215)
+                                    .padding(.top, 25)
+                            }
                         }
                         Text(nickname)
                             .font(.custom("온글잎 의연체", size: 42))
                             .foregroundColor(.white)
-                    }.padding(EdgeInsets(top:0, leading:0, bottom:-20, trailing:0))
+                    }
                     HStack{
                         VStack{
-                            NavigationLink(destination: EditProfileView(), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: EditProfileView(nickname:nickname, profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("프로필 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
                         VStack{
-                            NavigationLink(destination: HomeView(), label: {SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
-                            })
+                            Button {
+                                self.showingSheet.toggle()
+                            } label:{
+                                SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
+                            }
+                            .sheet(isPresented: $showingSheet) {
+                                KeywordChangeView()
+                            }
                             Text("관심사 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.PrimaryColor)
@@ -52,15 +68,23 @@ struct ProfileView: View {
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
-                    }
+                    }.padding([.top], -20)
                     ProfileInterestCard()
-                        .padding(EdgeInsets(top:30, leading:0, bottom:-30, trailing:0))
+                        .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()
                 }
             }
-        }.navigationBarHidden(true)
-        
-        
+            .toolbar{
+                ToolbarItemGroup(placement:.navigationBarLeading) {
+                    Button {
+                    action: do { self.presentationMode.wrappedValue.dismiss() }
+                    } label:{
+                        SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
+                    }
+                }
+            }
+        }
+        .navigationBarHidden(true)
     }
 }
 

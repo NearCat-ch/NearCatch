@@ -12,9 +12,11 @@ struct NearCat: View {
     @Binding var state: GameState
     
     var body: some View {
+        
         switch state {
         case .ready:
-            EmptyView()
+            Color.white.opacity(0)
+                .frame(width: 0, height: 120)
         case .finding:
             LottieView(jsonName: "NearCatTelescope")
                 .frame(height: 120)
