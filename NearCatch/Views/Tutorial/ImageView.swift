@@ -25,6 +25,7 @@ struct ImageView: View {
                         .scaledToFill()
                 }
                 .clipped()
+                .contentShape(Rectangle())
                 
 //                .frame(height: 150)
 //                .scaledToFit()
