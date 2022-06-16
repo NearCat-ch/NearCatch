@@ -52,27 +52,53 @@ Insert gif or link to demo
 ## :sparkles: Skills & Tech Stack
 1.이슈관리 : Miro<br>
 2.형상관리 : Github<br>
-3.커뮤니케이션 : Ryver, Notion, Zoom<br>
-
+3.커뮤니케이션 : Ryver, Notion, Zoom
 4.개발환경
-- OS : MacOS(M1Pro)
-- IDE : Xcode 13.4.1<br>
-
+  - OS : MacOS(M1Pro)
+  - IDE : Xcode 13.4.1<br>
 5.상세사용
-- Application : SwiftUI
-- Design : Sketch, AfterEffect, Illustrator<br>
-
+  - Application : SwiftUI
+  - Design : Sketch, AfterEffect, Illustrator
 6.라이브러리
-- `swiftUI` 
-- `UIKit`
-- `NearbyInteraction`
-- `MultipeerConnectivity`
-- `Lottie`
-- `CoreData`
-- `CoreMotion`
-- `CoreHaptics`
-- `simd`
+  - `swiftUI`, `UIKit`, `NearbyInteraction`, `MultipeerConnectivity`, `Lottie`, `CoreData`, `CoreMotion`, `CoreHaptics`, `simd`
 
+
+## 🔀 Git
+
+1. Commit 컨벤션
+    - `feat` : 새로운 기능 추가
+    - `fix` : 버그 수정
+    - `docs` : 문서 (README, 포팅메뉴얼)
+    - `test` : 테스트 코드
+    - `refactor` : 코드 리팩토링 (기능 말고 성능 개선)
+    - `style` : 코드 의미에 영향을 주지 않는 변경 사항
+    - `chore` : 빌드, 설정 파일
+    - `comment` : 주석이 추가되는 경우.
+    
+2. 규칙
+    - 제목의 길이는 50글자를 넘기지 않는다
+    - 제목의 마지막에 마침표를 사용하지 않는다
+    - 본문을 작성할 때 한 줄에 72글자 넘기지 않는다
+    - 과거형을 사용하지 않는다
+    - 커밋 메시지는 **영어**로 작성한다   
+```bash
+feat: Summarize changes in around 50 characters or less
+
+This is a body part. Please describe the details of commit.
+```
+
+### 2. 브랜치
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be0c8072-fbb7-46d7-b8f7-4e42fd3dec2e/Untitled.png)
+
+  - master : 배포
+  - develop : 개발된 기능(feature)을 통합하는 브랜치
+  - docs : 문서작업 브랜치
+  - feature/[function name] : 각 기능별 개발을 진행하는 브랜치
+  - release/[version] : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
+  - hotfix/[version] : 배포한 것을 급하게 수정
+  - 띄어쓰기, 구분 필요한 경우 대쉬
+  
 ## :books: Documentation
 
 [Documentation](https://linktodocumentation)
