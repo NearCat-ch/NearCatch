@@ -38,19 +38,13 @@ struct HomeMainButton: View {
                     
                     Image("img_space")
                         .resizable()
-                        .frame(width: 190, height: 190)
+                        .padding()
                     
                     if state == .ready {
                         LottieView(jsonName: "NearCatStanding")
-                            .frame(height: 230)
                             .offset(y: 10)
-                        
                     } else {
                         LottieView(jsonName: "Star", loopMode: .loop)
-//                        Image("img_stars")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 93, height: 93)
                     }
                                 
                     Image("img_bubble_197px")
@@ -58,6 +52,7 @@ struct HomeMainButton: View {
                 .frame(width: 220, height: 220)
             }
         }
+        .offset(y: -120)
     }
 }
 

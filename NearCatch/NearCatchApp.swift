@@ -12,8 +12,8 @@ struct NearCatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            PageControlView()
-//            ContentView()
+            ContentView()
+                .preferredColorScheme(.dark)
         }
     }
 }

@@ -92,7 +92,7 @@ struct CustomSheetViewModifier<InnerContent: View>: ViewModifier {
             content
             ZStack(alignment: .center) {
                 if isPresented {
-                    Color.black.opacity(0.2)
+                    Color.black.opacity(0.5)
                         .ignoresSafeArea()
                         .onTapGesture {
                             withAnimation(.spring()) {

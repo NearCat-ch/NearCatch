@@ -15,14 +15,16 @@ struct HomeView: View {
     
     @State var isLaunched = true
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         NavigationView{
-            ZStack() {
+            ZStack {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
                 
                 LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 
                 if isLocalNetworkPermissionDenied || niObject.isPermissionDenied {
                     PermissionCheckView()
@@ -43,61 +45,41 @@ struct HomeView: View {
                             }
                         }
                         
-                        VStack(spacing: 24) {
+                        VStack {
+                            Spacer()
+                                .frame(height: 120 + 54)
+                            
                             switch niObject.gameState {
                             case .ready:
-                                HomeMainButton(state: $niObject.gameState) {
-                                    niObject.start()
-                                    niObject.gameState = .finding
-                                    if isLaunched {
-                                        localNetAuth.requestAuthorization { auth in
-                                            isLocalNetworkPermissionDenied = !auth
-                                        }
-                                        isLaunched = false
-                                    }
-                                }
                                 Text("니어캣을 눌러서\n새로운 인연을 찾아보세요!")
                                     .font(.custom("온글잎 의연체", size: 28))
                                     .multilineTextAlignment(.center)
                             case .finding:
-                                HomeMainButton(state: $niObject.gameState) {
-                                    niObject.stop()
-                                    niObject.gameState = .ready
-                                }
                                 StarBubble(count: niObject.peersCnt)
                             case .found:
-                                HomeMainButton(state: $niObject.gameState) {
-                                    niObject.stop()
-                                    niObject.gameState = .ready
-                                }
+                                HeartBubble()
                             }
                         }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-            }
-            .customSheet(isPresented: $niObject.isBumped) {
-                VStack(spacing: 20) {
-                    Text("\(niObject.matchedName)님과 대화해보세요!"
-                        .partialColor(["\(niObject.matchedName)"],
-                                      .PrimaryColor))
-                    
-                    Spacer()
-                        
-                    ProfilePicture(imageData: Data())
-                        .frame(width: 120, height: 120)
-                    
-                    Spacer()
-                    
-                    Text("우리들의 공통점")
-                        .font(.callout)
-                }
-                .frame(width: 300, height: 300)
-            }
-            .onChange(of: scenePhase) { newValue in
-                if !isLaunched {
-                    localNetAuth.requestAuthorization { auth in
-                        isLocalNetworkPermissionDenied = !auth
+                
+                HomeMainButton(state: $niObject.gameState) {
+                    switch niObject.gameState {
+                    case .ready:
+                        niObject.start()
+                        niObject.gameState = .finding
+                        if isLaunched {
+                            localNetAuth.requestAuthorization { auth in
+                                isLocalNetworkPermissionDenied = !auth
+                            }
+                            isLaunched = false
+                        }
+                    case .finding:
+                        niObject.stop()
+                        niObject.gameState = .ready
+                    case .found:
+                        niObject.stop()
+                        niObject.gameState = .ready
                     }
                 }
             }
@@ -109,12 +91,37 @@ struct HomeView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
+        .onChange(of: scenePhase) { newValue in
+            if !isLaunched {
+                localNetAuth.requestAuthorization { auth in
+                    isLocalNetworkPermissionDenied = !auth
+                }
+            }
+        }
+        .customSheet(isPresented: $niObject.isBumped) {
+            VStack(spacing: 20) {
+                Text("\(niObject.matchedName)님과 대화해보세요!"
+                    .partialColor(["\(niObject.matchedName)"],
+                                  .PrimaryColor))
+                
+                Spacer()
+                
+                ProfilePicture(imageData: Data())
+                    .frame(width: 120, height: 120)
+                
+                Spacer()
+                
+                Text("우리들의 공통점")
+                    .font(.callout)
+            }
+            .frame(width: 300, height: 300)
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .preferredColorScheme(.dark)
     }
 }

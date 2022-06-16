@@ -3,6 +3,8 @@ See LICENSE folder for this sample’s licensing information.
 
 Abstract:
 A math utility method to scale to a range based on a domain.
+ 
+Edited by Wonhyuk Choi on 2022/06/09.
 */
 import simd
 
