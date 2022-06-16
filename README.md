@@ -4,11 +4,12 @@
 # :iphone: Near Catch 니어 캐치
 
 닉네임과 관심사를 등록하고 다양한 사람들과 어울려 친해질수 있는 환경에서 함께 즐길 수 있는 아이스 브레이킹 용 Gamification App입니다.
+> WWDC20 에서 발표한 Nearbyinteraction을 사용한 어플리케이션입니다. 동일한 와이파이 환경에서는 거리제한이 없고, 와이파이가 없는 환경에서는 사용자와 상대방 디바이스가 9미터 이내에 들어왔을때 서로의 관심사를 비교합니다. 이후 관심사가 일치하는 항목이 3개 이상일때 진동으로 앱 사용자에게 알려주고, 두 사람이 가까이서  스마트폰을 서로 교차하면 공통 키워드가 모달형식으로 뜹니다. 
 
 1. For What `Situation`
 - 다수의 아이폰 사용자가 처음 만나 어색한 자리
 - 애플 아카데미의 각종 행사
-- 개발자 컨퍼런스
+- iOS 개발자 컨퍼런스
 - `WWDC`
 
 2. `Who` it's for
@@ -27,7 +28,7 @@
 
 ## :people_hugging: Authors
 
-- [@김예훈](https://github.com/eraser3031) | [@류현선](https://www.github.com/hu-ryu) | [@이준영](https://github.com/User-Lawn) | [@조현민](https://github.com/uudquark) | [@최원혁](https://github.com/DevLuce) | [@황찬기](https://github.com/DevMizeKR)
+- [@김예훈](https://github.com/eraser3031) | [@류현선](https://www.github.com/hs-ryu) | [@이준영](https://github.com/User-Lawn) | [@조현민](https://github.com/uudquark) | [@최원혁](https://github.com/DevLuce) | [@황찬기](https://github.com/DevMizeKR)
 
 
 ## :framed_picture: Demo
@@ -49,15 +50,25 @@ Insert gif or link to demo
 
 
 ## :sparkles: Skills & Tech Stack
-`swiftUI` 
-`UIKit`
-`NearbyInteraction`
-`MultipeerConnectivity`
-`Lottie`
-`CoreData`
-`CoreMotion`
-`CoreHaptics`
-`simd`
+1.이슈관리 : Miro
+2.형상관리 : Github
+3.커뮤니케이션 : Ryver, Notion, Zoom
+4.개발환경
+- OS : MacOS(M1Pro)
+- IDE : Xcode 13.4.1
+5.상세사용
+- Application : SwiftUI
+- Design : Sketch, AfterEffect, Illustrator
+6.라이브러리
+- `swiftUI` 
+- `UIKit`
+- `NearbyInteraction`
+- `MultipeerConnectivity`
+- `Lottie`
+- `CoreData`
+- `CoreMotion`
+- `CoreHaptics`
+- `simd`
 
 ## :books: Documentation
 
