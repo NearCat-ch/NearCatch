@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfilePicture: View {
     
     // 미확정
-    var imageData: Data
+    var imageData: UIImage
     
     var body: some View {
         ZStack {
@@ -20,7 +20,7 @@ struct ProfilePicture: View {
             Circle()
                 .stroke(.white.opacity(0.5), lineWidth: 16)
             
-            if let uiImage = UIImage(data: imageData) {
+            if let uiImage = imageData {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
@@ -39,7 +39,7 @@ struct ProfilePicture: View {
 
 struct ProfilePicture_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePicture(imageData: Data())
+        ProfilePicture(imageData: .add)
             .frame(width: 120, height: 120)
             .preferredColorScheme(.dark)
             .padding(50)

@@ -17,12 +17,14 @@ class TranData: NSObject, NSCoding {
     let isBumped : Bool
     let keywords : [Int]
     let nickname : String
+    let image : UIImage
     
-    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "") {
+    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "", image : UIImage = .add) {
         self.token = token
         self.isBumped = isBumped
         self.keywords = keywords
         self.nickname = nickname
+        self.image = image
     }
     
     func encode(with coder: NSCoder) {
@@ -30,6 +32,7 @@ class TranData: NSObject, NSCoding {
         coder.encode(self.isBumped, forKey: "isMatched")
         coder.encode(self.keywords, forKey: "keywords")
         coder.encode(self.nickname, forKey: "nickname")
+        coder.encode(self.image, forKey: "image")
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +40,7 @@ class TranData: NSObject, NSCoding {
         self.isBumped = coder.decodeBool(forKey: "isMatched")
         self.nickname = coder.decodeObject(forKey: "nickname") as! String
         self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
+        self.image = coder.decodeObject(forKey: "image") as! UIImage
     }
 }
 
@@ -56,11 +60,14 @@ class NISessionManager: NSObject, ObservableObject {
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     let hapticManager = HapticManager()
     
-    //MARK: 하드 코딩
-    var matchedName = ""
-    let myNickname = "빅썬"
-    let myKeywords: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] // 하드 코딩
-
+    @Published var matchedName = ""
+    @Published var matchedKeywords : [Int] = []
+    @Published var matchedImage : UIImage?
+    
+    @Published var myNickname : String = ""
+    @Published var myKeywords : [Int] = []
+    @Published var myPicture : UIImage?
+    
     override init() {
         super.init()
     }
@@ -174,6 +181,7 @@ class NISessionManager: NSObject, ObservableObject {
             self.isBumped = true
             gameState = .ready
             matchedName = receivedData.nickname
+            matchedImage = receivedData.image
             shareMyData(token: receivedData.token, peer: peer)
             stop()
         } else { // 일반 전송
@@ -194,7 +202,7 @@ class NISessionManager: NSObject, ObservableObject {
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname)
+        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: myPicture ?? .add)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             fatalError("Unexpectedly failed to encode discovery token.")
@@ -321,10 +329,14 @@ extension NISessionManager {
             let withCurCnt : Int = calMatchingKeywords(myKeywords, nowTranData.keywords)
             let withNewCnt : Int = calMatchingKeywords(myKeywords, data.keywords)
             
-            self.matchedObject = withCurCnt < withNewCnt ? data : nowTranData
+            if withCurCnt < withNewCnt {
+                self.matchedObject = data
+                matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
+            }
             
         } else {
             self.matchedObject = data
+            matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             gameState = .found
         }
         

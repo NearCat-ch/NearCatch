@@ -11,12 +11,14 @@ import SwiftUI
 struct Keywords: View {
     var tagData : TagViewModel
     var tags : [Tag]
+    let keywords : [Int]
     
-    init() {
+    init(keywords : [Int]) {
         tagData = TagViewModel()
         tags = []
-        for i in 0...9 {
-            tags.append(tagData.Tags[i])
+        self.keywords = keywords
+        for keyword in keywords {
+            tags.append(tagData.Tags[keyword])
         }
     }
     
@@ -106,6 +108,6 @@ extension UIFont {
 
 struct Keywords_Previews: PreviewProvider {
     static var previews: some View {
-        Keywords()
+        Keywords(keywords: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
 }

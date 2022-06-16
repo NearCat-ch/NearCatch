@@ -28,7 +28,7 @@ struct CustomSheetPreviewView: View {
         }
         // MARK: 주의!! 최상단 뷰에 넣어줘야 함!
         .customSheet(isPresented: $test) {
-            Match()
+            Match(imageData: nil, nickName: "에반", keywords: [1, 2, 3])
         }
     }
 }
