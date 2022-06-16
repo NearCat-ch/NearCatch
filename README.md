@@ -41,12 +41,12 @@ Insert gif or link to demo
 | 닉네임 설정 | 관심사 저장 | Home |
 |:---:|:---:|:---:|
 |![App Screenshot](https://user-images.githubusercontent.com/74142881/173845513-cb0707fd-6432-4818-b29c-6e98c53c5015.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845509-1b33de95-3e87-4ab2-bd0b-5bda5d53bbb4.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845502-ac5fe7f8-ce3e-40e7-a974-b2b248fb08a3.png)|
+
 <br>
+
 | 니어캣 탐색 중 | 니어캣 탐색 완료 | 공통 관심사 모달 |
 |:---:|:---:|:---:|
 |![App Screenshot](https://user-images.githubusercontent.com/74142881/173845517-a7926515-d480-4ef2-8fee-33c0ed2b20e3.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845489-8a10572b-86b3-48df-b407-6dde962e5a13.png)|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845505-2cd0a6b2-f64c-483e-b340-bd6d0d48a6a4.png)|
-
-
 
 ## :sparkles: Skills & Tech Stack
 1. 이슈관리 : Miro
@@ -59,7 +59,7 @@ Insert gif or link to demo
 - Application : SwiftUI
 - Design : Sketch, AfterEffect, Illustrator<br>
 6. 라이브러리
-```swiftUI
+```swift
 import swiftUI
 import UIKit
 import NearbyInteraction
