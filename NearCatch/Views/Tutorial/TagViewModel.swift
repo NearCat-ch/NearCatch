@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct Tag {
+struct Tag: Identifiable, Hashable {
+    var id: Int {
+        self.index
+    }
+    
     var index: Int
     var name: String
     var isSelected: Bool = false
