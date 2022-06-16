@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State var nickname = "니어캣"
+    @State var nickname: String
     @State var profileImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showingSheet = false
@@ -91,6 +91,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(nickname: "니어캣")
     }
 }
