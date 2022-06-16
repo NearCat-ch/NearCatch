@@ -193,7 +193,7 @@ struct SettingKeywordView: View {
             Spacer()
             
             // 관심사 저장버튼
-            Button("관심사 저장", action: {
+            Button{
                 CoreDataManager.coreDM.createProfile(nickname: nickname)
                 if let profileImage = profileImage {
                     CoreDataManager.coreDM.createPicture(content: profileImage)
