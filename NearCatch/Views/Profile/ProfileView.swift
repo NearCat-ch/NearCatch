@@ -22,8 +22,6 @@ struct ProfileView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack{
-                    Spacer()
-                        .frame(height:70)
                     VStack{
                         ZStack{
                             if self.profileImage == nil {
@@ -57,7 +55,7 @@ struct ProfileView: View {
                             Button {
                                 self.showingSheet.toggle()
                             } label:{
-                                SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
+                                SharedCustomButton(icon: "img_star_58px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
                             }
                             .sheet(isPresented: $showingSheet) {
                                 KeywordChangeView(keywords: Binding(get: {keywords ?? []}, set: {keywords = $0}))
@@ -73,7 +71,7 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                     }.padding([.top], -20)
-                    ProfileInterestCard()
+                    ProfileInterestCard(keywords: keywords ?? [])
                         .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()
                 }

@@ -34,7 +34,7 @@ struct SettingKeywordView: View {
                 .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
             Spacer()
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 VStack(alignment: .leading){
                     HStack{
                         ForEach(0..<14, id: \.self) { i in
