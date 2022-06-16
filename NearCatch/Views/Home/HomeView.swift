@@ -32,16 +32,20 @@ struct HomeView: View {
                     ZStack {
                         VStack {
                             Spacer()
-                            if niObject.gameState == .finding {
-                                Tip {
-                                    VStack {
-                                        Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .PrimaryColor))
-                                        Text("니어캣이 진동으로 인연의 별을 알려드릴 거에요".partialColor(["니어캣"], .PrimaryColor))
+                            ZStack {
+                                if niObject.gameState == .finding {
+                                    Tip {
+                                        VStack {
+                                            Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .PrimaryColor))
+                                            Text("니어캣이 진동으로 인연의 별을 알려드릴 거에요".partialColor(["니어캣"], .PrimaryColor))
+                                        }
+                                        .font(.custom("온글잎 의연체", size: 28))
+                                        .frame(maxWidth: .infinity)
                                     }
-                                    .font(.custom("온글잎 의연체", size: 28))
-                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .transition(.move(edge: .bottom))
+                                    .animation(.interactiveSpring(), value: niObject.gameState)
                                 }
-                                .padding()
                             }
                         }
                         
@@ -109,22 +113,7 @@ struct HomeView: View {
             }
         }
         .customSheet(isPresented: $niObject.isBumped) {
-            VStack(spacing: 20) {
-                Text("\(niObject.matchedName)님과 대화해보세요!"
-                    .partialColor(["\(niObject.matchedName)"],
-                                  .PrimaryColor))
-                
-                Spacer()
-                
-                ProfilePicture(imageData: Data())
-                    .frame(width: 120, height: 120)
-                
-                Spacer()
-                
-                Text("우리들의 공통점")
-                    .font(.callout)
-            }
-            .frame(width: 300, height: 300)
+            Match()
         }
     }
 }

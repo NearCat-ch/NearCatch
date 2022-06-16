@@ -8,21 +8,24 @@
 import SwiftUI
 
 struct Match: View {
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("다음 주제로 대화해보세요!".partialColor(["다음 주제로"], .PrimaryColor))
-                .font(.custom("온글잎 의연체", size: 34))
-            
-            ZStack {
-                ProfilePicture(imageData: Data())
-                    .frame(width: 120, height: 120)
-                LottieView(jsonName: "Fireworks")
+        ZStack {
+            VStack(spacing: 25) {
+                Text("다음 주제로 대화해보세요!".partialColor(["다음 주제로"], .PrimaryColor))
+                    .font(.custom("온글잎 의연체", size: 34))
+                    ProfilePicture(imageData: Data())
+                        .frame(width: 120, height: 120)
+                
+                Text("우리들의 공통점")
+                    .font(.custom("온글잎 의연체", size: 22))
+                
+                Keywords()
             }
-            
-            Text("우리들의 공통점")
-                .font(.custom("온글잎 의연체", size: 22))
+            LottieView(jsonName: "Fireworks")
+                .frame(height: 400)
         }
-        .frame(width: 300, height: 300)
+        .padding()
     }
 }
 
