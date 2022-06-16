@@ -15,6 +15,7 @@
 		0E6D4DE32859897B0099DCED /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D4DE22859897B0099DCED /* ImageView.swift */; };
 		0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */; };
 		0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74F2851E2AF0081C832 /* PageControlView.swift */; };
+		0EC3BB86285B46C00069C5C6 /* UserCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */; };
 		164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A722854C43800CA8B0A /* MathUtilities.swift */; };
 		164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A742854C47400CA8B0A /* NISessionManager.swift */; };
 		164A4A782854C4DC00CA8B0A /* MPCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A772854C4DC00CA8B0A /* MPCSession.swift */; };
@@ -82,6 +83,7 @@
 		0E6D4DE22859897B0099DCED /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNicknameView.swift; sourceTree = "<group>"; };
 		0EBDD74F2851E2AF0081C832 /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
+		0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheckViewModel.swift; sourceTree = "<group>"; };
 		164A4A722854C43800CA8B0A /* MathUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		164A4A742854C47400CA8B0A /* NISessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NISessionManager.swift; sourceTree = "<group>"; };
 		164A4A772854C4DC00CA8B0A /* MPCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				1674F8892851D016006BC61A /* TestModel.swift */,
+				0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				6FCBC39A28587A5100A1D7D1 /* LicenseView.swift in Sources */,
 				21F1AD33285336720016185A /* Bubble.swift in Sources */,
 				0E5F2834285469CC00A625DF /* SettingProfileImageView.swift in Sources */,
+				0EC3BB86285B46C00069C5C6 /* UserCheckViewModel.swift in Sources */,
 				71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */,
 				219F895E2854DE93003AF02A /* PermissionCheckView.swift in Sources */,
 				0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */,
@@ -641,7 +645,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SJ8XJ2NSA;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -674,7 +678,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 4SJ8XJ2NSA;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
