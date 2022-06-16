@@ -57,7 +57,7 @@ struct ProfileView: View {
                             Button {
                                 self.showingSheet.toggle()
                             } label:{
-                                SharedCustomButton(icon: "img_star_33px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
+                                SharedCustomButton(icon: "img_star_58px", circleSize:50, color:Color.PrimaryColor, innerOpacity:1)
                             }
                             .sheet(isPresented: $showingSheet) {
                                 KeywordChangeView(keywords: Binding(get: {keywords ?? []}, set: {keywords = $0}))
