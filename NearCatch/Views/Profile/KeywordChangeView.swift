@@ -170,7 +170,7 @@ struct KeywordChangeView: View {
                             }
                         }
                         HStack{
-                            ForEach(75..<86, id: \.self) { i in
+                            ForEach(75..<87, id: \.self) { i in
                                 Button(action: {
                                     
                                     if tagData.Tags[i].isSelected == true {

@@ -104,7 +104,8 @@ class TagViewModel : ObservableObject {
             Tag(index: 82, name: "자전거"),
             Tag(index: 83, name: "재테크"),
             Tag(index: 84, name: "크로스핏"),
-            Tag(index: 85, name: "리그 오브 레전드")
+            Tag(index: 85, name: "리그 오브 레전드"),
+            Tag(index: 86, name: "참뼈")
             
 
 

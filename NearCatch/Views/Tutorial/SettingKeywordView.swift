@@ -166,7 +166,7 @@ struct SettingKeywordView: View {
                         }
                     }
                     HStack{
-                        ForEach(75..<86, id: \.self) { i in
+                        ForEach(75..<87, id: \.self) { i in
                             Button(action: {
                                 
                                 if tagData.Tags[i].isSelected == true {
@@ -203,7 +203,7 @@ struct SettingKeywordView: View {
                     coreDM.createPicture(content: x)
                 }
                 var tempList : [Int] = []
-                for i in 0 ..< 86 {
+                for i in 0 ..< 87 {
                     if tagData.Tags[i].isSelected == true {
                         tempList.append(tagData.Tags[i].index)
                     }
