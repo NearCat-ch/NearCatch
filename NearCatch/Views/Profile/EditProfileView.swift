@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EditProfileView: View {
     @State var nickname:String
+    @Binding var profileImage: UIImage?
+    @State var isPresented = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -19,7 +21,28 @@ struct EditProfileView: View {
                 VStack{
                     Spacer()
                     ZStack{
-                        SharedCustomButton(icon:"icn_img", circleSize:191, color:Color.white, innerOpacity:1)
+                        Button(action: {
+                            withAnimation{
+                                self.isPresented.toggle()
+                            }
+                        }) {
+                            if self.profileImage == nil {
+                                SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
+                            }
+                            else {
+                                ZStack{
+                                    Circle()
+                                        .fill(.white.opacity(0.3))
+                                    Image(uiImage: self.profileImage!)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .scaledToFill()
+                                        .frame(width: 200, height: 200)
+                                        
+                                }.frame(width: 190, height: 190)
+                                    .padding(.top, 25)
+                            }
+                        }
                     }
                     Spacer()
                         .frame(height:50)
@@ -61,8 +84,10 @@ struct EditProfileView: View {
                     } label:{
                         SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.gray : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
-                    
                     Spacer()
+                }
+                .sheet(isPresented: $isPresented) {
+                    ImagePicker(profileImage: $profileImage, show: $isPresented)
                 }
             }
             .toolbar{
@@ -81,6 +106,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(nickname:"마이즈")
+        EditProfileView(nickname:"마이즈", profileImage: .constant(nil))
     }
 }

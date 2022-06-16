@@ -9,9 +9,14 @@ import SwiftUI
 
 struct SettingKeywordView: View {
     
+    let coreDM =  CoreDataManager()
+    @Binding var nickname: String
+    
     @StateObject var tagData = TagViewModel()
     @ObservedObject var togglecount = ToggleCount()
     @State var tag:Int? = nil
+    
+    
     var isDisabledButton: Bool = true
     
     var body: some View {
@@ -184,7 +189,7 @@ struct SettingKeywordView: View {
 // 관심사 저장버튼
             Button("관심사 저장", action: {
                 
-                
+                coreDM.createProfile(nickname: nickname)
                 
             }).foregroundColor(.black)
                 .padding(.horizontal, 30).padding(.vertical, 10)
@@ -221,17 +226,9 @@ struct TagViewModifier: ViewModifier {
     }
 }
 
-//extension Text {
-//    func tagView(_: Color, _: Color) -> some View {
-//        self.foregroundColor()
-//            .padding()
-//            .background(Capsule())
-//            .fill()
-//    }
-//}
 
 struct SettingKeywordView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingKeywordView()
+        SettingKeywordView(nickname: .constant("sad"))
     }
 }

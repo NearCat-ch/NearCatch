@@ -59,16 +59,19 @@ struct ImagePicker: View {
                     
                     //                        }
                 }
-                
-                
             }
             else {
                 // 설정이 deny 되었을때
                 if self.disabled{
-                    Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
-                        .font(.custom("온글잎 의연체", size: 20))
-                    Text("Setting에서 권한 설정을 변경해주세요")
-                        .font(.custom("온글잎 의연체", size: 30))
+                    VStack{
+                        Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
+                            .font(.custom("온글잎 의연체", size: 20))
+                        Text("Setting에서 권한 설정을 변경해주세요")
+                            .font(.custom("온글잎 의연체", size: 30))
+                    }
+                    
+                    ImagePermissionInfoView()
+                        .frame(height: UIScreen.main.bounds.height * 3 / 4)
                 }
                 else {
                     // 선택된 사진이 한장도 없을때!
@@ -77,6 +80,9 @@ struct ImagePicker: View {
                             .font(.custom("온글잎 의연체", size: 30))
                         Text("사진을 추가해 주세요!")
                             .font(.custom("온글잎 의연체", size: 20))
+                        
+                        NoImageInfoView()
+                            .frame(height: UIScreen.main.bounds.height * 3 / 4)
                     }
                 }
                 
