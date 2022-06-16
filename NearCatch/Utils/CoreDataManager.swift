@@ -11,6 +11,8 @@ import CoreData
 import UIKit
 
 class CoreDataManager {
+    
+    static let coreDM = CoreDataManager()
 
     let persistentContainer: NSPersistentContainer
 
