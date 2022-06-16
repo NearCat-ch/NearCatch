@@ -52,7 +52,7 @@ struct HomeMainButton: View {
                 .frame(width: 220, height: 220)
             }
         }
-        .offset(y: -120+54)
+        .offset(y: -120)
     }
 }
 
