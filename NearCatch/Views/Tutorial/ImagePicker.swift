@@ -4,21 +4,22 @@ import SwiftUI
 struct ImagePicker: View {
     
     private let threeColumnGrid = [
-            GridItem(.flexible(minimum: 40), spacing: 2),
-            GridItem(.flexible(minimum: 40), spacing: 2),
-            GridItem(.flexible(minimum: 40), spacing: 2),
-        ]
+        GridItem(.flexible(minimum: 40), spacing: 2),
+        GridItem(.flexible(minimum: 40), spacing: 2),
+        GridItem(.flexible(minimum: 40), spacing: 2),
+    ]
     
     @Binding var profileImage: UIImage?
     @Binding var show: Bool
     @State var tempImage: Img?
     @State var disabled = true
     @State var grid : [Img] = []
+    @State var startNoImageView: Bool = false
     //    @State var selectedid =
     
     var body: some View {
         VStack {
-            // 만약 선택된 사진들이 없다면?
+            // 만약 선택된 사진들이 있다면?
             if !self.grid.isEmpty{
                 HStack{
                     Button(action: {
@@ -47,15 +48,15 @@ struct ImagePicker: View {
                     // 수정중
                     LazyVGrid(columns: threeColumnGrid, alignment: .leading, spacing: 2) {
                         ForEach(0..<self.grid.count, id: \.self) { i in
-    //                        HStack{
-                                ImageView(data: $grid[i], tempImage: $tempImage, grid: $grid)
-//                                .frame(height: 200)
-
-    //                        }
+                            //                        HStack{
+                            ImageView(data: $grid[i], tempImage: $tempImage, grid: $grid)
+                            //                                .frame(height: 200)
+                            
+                            //                        }
                         }
                     }
                     
-
+                    
                     
                     //                        }
                 }
@@ -68,21 +69,62 @@ struct ImagePicker: View {
                             .font(.custom("온글잎 의연체", size: 20))
                         Text("Setting에서 권한 설정을 변경해주세요")
                             .font(.custom("온글잎 의연체", size: 30))
+                        
+                        ImagePermissionInfoView()
+                        //                            .scaledToFit()
+                            .frame(height: UIScreen.main.bounds.height * 2 / 4)
+                        Button {
+                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                            }
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(Color.PrimaryColor)
+                                    .frame(maxWidth: .infinity).frame(height: 50)
+                                
+                                Text("설정 바로가기")
+                                    .foregroundColor(.black)
+                                    .font(.custom("온글잎 의연체", size: 28))
+                            }
+                        }
+                        .padding(.top,30)
+                        .padding(.leading,20)
+                        .padding(.trailing,20)
                     }
                     
-                    ImagePermissionInfoView()
-                        .frame(height: UIScreen.main.bounds.height * 3 / 4)
+                    
                 }
+                // 권한 accept 했다면?
                 else {
                     // 선택된 사진이 한장도 없을때!
                     if self.grid.count == 0{
+                        
                         Text("선택된 사진이 없습니다.")
                             .font(.custom("온글잎 의연체", size: 30))
                         Text("사진을 추가해 주세요!")
                             .font(.custom("온글잎 의연체", size: 20))
-                        
                         NoImageInfoView()
-                            .frame(height: UIScreen.main.bounds.height * 3 / 4)
+                        //                            .scaledToFit()
+                            .frame(height: UIScreen.main.bounds.height * 2 / 4)
+                        Button {
+                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                            }
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(Color.PrimaryColor)
+                                    .frame(maxWidth: .infinity).frame(height: 50)
+                                
+                                Text("설정 바로가기")
+                                    .foregroundColor(.black)
+                                    .font(.custom("온글잎 의연체", size: 28))
+                            }
+                        }
+                        .padding(.top,30)
+                        .padding(.leading,20)
+                        .padding(.trailing,20)
                     }
                 }
                 
@@ -117,7 +159,7 @@ struct ImagePicker: View {
                 
                 if i < req.count {
                     // 원본 화질로 하면, 보기는 좋지만 로딩되는 시간때문에 체크가 풀린다.
-//                    PHCachingImageManager.default().requestImage(for: req[i], targetSize: .init(), contentMode: .default, options: options) { (image,_) in
+                    //                    PHCachingImageManager.default().requestImage(for: req[i], targetSize: .init(), contentMode: .default, options: options) { (image,_) in
                     PHCachingImageManager.default().requestImage(for: req[i], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image,_) in
                         let data = Img(image: image!, selected: false, asset: req[i])
                         iteration.append(data)

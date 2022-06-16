@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingKeywordView: View {
     
-    let coreDM =  CoreDataManager()
     @Binding var nickname: String
     @Binding var profileImage: UIImage?
     
@@ -194,13 +193,13 @@ struct SettingKeywordView: View {
             Spacer()
             
             // 관심사 저장버튼
-            Button{
-                coreDM.createProfile(nickname: nickname)
+            Button("관심사 저장", action: {
+                CoreDataManager.coreDM.createProfile(nickname: nickname)
                 if let profileImage = profileImage {
-                    coreDM.createPicture(content: profileImage)
+                    CoreDataManager.coreDM.createPicture(content: profileImage)
                 } else {
                     let x = UIImage(named: "img_sunglass_68px")!
-                    coreDM.createPicture(content: x)
+                    CoreDataManager.coreDM.createPicture(content: x)
                 }
                 var tempList : [Int] = []
                 for i in 0 ..< 87 {
@@ -208,7 +207,7 @@ struct SettingKeywordView: View {
                         tempList.append(tagData.Tags[i].index)
                     }
                 }
-                coreDM.createKeyword(favorite: tempList)
+                CoreDataManager.coreDM.createKeyword(favorite: tempList)
                 //                    print(tempList)
                 self.isUserReady = true
             } label:{
