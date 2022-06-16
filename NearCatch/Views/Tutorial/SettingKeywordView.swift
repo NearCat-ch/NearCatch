@@ -27,8 +27,12 @@ struct SettingKeywordView: View {
         VStack {
             Spacer()
             Text("관심사를 선택해주세요!").font(.custom("온글잎 의연체", size: 34))
-            Text("최소 5개 이상 선택해야 해요!").font(.custom("온글잎 의연체", size: 22))
-            Text("\(togglecount.keywordCounter) / 10").font(.custom("온글잎 의연체", size: 34))
+            Text("최소 5개 이상 선택해야 해요!")
+                .font(.custom("온글잎 의연체", size: 22))
+                .foregroundColor((togglecount.keywordCounter < 5) ? Color.red : Color.white)
+            Text("\(togglecount.keywordCounter) / 10")
+                .font(.custom("온글잎 의연체", size: 34))
+                .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
             Spacer()
             
             ScrollView(.horizontal) {
@@ -185,12 +189,12 @@ struct SettingKeywordView: View {
                             
                         }
                     }
-                }
+                }.padding([.leading, .trailing], 20)
             }
             Spacer()
             
             // 관심사 저장버튼
-            Button("관심사 저장", action: {
+            Button{
                 coreDM.createProfile(nickname: nickname)
                 if let profileImage = profileImage {
                     coreDM.createPicture(content: profileImage)
@@ -207,11 +211,9 @@ struct SettingKeywordView: View {
                 coreDM.createKeyword(favorite: tempList)
                 //                    print(tempList)
                 self.isUserReady = true
-                            
-            }).foregroundColor(.black)
-                .padding(.horizontal, 30).padding(.vertical, 10)
-                .background(RoundedRectangle(cornerRadius: 12).fill(Color.PrimaryColor))
-                .shadow(radius: 1)
+            } label:{
+                SharedRectangularButton(rectWidth:150, rectColor: (togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .ThirdColor : .PrimaryColor, text:"관심사 저장", textColor:(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .white : .black)
+            }.disabled(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10)
             
             Spacer()
             
