@@ -91,6 +91,8 @@ struct EditProfileView: View {
                         action: do {
                             CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
                             CoreDataManager.coreDM.updateProfile()
+                            CoreDataManager.coreDM.readAllPicture()[0].content = profileImage
+                            CoreDataManager.coreDM.updateProfile()
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     } label:{
