@@ -1,3 +1,4 @@
+
 //
 //  CoreDataManager.swift
 //  NearCatch
@@ -9,11 +10,11 @@ import Foundation
 import CoreData
 
 class CoreDataManager {
-    
+
     let persistentContainer: NSPersistentContainer
-    
+
     init() {
-        persistentContainer = NSPersistentContainer(name:"NearCatchDataModel")
+        persistentContainer = NSPersistentContainer(name:"NearCatch")
         persistentContainer.loadPersistentStores {(description, error) in
             if let error = error {
                 fatalError("Core Data Store failed \(error.localizedDescription)")
@@ -23,11 +24,11 @@ class CoreDataManager {
 
 
     func createProfile(nickname: String) {
-        
+
         let profile = Profile(context: persistentContainer.viewContext)
         profile.nickname = nickname
-        
-        
+
+
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -36,30 +37,30 @@ class CoreDataManager {
     }
 
     func readAllProfile() -> [Profile] {
-        
+
         let fetchRequest: NSFetchRequest<Profile> = Profile.fetchRequest()
-        
+
         do{
             return try persistentContainer.viewContext.fetch(fetchRequest)
         } catch {
             return []
         }
-        
+
     }
-    
+
     func updateMovie() {
-        
+
         do{
             try persistentContainer.viewContext.save()
         } catch {
             persistentContainer.viewContext.rollback()
         }
     }
-    
+
     func deleteProfile(profile: Profile) {
-        
+
         persistentContainer.viewContext.delete(profile)
-        
+
         do{
             try persistentContainer.viewContext.save()
         } catch {
