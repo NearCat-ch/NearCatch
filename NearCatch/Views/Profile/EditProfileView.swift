@@ -99,6 +99,7 @@ struct EditProfileView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {
+                        self.profileImage = nil
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
                         SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
