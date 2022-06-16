@@ -71,12 +71,14 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                     }.padding([.top], -20)
+                    Spacer()
+                        .frame(height:50)
                     ProfileInterestCard(keywords: keywords ?? [])
                         .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()
+                        .frame(height:50)
                 }
             }
-            .accentColor(needsRefresh ? .white: .black)
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {
