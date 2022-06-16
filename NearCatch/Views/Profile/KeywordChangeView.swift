@@ -12,6 +12,7 @@ struct KeywordChangeView: View {
     @State var tag:Int? = nil
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var keywords : [Int]
+    @State var duplicatedkeywords : [Int] = []
     
     var body: some View {
         ZStack {
@@ -39,10 +40,10 @@ struct KeywordChangeView: View {
                 }
                 Text("최소 5개 이상 선택해야 해요!")
                     .font(.custom("온글잎 의연체", size: 22))
-                    .foregroundColor((keywords.count < 5) ? Color.red : Color.white)
-                Text("\(keywords.count) / 10")
+                    .foregroundColor((duplicatedkeywords.count < 5) ? Color.red : Color.white)
+                Text("\(duplicatedkeywords.count) / 10")
                     .font(.custom("온글잎 의연체", size: 34))
-                    .foregroundColor((keywords.count < 5 || keywords.count > 10) ? Color.red : Color.white)
+                    .foregroundColor((duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? Color.red : Color.white)
                 Spacer()
                     .frame(height:80)
                 
@@ -53,12 +54,11 @@ struct KeywordChangeView: View {
                                     Button(action: {
                                         if tagData.Tags[i].isSelected == true {
                                             tagData.Tags[i].isSelected = false
-                                            keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
-                                            print(keywords)
+                                            duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                             
                                         } else {
                                             tagData.Tags[i].isSelected = true
-                                            keywords.append(tagData.Tags[i].index)
+                                            duplicatedkeywords.append(tagData.Tags[i].index)
                                         }
                                     }){
                                         ZStack{
@@ -79,10 +79,10 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        keywords.append(tagData.Tags[i].index)
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -105,10 +105,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        keywords.append(tagData.Tags[i].index)
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -129,10 +129,10 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        keywords.append(tagData.Tags[i].index)
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
@@ -153,10 +153,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        keywords.append(tagData.Tags[i].index)
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -178,10 +178,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        keywords.append(tagData.Tags[i].index)
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
@@ -212,6 +212,7 @@ struct KeywordChangeView: View {
                         .frame(width:20)
                     Button{
                         action: do {
+                            keywords = duplicatedkeywords
                             CoreDataManager.coreDM.readKeyword()[0].favorite = keywords
                             CoreDataManager.coreDM.updateProfile()
                             self.presentationMode.wrappedValue.dismiss()
@@ -225,6 +226,7 @@ struct KeywordChangeView: View {
             }
         }
         .onAppear {
+            duplicatedkeywords = keywords
             for keyword in keywords {
                 tagData.Tags[keyword].isSelected = true
             }
