@@ -197,7 +197,14 @@ struct SettingKeywordView: View {
                         let x = UIImage(named: "img_sunglass_68px")!
                         coreDM.createPicture(content: x)
                     }
-
+                    var tempList : [Int] = []
+                    for i in 0 ..< 86 {
+                        if tagData.Tags[i].isSelected == true {
+                            tempList.append(tagData.Tags[i].index)
+                        }
+                    }
+                    coreDM.createKeyword(favorite: tempList)
+                    print(tempList)
                     
                 }).foregroundColor(.black)
                     .padding(.horizontal, 30).padding(.vertical, 10)

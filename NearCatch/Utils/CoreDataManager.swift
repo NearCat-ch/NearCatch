@@ -50,6 +50,19 @@ class CoreDataManager {
         }
     }
     
+    func createKeyword(favorite: [Int]){
+        
+        let keyword = Keyword(context: persistentContainer.viewContext)
+        keyword.favorite = favorite
+        
+        do{
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("Failed to save profile \(error)")
+        }
+        
+    }
+    
 
     func readAllProfile() -> [Profile] {
 
@@ -74,6 +87,17 @@ class CoreDataManager {
 
     }
 
+    func readKeyword() -> [Keyword] {
+        let fetchRequest: NSFetchRequest<Keyword> = Keyword.fetchRequest()
+        
+        do{
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+    }
+    
+    
     func updateMovie() {
 
         do{

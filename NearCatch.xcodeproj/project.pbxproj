@@ -67,6 +67,7 @@
 		71C96D302855CD5100ED9A9F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */; };
 		71DF7F07285B19F500E5D85E /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DF7F06285B19F500E5D85E /* Picture.swift */; };
 		71DF7F09285B1A3300E5D85E /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DF7F08285B1A3300E5D85E /* UIImageTransformer.swift */; };
+		71DF7F10285B359700E5D85E /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DF7F0F285B359700E5D85E /* Keyword.swift */; };
 		71F63CAE2855D8BB00D44AC2 /* SettingKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		71C96D2F2855CD5100ED9A9F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		71DF7F06285B19F500E5D85E /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		71DF7F08285B1A3300E5D85E /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
+		71DF7F0F285B359700E5D85E /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
 		71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingKeywordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				0E2C7B64285A0F480062320E /* NoImageInfoView.swift */,
 				71DF7F06285B19F500E5D85E /* Picture.swift */,
 				71DF7F08285B1A3300E5D85E /* UIImageTransformer.swift */,
+				71DF7F0F285B359700E5D85E /* Keyword.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				0E2142752854FF3C0053587E /* ImagePicker.swift in Sources */,
 				0E6D4DE12859894B0099DCED /* ImagePickerModel.swift in Sources */,
 				6FCBC3982858763D00A1D7D1 /* SettingButton.swift in Sources */,
+				71DF7F10285B359700E5D85E /* Keyword.swift in Sources */,
 				21F1AD35285336810016185A /* CustomSheet.swift in Sources */,
 				71F63CAE2855D8BB00D44AC2 /* SettingKeywordView.swift in Sources */,
 				219F89602854E036003AF02A /* SearchView.swift in Sources */,

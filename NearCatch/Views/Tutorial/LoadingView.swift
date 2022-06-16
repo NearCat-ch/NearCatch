@@ -17,11 +17,11 @@ struct LoadingView: View {
     @State private var content: [Picture] = []
 //    @State private var profileImage
     
+    @State private var favorites: [Keyword] = []
     private func populateProfiles() {
         profiles = coreDM.readAllProfile()
         content = coreDM.readAllPicture()
-        
-        
+        favorites = coreDM.readKeyword()
     }
     
     var body: some View {
@@ -32,6 +32,11 @@ struct LoadingView: View {
             if content.count != 0{
                 Image(uiImage: content[0].content!)
                     .resizable()
+            }
+            if favorites.count != 0{
+                ForEach(0..<favorites[0].favorite.count, id:\.self) {i in
+                    Text("\(favorites[0].favorite[i])")
+                }
             }
             
             
