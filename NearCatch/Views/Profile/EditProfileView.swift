@@ -49,6 +49,7 @@ struct EditProfileView: View {
                     VStack {
                         ZStack {
                             TextField("", text: $nickname)
+                                .limitText($nickname, to: 10)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
@@ -67,7 +68,6 @@ struct EditProfileView: View {
                                     }
                                 }
                             }
-                            
                         }
                         Rectangle()
                             .frame(width:260, height: 1)
@@ -82,7 +82,7 @@ struct EditProfileView: View {
                     Button{
                         action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
-                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.gray : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
+                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
                     Spacer()
                 }
