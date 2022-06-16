@@ -16,6 +16,10 @@ struct HomeView: View {
     @State var isLaunched = true
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var myNickName: String = ""
+    @State var myKeywords: [Int] = []
+    @State var myImage: UIImage?
+    
     var body: some View {
         NavigationView{
             ZStack {
@@ -117,6 +121,19 @@ struct HomeView: View {
         }
         .customSheet(isPresented: $niObject.isBumped) {
             Match()
+        }
+        .onAppear {
+            let profiles = CoreDataManager.coreDM.readAllProfile()
+            let keywords = CoreDataManager.coreDM.readKeyword()
+            let pictures = CoreDataManager.coreDM.readAllPicture()
+            
+            myNickName = profiles[0].nickname ?? ""
+            myKeywords = keywords as? [Int] ?? []
+            myImage = pictures[0].content
+            
+            niObject.myNickname = myNickName
+            niObject.myKeywords = myKeywords
+            niObject.myPicture = myImage
         }
     }
 }

@@ -17,12 +17,14 @@ class TranData: NSObject, NSCoding {
     let isBumped : Bool
     let keywords : [Int]
     let nickname : String
+    let image : UIImage?
     
-    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "") {
+    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "", image : UIImage? = nil) {
         self.token = token
         self.isBumped = isBumped
         self.keywords = keywords
         self.nickname = nickname
+        self.image = image
     }
     
     func encode(with coder: NSCoder) {
@@ -30,6 +32,7 @@ class TranData: NSObject, NSCoding {
         coder.encode(self.isBumped, forKey: "isMatched")
         coder.encode(self.keywords, forKey: "keywords")
         coder.encode(self.nickname, forKey: "nickname")
+        coder.encode(self.image, forKey: "image")
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +40,7 @@ class TranData: NSObject, NSCoding {
         self.isBumped = coder.decodeBool(forKey: "isMatched")
         self.nickname = coder.decodeObject(forKey: "nickname") as! String
         self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
+        self.image = coder.decodeObject(forKey: "image") as? UIImage
     }
 }
 
@@ -56,11 +60,13 @@ class NISessionManager: NSObject, ObservableObject {
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     let hapticManager = HapticManager()
     
-    //MARK: 하드 코딩
-    var matchedName = ""
-    let myNickname = "빅썬"
-    let myKeywords: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] // 하드 코딩
-
+    @Published var matchedName = ""
+    @Published var matchedKeywords = []
+    
+    @Published var myNickname : String = ""
+    @Published var myKeywords : [Int] = []
+    @Published var myPicture : UIImage?
+    
     override init() {
         super.init()
     }
@@ -84,6 +90,7 @@ class NISessionManager: NSObject, ObservableObject {
         sessions.removeAll()
         peerTokensMapping.removeAll()
         matchedObject = nil
+        matchedKeywords = []
         peersCnt = 0
         hapticManager.endHaptic()
     }
@@ -151,6 +158,7 @@ class NISessionManager: NSObject, ObservableObject {
         guard let matchedToken = matchedObject?.token else { return }
         if peerTokensMapping[matchedToken] == peer {
             matchedObject = nil
+            matchedKeywords = []
             hapticManager.endHaptic()
             gameState = .finding
         }
@@ -321,10 +329,14 @@ extension NISessionManager {
             let withCurCnt : Int = calMatchingKeywords(myKeywords, nowTranData.keywords)
             let withNewCnt : Int = calMatchingKeywords(myKeywords, data.keywords)
             
-            self.matchedObject = withCurCnt < withNewCnt ? data : nowTranData
+            if withCurCnt < withNewCnt {
+                self.matchedObject = data
+                matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
+            }
             
         } else {
             self.matchedObject = data
+            matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             gameState = .found
         }
         
