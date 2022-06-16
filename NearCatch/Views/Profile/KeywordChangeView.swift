@@ -9,7 +9,6 @@ import SwiftUI
 
 struct KeywordChangeView: View {
     @StateObject var tagData = TagViewModel()
-    @ObservedObject var togglecount = ToggleCount()
     @State var tag:Int? = nil
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var keywords : [Int]
@@ -40,10 +39,10 @@ struct KeywordChangeView: View {
                 }
                 Text("최소 5개 이상 선택해야 해요!")
                     .font(.custom("온글잎 의연체", size: 22))
-                    .foregroundColor((togglecount.keywordCounter < 5) ? Color.red : Color.white)
-                Text("\(togglecount.keywordCounter) / 10")
+                    .foregroundColor((keywords.count < 5) ? Color.red : Color.white)
+                Text("\(keywords.count) / 10")
                     .font(.custom("온글잎 의연체", size: 34))
-                    .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
+                    .foregroundColor((keywords.count < 5 || keywords.count > 10) ? Color.red : Color.white)
                 Spacer()
                     .frame(height:80)
                 
@@ -54,10 +53,12 @@ struct KeywordChangeView: View {
                                     Button(action: {
                                         if tagData.Tags[i].isSelected == true {
                                             tagData.Tags[i].isSelected = false
-                                            self.togglecount.keywordCounter -= 1
+                                            keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
+                                            print(keywords)
+                                            
                                         } else {
                                             tagData.Tags[i].isSelected = true
-                                            self.togglecount.keywordCounter += 1
+                                            keywords.append(tagData.Tags[i].index)
                                         }
                                     }){
                                         ZStack{
@@ -78,10 +79,10 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        keywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -104,10 +105,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        keywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -128,10 +129,10 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        keywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
@@ -152,10 +153,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        keywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
@@ -177,10 +178,10 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        keywords = keywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        keywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
@@ -201,20 +202,31 @@ struct KeywordChangeView: View {
                     .frame(height:140)
                 HStack{
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
                         SharedRectangularButton(rectWidth:150, rectColor:.ThirdColor, text:"취소", textColor:.white)
                     }
                     Spacer()
                         .frame(width:20)
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            CoreDataManager.coreDM.readKeyword()[0].favorite = keywords
+                            CoreDataManager.coreDM.updateProfile()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
-                        SharedRectangularButton(rectWidth:150, rectColor: (togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .white : .black)
-                    }.disabled(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10)
+                        SharedRectangularButton(rectWidth:150, rectColor: (keywords.count < 5 || keywords.count > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(keywords.count < 5 || keywords.count > 10) ? .white : .black)
+                    }.disabled(keywords.count < 5 || keywords.count > 10)
                 }
                 Spacer()
                     .frame(height:20)
+            }
+        }
+        .onAppear {
+            for keyword in keywords {
+                tagData.Tags[keyword].isSelected = true
             }
         }
     }
