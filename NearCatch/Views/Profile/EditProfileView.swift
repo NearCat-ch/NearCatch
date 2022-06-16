@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct EditProfileView: View {
     @Binding var nickname:String
     @Binding var profileImage: UIImage?
@@ -24,9 +24,23 @@ struct EditProfileView: View {
                     Spacer()
                     ZStack{
                         Button(action: {
-                            withAnimation{
-                                self.isPresented.toggle()
+                            PHPhotoLibrary.requestAuthorization { (status) in
+                                if status == .authorized {
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
+                                else {
+                                    print("디나이")
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
                             }
+//
+//                            withAnimation{
+//                                self.isPresented.toggle()
+//                            }
                         }) {
                             if self.profileImage == nil {
                                 SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
