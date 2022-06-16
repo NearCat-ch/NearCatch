@@ -52,15 +52,15 @@ Insert gif or link to demo
 ## :sparkles: Skills & Tech Stack
 1.이슈관리 : Miro<br>
 2.형상관리 : Github<br>
-3.커뮤니케이션 : Ryver, Notion, Zoom
+3.커뮤니케이션 : Ryver, Notion, Zoom<br>
 4.개발환경
-  - OS : MacOS(M1Pro)
-  - IDE : Xcode 13.4.1<br>
+    - OS : MacOS(M1Pro)
+    - IDE : Xcode 13.4.1<br>
 5.상세사용
-  - Application : SwiftUI
-  - Design : Sketch, AfterEffect, Illustrator
+    - Application : SwiftUI
+    - Design : Sketch, AfterEffect, Illustrator<br>
 6.라이브러리
-  - `swiftUI`, `UIKit`, `NearbyInteraction`, `MultipeerConnectivity`, `Lottie`, `CoreData`, `CoreMotion`, `CoreHaptics`, `simd`
+    - `swiftUI`, `UIKit`, `NearbyInteraction`, `MultipeerConnectivity`, `Lottie`, `CoreData`, `CoreMotion`, `CoreHaptics`, `simd`
 
 
 ## 🔀 Git
@@ -87,10 +87,7 @@ feat: Summarize changes in around 50 characters or less
 This is a body part. Please describe the details of commit.
 ```
 
-### 2. 브랜치
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be0c8072-fbb7-46d7-b8f7-4e42fd3dec2e/Untitled.png)
-
+3. Git 브랜치
   - master : 배포
   - develop : 개발된 기능(feature)을 통합하는 브랜치
   - docs : 문서작업 브랜치
