@@ -42,9 +42,9 @@ struct KeywordChangeView: View {
                     .font(.custom("온글잎 의연체", size: 34))
                     .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
                 Spacer()
-                    .frame(height:100)
+                    .frame(height:80)
                 
-                ScrollView(.horizontal) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     VStack(alignment: .leading){
                         HStack{
                             ForEach(0..<14, id: \.self) { i in
@@ -192,7 +192,7 @@ struct KeywordChangeView: View {
                                 
                             }
                         }
-                    }
+                    }.padding([.leading, .trailing], 20)
                 }
                 Spacer()
                     .frame(height:140)
@@ -210,6 +210,8 @@ struct KeywordChangeView: View {
                         SharedRectangularButton(rectWidth:150, rectColor: (togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .white : .black)
                     }.disabled(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10)
                 }
+                Spacer()
+                    .frame(height:20)
             }
         }
     }
