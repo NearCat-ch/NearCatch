@@ -60,6 +60,7 @@ struct EditProfileView: View {
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
                                 .frame(width:200)
+                                .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
                             HStack{
                                 Spacer()
