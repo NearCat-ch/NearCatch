@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class CoreDataManager {
 
@@ -35,6 +36,33 @@ class CoreDataManager {
             print("Failed to save profile \(error)")
         }
     }
+    
+    func createPicture(content: UIImage) {
+
+        let picture = Picture(context: persistentContainer.viewContext)
+        picture.content = content
+
+
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("Failed to save profile \(error)")
+        }
+    }
+    
+    func createKeyword(favorite: [Int]){
+        
+        let keyword = Keyword(context: persistentContainer.viewContext)
+        keyword.favorite = favorite
+        
+        do{
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("Failed to save profile \(error)")
+        }
+        
+    }
+    
 
     func readAllProfile() -> [Profile] {
 
@@ -47,7 +75,29 @@ class CoreDataManager {
         }
 
     }
+    func readAllPicture() -> [Picture] {
+        
+        let fetchRequest: NSFetchRequest<Picture> = Picture.fetchRequest()
 
+        do{
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+
+    }
+
+    func readKeyword() -> [Keyword] {
+        let fetchRequest: NSFetchRequest<Keyword> = Keyword.fetchRequest()
+        
+        do{
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+    }
+    
+    
     func updateMovie() {
 
         do{
