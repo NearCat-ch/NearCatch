@@ -3,6 +3,8 @@ See LICENSE folder for this sample’s licensing information.
 
 Abstract:
 A class that manages peer discovery-token exchange over the local network.
+ 
+Edited by Wonhyuk Choi on 2022/06/09.
 */
 
 import Foundation
@@ -26,7 +28,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     private let mcAdvertiser: MCNearbyServiceAdvertiser
     private let mcBrowser: MCNearbyServiceBrowser
     private let identityString: String
-    //    private let maxNumPeers: Int
     weak var delegate: MultipeerConnectivityManagerDelegate?
 
     init(service: String, identity: String) {
@@ -37,7 +38,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                                                  discoveryInfo: [MPCSessionConstants.kKeyIdentity: identityString],
                                                  serviceType: serviceString)
         mcBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceString)
-        //        maxNumPeers = maxPeers
 
         super.init()
         mcSession.delegate = self
@@ -81,9 +81,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                 handler(peerID)
             }
         }
-        //        if mcSession.connectedPeers.count == maxNumPeers {
-        //            self.suspend()
-        //        }
     }
 
     private func peerDisconnected(peerID: MCPeerID) {
@@ -93,9 +90,7 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
             }
         }
 
-        //        if mcSession.connectedPeers.count < maxNumPeers {
         self.start()
-        //        }
     }
 
     // MARK: - `MCSessionDelegate`.
@@ -150,9 +145,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         if identityValue == identityString {
             browser.invitePeer(peerID, to: mcSession, withContext: nil, timeout: 10)
         }
-        //        if identityValue == identityString && mcSession.connectedPeers.count < maxNumPeers {
-        //            browser.invitePeer(peerID, to: mcSession, withContext: nil, timeout: 10)
-        //        }
     }
 
     internal func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -164,9 +156,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                              didReceiveInvitationFromPeer peerID: MCPeerID,
                              withContext context: Data?,
                              invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        // Accept the invitation only if the number of peers is less than the maximum.
-        //        if self.mcSession.connectedPeers.count < maxNumPeers {
         invitationHandler(true, mcSession)
-        //        }
     }
 }

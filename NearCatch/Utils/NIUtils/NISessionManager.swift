@@ -3,6 +3,8 @@ See LICENSE folder for this sample’s licensing information.
 
 Abstract:
 An object that manages the interaction session.
+ 
+Edited by Wonhyuk Choi on 2022/06/09.
 */
 
 import Foundation
@@ -45,33 +47,19 @@ class NISessionManager: NSObject, ObservableObject {
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
-  
-    var matchedName = ""
+    @Published var isPermissionDenied = false
     
     var mpc: MPCSession?
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
-    
     let hapticManager = HapticManager()
     
-    // 하드 코딩
+    //MARK: 하드 코딩
+    var matchedName = ""
     let myNickname = "빅썬"
-
-    //MARK: TEST
-    @Published var text: String = "" {
-        didSet {
-            myKeywords = []
-            for i in text {
-                myKeywords.append(Int(String(i)) ?? 0)
-            }
-        }
-    }
-    
-    var myKeywords: [Int] = [] // 하드 코딩
-
-    @Published var isPermissionDenied = false
+    let myKeywords: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] // 하드 코딩
 
     override init() {
         super.init()
@@ -95,6 +83,7 @@ class NISessionManager: NSObject, ObservableObject {
         connectedPeers.removeAll()
         sessions.removeAll()
         peerTokensMapping.removeAll()
+        matchedObject = nil
         peersCnt = 0
         hapticManager.endHaptic()
     }
@@ -107,7 +96,6 @@ class NISessionManager: NSObject, ObservableObject {
 
         // 1. MPC 작동
         startupMPC()
-        hapticManager.startHaptic()
     }
 
     // MARK: - MPC를 사용하여 디스커버리 토큰 공유
@@ -155,6 +143,7 @@ class NISessionManager: NSObject, ObservableObject {
         // 연결 해제시 연결된 피어 제거
         if connectedPeers.contains(peer) {
             connectedPeers = connectedPeers.filter { $0 != peer }
+            sessions[peer]?.invalidate()
             sessions[peer] = nil
         }
         
@@ -162,6 +151,7 @@ class NISessionManager: NSObject, ObservableObject {
         guard let matchedToken = matchedObject?.token else { return }
         if peerTokensMapping[matchedToken] == peer {
             matchedObject = nil
+            hapticManager.endHaptic()
             gameState = .finding
         }
     }
@@ -173,19 +163,23 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        compareForCheckMatchedObject(receivedData)
+        // 3개 이상일 때만 매치
+        if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
+            compareForCheckMatchedObject(receivedData)
+            hapticManager.startHaptic()
+        }
         
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            isBumped = true
+            self.isBumped = true
             gameState = .ready
             matchedName = receivedData.nickname
+            shareMyData(token: receivedData.token, peer: peer)
             stop()
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
             peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
-            print(receivedData.keywords)
         }
     }
 
@@ -227,15 +221,15 @@ class NISessionManager: NSObject, ObservableObject {
 
 // MARK: - `NISessionDelegate`.
 extension NISessionManager: NISessionDelegate {
-    func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
+    func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {        
         // Find the right peer.
         let peerObj = nearbyObjects.first { (obj) -> Bool in
             return peerTokensMapping[obj.discoveryToken] != nil
         }
-
+        
         guard let nearbyObjectUpdate = peerObj else { return }
 
-        if getDistanceDirectionState(from: nearbyObjectUpdate) == .closeUpInFOV {
+        if isNearby(nearbyObjectUpdate.distance ?? 0.5) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
             shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
             return
@@ -244,8 +238,7 @@ extension NISessionManager: NISessionDelegate {
         // 매칭된 사람일 경우 진동 변화
         guard let matchedToken = matchedObject?.token else { return }
         if nearbyObjectUpdate.discoveryToken == matchedToken {
-            // TODO: 거리에 따라 진동
-            hapticManager.updateHaptic(dist: peerObj?.distance ?? 0,
+            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 0,
                                        matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
@@ -298,7 +291,6 @@ extension NISessionManager: NISessionDelegate {
         if case NIError.userDidNotAllow = error {
             isPermissionDenied = true
         }
-
         // Recreate a valid session in other failure cases.
         startup()
     }
@@ -314,35 +306,10 @@ extension NISessionManager: MultipeerConnectivityManagerDelegate {
 // MARK: - 거리에 따라 반응 로직
 
 extension NISessionManager {
-
-    enum DistanceDirectionState {
-        case closeUpInFOV, notCloseUpInFOV, outOfFOV, unknown
-    }
     
     // 범프
     func isNearby(_ distance: Float) -> Bool {
         return distance < nearbyDistanceThreshold
-    }
-    
-    func getDistanceDirectionState(from nearbyObject: NINearbyObject) -> DistanceDirectionState {
-        if nearbyObject.distance == nil && nearbyObject.direction == nil {
-            return .unknown
-        }
-        
-//        print(nearbyObject.distance!)
-        
-        let isNearby = nearbyObject.distance.map(isNearby(_:)) ?? false
-        let directionAvailable = nearbyObject.direction != nil
-        
-        if isNearby && directionAvailable {
-            return .closeUpInFOV
-        }
-        
-        if !isNearby && directionAvailable {
-            return .notCloseUpInFOV
-        }
-        
-        return .outOfFOV
     }
     
     private func compareForCheckMatchedObject(_ data: TranData) {
