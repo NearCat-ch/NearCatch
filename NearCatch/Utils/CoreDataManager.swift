@@ -100,7 +100,7 @@ class CoreDataManager {
     }
     
     
-    func updateMovie() {
+    func updateProfile() {
 
         do{
             try persistentContainer.viewContext.save()
