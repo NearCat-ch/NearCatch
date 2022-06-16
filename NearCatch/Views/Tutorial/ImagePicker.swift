@@ -93,6 +93,11 @@ struct ImagePicker: View {
                             .padding(.top,30)
                             .padding(.leading,20)
                             .padding(.trailing,20)
+                        }.onAppear{
+                            if self.loadingState == true {
+                                self.loadingState = false
+                            }
+                            
                         }
                         
                         
@@ -101,32 +106,45 @@ struct ImagePicker: View {
                     else {
                         // 선택된 사진이 한장도 없을때!
                         if self.grid.count == 0{
-                            
-                            Text("선택된 사진이 없습니다.")
-                                .font(.custom("온글잎 의연체", size: 30))
-                            Text("사진을 추가해 주세요!")
-                                .font(.custom("온글잎 의연체", size: 20))
-                            NoImageInfoView()
-                            //                            .scaledToFit()
-                                .frame(height: UIScreen.main.bounds.height * 2 / 4)
-                            Button {
-                                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-                                }
-                            } label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(Color.PrimaryColor)
-                                        .frame(maxWidth: .infinity).frame(height: 50)
-                                    
-                                    Text("설정 바로가기")
-                                        .foregroundColor(.black)
-                                        .font(.custom("온글잎 의연체", size: 28))
+                            if startNoImageView{
+                                VStack{
+                                    Text("선택된 사진이 없습니다.")
+                                        .font(.custom("온글잎 의연체", size: 30))
+                                    Text("사진을 추가해 주세요!")
+                                        .font(.custom("온글잎 의연체", size: 20))
+                                    NoImageInfoView()
+                                    //                            .scaledToFit()
+                                        .frame(height: UIScreen.main.bounds.height * 2 / 4)
+                                    Button {
+                                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                                        }
+                                    } label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .fill(Color.PrimaryColor)
+                                                .frame(maxWidth: .infinity).frame(height: 50)
+                                            
+                                            Text("설정 바로가기")
+                                                .foregroundColor(.black)
+                                                .font(.custom("온글잎 의연체", size: 28))
+                                        }
+                                    }
+                                    .padding(.top,30)
+                                    .padding(.leading,20)
+                                    .padding(.trailing,20)
                                 }
                             }
-                            .padding(.top,30)
-                            .padding(.leading,20)
-                            .padding(.trailing,20)
+                            else{
+                                VStack{}
+                                    .onAppear{
+                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.3){
+                                            print("asdsadasd")
+                                            self.startNoImageView = true
+                                        }
+                                    }
+                            }
+                            
                         }
                     }
                     
@@ -135,7 +153,6 @@ struct ImagePicker: View {
             
             if self.loadingState {
                 ImageLoadingView()
-                    
             }
             
         }
@@ -155,6 +172,9 @@ struct ImagePicker: View {
     }
     
     func getAllImages(){
+        if self.loadingState == false{
+            self.loadingState = true
+        }
         let opt = PHFetchOptions()
         opt.includeHiddenAssets = false
         
