@@ -218,8 +218,8 @@ struct KeywordChangeView: View {
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     } label:{
-                        SharedRectangularButton(rectWidth:150, rectColor: (keywords.count < 5 || keywords.count > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(keywords.count < 5 || keywords.count > 10) ? .white : .black)
-                    }.disabled(keywords.count < 5 || keywords.count > 10)
+                        SharedRectangularButton(rectWidth:150, rectColor: (duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .white : .black)
+                    }.disabled(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10)
                 }
                 Spacer()
                     .frame(height:20)
