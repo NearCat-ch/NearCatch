@@ -33,18 +33,21 @@ struct HomeView: View {
                         VStack {
                             Spacer()
                             ZStack {
-                                if niObject.gameState == .finding {
+                                if niObject.gameState != .ready {
                                     Tip {
-                                        VStack {
+                                        (niObject.gameState == .finding ?
+                                         AnyView(VStack {
                                             Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .PrimaryColor))
                                             Text("니어캣이 진동으로 인연의 별을 알려드릴 거에요".partialColor(["니어캣"], .PrimaryColor))
-                                        }
+                                        })
+                                         : AnyView(Text("Tip 스마트폰을 서로 가까이 가져가 보세요\n공통된 관심사를 가지고 대화를 이어나가 보세요!".partialColor(["Tip"], .PrimaryColor)))
+                                        )
                                         .font(.custom("온글잎 의연체", size: 28))
                                         .frame(maxWidth: .infinity)
                                     }
                                     .padding()
                                     .transition(.move(edge: .bottom))
-                                    .animation(.interactiveSpring(), value: niObject.gameState)
+                                    .animation(.linear, value: niObject.gameState)
                                 }
                             }
                         }
