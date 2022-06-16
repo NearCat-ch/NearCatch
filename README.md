@@ -50,16 +50,16 @@ Insert gif or link to demo
 
 
 ## :sparkles: Skills & Tech Stack
-1.이슈관리 : Miro
-2.형상관리 : Github
-3.커뮤니케이션 : Ryver, Notion, Zoom
-4.개발환경
+1.이슈관리 : Miro<br>
+2.형상관리 : Github<br>
+3.커뮤니케이션 : Ryver, Notion, Zoom<br>
+4.개발환경<br>
 - OS : MacOS(M1Pro)
-- IDE : Xcode 13.4.1
-5.상세사용
+- IDE : Xcode 13.4.1<br>
+5.상세사용<br>
 - Application : SwiftUI
-- Design : Sketch, AfterEffect, Illustrator
-6.라이브러리
+- Design : Sketch, AfterEffect, Illustrator<br>
+6.라이브러리<br>
 - `swiftUI` 
 - `UIKit`
 - `NearbyInteraction`
