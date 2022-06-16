@@ -15,10 +15,18 @@ struct ImagePermissionInfoView: View {
     var body: some View {
         TabView (selection: $currentIndex){
             ForEach(0..<2) { num in
-                Image("image_permission_info\(num)")
-                    .resizable()
-                    .scaledToFit()
-                    .tag(num)
+                if num == 0 {
+                    Image("img_permissionthirdstep")
+                        .resizable()
+                        .scaledToFit()
+                        .tag(num)
+                }
+                else {
+                    Image("img_permissionsecondstep")
+                        .resizable()
+                        .scaledToFit()
+                        .tag(num)
+                }
                     
             }
             

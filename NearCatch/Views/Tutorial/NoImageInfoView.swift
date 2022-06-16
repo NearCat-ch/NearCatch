@@ -14,10 +14,22 @@ struct NoImageInfoView: View {
     var body: some View {
         TabView (selection: $currentIndex){
             ForEach(0..<2) { num in
-                Image("no_image_info\(num)")
-                    .resizable()
-                    .scaledToFit()
-                    .tag(num)
+                if num == 0 {
+                    Image("img_permissionthirdstep")
+                        .resizable()
+                        .scaledToFit()
+                        .tag(num)
+                }
+                else {
+                    Image("img_permissionfirststep")
+                        .resizable()
+                        .scaledToFit()
+                        .tag(num)
+                }
+//                Image("no_image_info\(num)")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .tag(num)
                     
             }
             

@@ -138,7 +138,7 @@ struct ImagePicker: View {
                             else{
                                 VStack{}
                                     .onAppear{
-                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.3){
+                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
                                             print("asdsadasd")
                                             self.startNoImageView = true
                                         }
