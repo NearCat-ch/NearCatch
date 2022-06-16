@@ -26,16 +26,12 @@
 - 햅틱 알람 : 공통 관심사가 있는 사람이 주변에 오면 심장소리 진동 알람
 - 공통 관심사 확인 : Bump Action을 통해 상대방과 나의 공통 관심사 키워드 확인
 
-## :people_hugging: Authors
-
-- [@김예훈](https://github.com/eraser3031) | [@류현선](https://www.github.com/hs-ryu) | [@이준영](https://github.com/User-Lawn) | [@조현민](https://github.com/uudquark) | [@최원혁](https://github.com/DevLuce) | [@황찬기](https://github.com/DevMizeKR)
-
 
 ## :framed_picture: Demo
 
 Insert gif or link to demo
 
-## 🌈 : Design Guide 
+## 🌈 Design Guide 
 
 ![DsignGuide](https://user-images.githubusercontent.com/74142881/174117058-45b0cfa1-9734-4d47-8f7c-a270bbec5095.png)
 
@@ -105,6 +101,10 @@ This is a body part. Please describe the details of commit.
     - `release/[version]` : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
     - `hotfix/[version]` : 배포한 것을 급하게 수정
     - 띄어쓰기, 구분 필요한 경우 대쉬
+
+## :people_hugging: Authors
+
+- [@김예훈](https://github.com/eraser3031) | [@류현선](https://www.github.com/hs-ryu) | [@이준영](https://github.com/User-Lawn) | [@조현민](https://github.com/uudquark) | [@최원혁](https://github.com/DevLuce) | [@황찬기](https://github.com/DevMizeKR)
   
 ## :books: Documentation
 
