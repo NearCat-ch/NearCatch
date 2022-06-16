@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Picture" representedClassName="Picture" syncable="YES">
+        <attribute name="content" attributeType="Transformable" valueTransformerName="" customClassName="UIImage"/>
+    </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="class">
         <attribute name="keyword" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
-        <attribute name="nickname" optional="YES" attributeType="String"/>
-        <attribute name="picture" optional="YES" attributeType="String"/>
+        <attribute name="nickname" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Profile" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="Picture" positionX="-54" positionY="18" width="128" height="44"/>
+        <element name="Profile" positionX="-63" positionY="-18" width="128" height="59"/>
     </elements>
 </model>

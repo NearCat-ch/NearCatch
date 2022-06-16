@@ -50,7 +50,7 @@ struct PageControlView: View {
 
                     }
                     else {
-                        SettingKeywordView(nickname: $nickname)
+                        SettingKeywordView(nickname: $nickname, profileImage: $profileImage)
 //                        Image("img_shooting")
                     }
                 }
