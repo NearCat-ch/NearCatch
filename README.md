@@ -38,14 +38,13 @@ Insert gif or link to demo
 
 ## :fireworks: Screenshots
 
-
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845513-cb0707fd-6432-4818-b29c-6e98c53c5015.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845509-1b33de95-3e87-4ab2-bd0b-5bda5d53bbb4.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845502-ac5fe7f8-ce3e-40e7-a974-b2b248fb08a3.png)
+| 닉네임 설정 | 관심사 저장 | Home |
+|:---:|:---:|:---:|
+|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845513-cb0707fd-6432-4818-b29c-6e98c53c5015.png)||![App Screenshot](https://user-images.githubusercontent.com/74142881/173845509-1b33de95-3e87-4ab2-bd0b-5bda5d53bbb4.png)||![App Screenshot](https://user-images.githubusercontent.com/74142881/173845502-ac5fe7f8-ce3e-40e7-a974-b2b248fb08a3.png)|
 <br>
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845517-a7926515-d480-4ef2-8fee-33c0ed2b20e3.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845489-8a10572b-86b3-48df-b407-6dde962e5a13.png)
-![App Screenshot](https://user-images.githubusercontent.com/74142881/173845505-2cd0a6b2-f64c-483e-b340-bd6d0d48a6a4.png)
+| 니어캣 탐색 중 | 니어캣 탐색 완료 | 공통 관심사 모달 |
+|:---:|:---:|:---:|
+|![App Screenshot](https://user-images.githubusercontent.com/74142881/173845517-a7926515-d480-4ef2-8fee-33c0ed2b20e3.png)||![App Screenshot](https://user-images.githubusercontent.com/74142881/173845489-8a10572b-86b3-48df-b407-6dde962e5a13.png)||![App Screenshot](https://user-images.githubusercontent.com/74142881/173845505-2cd0a6b2-f64c-483e-b340-bd6d0d48a6a4.png)|
 
 
 
@@ -60,9 +59,17 @@ Insert gif or link to demo
 - Application : SwiftUI
 - Design : Sketch, AfterEffect, Illustrator<br>
 6. 라이브러리
-- `swiftUI`, `UIKit`, `NearbyInteraction`, `MultipeerConnectivity`, `Lottie`, `CoreData`, `CoreMotion`, `CoreHaptics`, `simd`
-
-
+```swiftui
+import swiftUI
+import UIKit
+import NearbyInteraction
+import MultipeerConnectivity
+import Lottie
+import CoreData
+import CoreMotion
+import CoreHaptics
+import simd
+```
 ## 🔀 Git
 
 1. Commit 컨벤션
@@ -86,14 +93,13 @@ feat: Summarize changes in around 50 characters or less
 
 This is a body part. Please describe the details of commit.
 ```
-
 3. Git 브랜치
-    - master : 배포
-    - develop : 개발된 기능(feature)을 통합하는 브랜치
-    - docs : 문서작업 브랜치
-    - feature/[function name] : 각 기능별 개발을 진행하는 브랜치
-    - release/[version] : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
-    - hotfix/[version] : 배포한 것을 급하게 수정
+    - `master` : 배포
+    - `develop` : 개발된 기능(feature)을 통합하는 브랜치
+    - `docs` : 문서작업 브랜치
+    - `feature/[function name]` : 각 기능별 개발을 진행하는 브랜치
+    - `release/[version]` : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
+    - `hotfix/[version]` : 배포한 것을 급하게 수정
     - 띄어쓰기, 구분 필요한 경우 대쉬
   
 ## :books: Documentation
