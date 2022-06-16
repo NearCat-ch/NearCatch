@@ -73,7 +73,7 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                     }.padding([.top], -20)
-                    ProfileInterestCard()
+                    ProfileInterestCard(keywords: keywords ?? [])
                         .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
                     Spacer()
                 }
