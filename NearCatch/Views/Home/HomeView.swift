@@ -120,7 +120,7 @@ struct HomeView: View {
             }
         }
         .customSheet(isPresented: $niObject.isBumped) {
-            Match()
+            Match(imageData: niObject.matchedImage, nickName: niObject.matchedName, keywords: niObject.matchedKeywords)
         }
         .onAppear {
             let profiles = CoreDataManager.coreDM.readAllProfile()
@@ -128,8 +128,8 @@ struct HomeView: View {
             let pictures = CoreDataManager.coreDM.readAllPicture()
             
             myNickName = profiles[0].nickname ?? ""
-            myKeywords = keywords as? [Int] ?? []
-            myImage = pictures[0].content
+            myKeywords = keywords[0].favorite
+            myImage = pictures[0].content ?? .add
             
             niObject.myNickname = myNickName
             niObject.myKeywords = myKeywords

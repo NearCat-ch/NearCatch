@@ -17,9 +17,9 @@ class TranData: NSObject, NSCoding {
     let isBumped : Bool
     let keywords : [Int]
     let nickname : String
-    let image : UIImage?
+    let image : UIImage
     
-    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "", image : UIImage? = nil) {
+    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "", image : UIImage = .add) {
         self.token = token
         self.isBumped = isBumped
         self.keywords = keywords
@@ -40,7 +40,7 @@ class TranData: NSObject, NSCoding {
         self.isBumped = coder.decodeBool(forKey: "isMatched")
         self.nickname = coder.decodeObject(forKey: "nickname") as! String
         self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
-        self.image = coder.decodeObject(forKey: "image") as? UIImage
+        self.image = coder.decodeObject(forKey: "image") as! UIImage
     }
 }
 
@@ -61,7 +61,8 @@ class NISessionManager: NSObject, ObservableObject {
     let hapticManager = HapticManager()
     
     @Published var matchedName = ""
-    @Published var matchedKeywords = []
+    @Published var matchedKeywords : [Int] = []
+    @Published var matchedImage : UIImage?
     
     @Published var myNickname : String = ""
     @Published var myKeywords : [Int] = []
@@ -90,7 +91,6 @@ class NISessionManager: NSObject, ObservableObject {
         sessions.removeAll()
         peerTokensMapping.removeAll()
         matchedObject = nil
-        matchedKeywords = []
         peersCnt = 0
         hapticManager.endHaptic()
     }
@@ -158,7 +158,6 @@ class NISessionManager: NSObject, ObservableObject {
         guard let matchedToken = matchedObject?.token else { return }
         if peerTokensMapping[matchedToken] == peer {
             matchedObject = nil
-            matchedKeywords = []
             hapticManager.endHaptic()
             gameState = .finding
         }
@@ -182,6 +181,7 @@ class NISessionManager: NSObject, ObservableObject {
             self.isBumped = true
             gameState = .ready
             matchedName = receivedData.nickname
+            matchedImage = receivedData.image
             shareMyData(token: receivedData.token, peer: peer)
             stop()
         } else { // 일반 전송
@@ -202,7 +202,7 @@ class NISessionManager: NSObject, ObservableObject {
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname)
+        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: myPicture ?? .add)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             fatalError("Unexpectedly failed to encode discovery token.")
