@@ -35,6 +35,10 @@
 
 Insert gif or link to demo
 
+## 🌈 : Design Guide 
+
+![DsignGuide](https://user-images.githubusercontent.com/74142881/174116285-f7a839bd-ad85-484d-b0a0-bb3c17231d22.png)
+
 
 ## :fireworks: Screenshots
 
