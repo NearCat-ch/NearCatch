@@ -11,6 +11,7 @@ struct EditProfileView: View {
     @Binding var nickname:String
     @Binding var profileImage: UIImage?
     @State var isPresented = false
+    @State var tempImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -34,11 +35,15 @@ struct EditProfileView: View {
                                 ZStack{
                                     Circle()
                                         .fill(.white.opacity(0.3))
-                                    Image(uiImage: self.profileImage!)
+                                    Image(uiImage: self.tempImage ?? UIImage())
                                         .resizable()
                                         .clipShape(Circle())
                                         .scaledToFill()
                                         .frame(width: 200, height: 200)
+                                        .onAppear{
+                                            self.tempImage = self.profileImage
+                                        }
+                                        
                                         
                                 }.frame(width: 190, height: 190)
                                     .padding(.top, 25)
@@ -89,6 +94,7 @@ struct EditProfileView: View {
                         .frame(height:180)
                     Button{
                         action: do {
+                            self.profileImage = self.tempImage
                             CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
                             CoreDataManager.coreDM.updateProfile()
                             CoreDataManager.coreDM.readAllPicture()[0].content = profileImage
@@ -101,7 +107,7 @@ struct EditProfileView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $isPresented) {
-                    ImagePicker(profileImage: $profileImage, show: $isPresented)
+                    ImagePicker(profileImage: $tempImage, show: $isPresented)
                 }
             }
             .toolbar{
