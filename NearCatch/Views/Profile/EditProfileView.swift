@@ -49,6 +49,12 @@ struct EditProfileView: View {
                     VStack {
                         ZStack {
                             TextField("", text: $nickname)
+                                .placeholder(when:nickname.isEmpty){
+                                    Text("User Name")
+                                        .font(.custom("온글잎 의연체", size:34))
+                                        .foregroundColor(Color.white)
+                                        .opacity(0.3)
+                                }
                                 .limitText($nickname, to: 10)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
@@ -93,6 +99,7 @@ struct EditProfileView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {
+                        self.profileImage = nil
                     action: do { self.presentationMode.wrappedValue.dismiss() }
                     } label:{
                         SharedCustomButton(icon: "icn_chevron", circleSize:35, color:Color.white, innerOpacity:0.5)
