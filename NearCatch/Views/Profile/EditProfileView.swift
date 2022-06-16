@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State var nickname:String
+    @Binding var nickname:String
     @Binding var profileImage: UIImage?
     @State var isPresented = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -88,7 +88,11 @@ struct EditProfileView: View {
                     Spacer()
                         .frame(height:180)
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
+                            CoreDataManager.coreDM.updateProfile()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
                         SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
                     }.disabled(nickname.isEmpty || nickname.count > 10)
@@ -114,6 +118,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(nickname:"마이즈", profileImage: .constant(nil))
+        EditProfileView(nickname:.constant("마이즈"), profileImage: .constant(nil))
     }
 }

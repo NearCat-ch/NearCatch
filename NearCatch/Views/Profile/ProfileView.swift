@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State var nickname: String
+    @State var nickname: String?
     @State var profileImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var showingSheet = false
+    @State private var needsRefresh: Bool = false
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -39,13 +41,13 @@ struct ProfileView: View {
                                     .padding(.top, 25)
                             }
                         }
-                        Text(nickname)
+                        Text(nickname ?? "")
                             .font(.custom("온글잎 의연체", size: 42))
                             .foregroundColor(.white)
                     }
                     HStack{
                         VStack{
-                            NavigationLink(destination: EditProfileView(nickname:nickname, profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
+                            NavigationLink(destination: EditProfileView(nickname: Binding(get: {nickname ?? ""}, set: {nickname = $0}), profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("프로필 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
@@ -75,6 +77,7 @@ struct ProfileView: View {
                     Spacer()
                 }
             }
+            .accentColor(needsRefresh ? .white: .black)
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {
@@ -84,6 +87,10 @@ struct ProfileView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            nickname = CoreDataManager.coreDM.readAllProfile()[0].nickname
+            profileImage = CoreDataManager.coreDM.readAllPicture()[0].content
         }
         .navigationBarHidden(true)
     }
