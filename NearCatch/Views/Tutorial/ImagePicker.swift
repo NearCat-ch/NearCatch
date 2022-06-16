@@ -15,121 +15,148 @@ struct ImagePicker: View {
     @State var disabled = true
     @State var grid : [Img] = []
     @State var startNoImageView: Bool = false
+    @State var loadingState : Bool = true
     //    @State var selectedid =
     
     var body: some View {
-        VStack {
-            // 만약 선택된 사진들이 있다면?
-            if !self.grid.isEmpty{
-                HStack{
-                    Button(action: {
-                        self.show.toggle()
-                    }){
-                        Text("취소")
-                    }.padding()
-                    Spacer()
-                    Button(action: {
-                        // 사진 집어넣기 로직 필요
-                        if self.tempImage != nil {
-                            self.profileImage = tempImage!.image
-                        }
-                        self.show.toggle()
-                    }) {
-                        Text("등록")
-                            .fontWeight(.heavy)
-                    }.padding()
-                    
-                }
-                // 앨범에서 선택한 사진들이 들어갈 스크롤 뷰
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    //                        VStack{
-                    
-                    // 수정중
-                    LazyVGrid(columns: threeColumnGrid, alignment: .leading, spacing: 2) {
-                        ForEach(0..<self.grid.count, id: \.self) { i in
-                            //                        HStack{
-                            ImageView(data: $grid[i], tempImage: $tempImage, grid: $grid)
-                            //                                .frame(height: 200)
-                            
-                            //                        }
-                        }
-                    }
-                    
-                    
-                    
-                    //                        }
-                }
-            }
-            else {
-                // 설정이 deny 되었을때
-                if self.disabled{
-                    VStack{
-                        Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
-                            .font(.custom("온글잎 의연체", size: 20))
-                        Text("Setting에서 권한 설정을 변경해주세요")
-                            .font(.custom("온글잎 의연체", size: 30))
+        ZStack {
+            VStack {
+                // 만약 선택된 사진들이 있다면?
+                if !self.grid.isEmpty{
+                    HStack{
+                        Button(action: {
+                            self.show.toggle()
+                        }){
+                            Text("취소")
+                        }.padding()
+                        Spacer()
+                        Button(action: {
+                            // 사진 집어넣기 로직 필요
+                            if self.tempImage != nil {
+                                self.profileImage = tempImage!.image
+                            }
+                            self.show.toggle()
+                        }) {
+                            Text("등록")
+                                .fontWeight(.heavy)
+                        }.padding()
                         
-                        ImagePermissionInfoView()
-                        //                            .scaledToFit()
-                            .frame(height: UIScreen.main.bounds.height * 2 / 4)
-                        Button {
-                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-                            }
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.PrimaryColor)
-                                    .frame(maxWidth: .infinity).frame(height: 50)
+                    }
+                    // 앨범에서 선택한 사진들이 들어갈 스크롤 뷰
+                    
+                    ScrollView(.vertical, showsIndicators: false) {
+                        //                        VStack{
+                        
+                        // 수정중
+                        LazyVGrid(columns: threeColumnGrid, alignment: .leading, spacing: 2) {
+                            ForEach(0..<self.grid.count, id: \.self) { i in
+                                //                        HStack{
+                                ImageView(data: $grid[i], tempImage: $tempImage, grid: $grid)
+                                //                                .frame(height: 200)
                                 
-                                Text("설정 바로가기")
-                                    .foregroundColor(.black)
-                                    .font(.custom("온글잎 의연체", size: 28))
+                                //                        }
                             }
                         }
-                        .padding(.top,30)
-                        .padding(.leading,20)
-                        .padding(.trailing,20)
+                        
+                        
+                        
+                        //                        }
                     }
-                    
-                    
                 }
-                // 권한 accept 했다면?
                 else {
-                    // 선택된 사진이 한장도 없을때!
-                    if self.grid.count == 0{
-                        
-                        Text("선택된 사진이 없습니다.")
-                            .font(.custom("온글잎 의연체", size: 30))
-                        Text("사진을 추가해 주세요!")
-                            .font(.custom("온글잎 의연체", size: 20))
-                        NoImageInfoView()
-                        //                            .scaledToFit()
-                            .frame(height: UIScreen.main.bounds.height * 2 / 4)
-                        Button {
-                            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                    // 설정이 deny 되었을때
+                    if self.disabled{
+                        VStack{
+                            Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
+                                .font(.custom("온글잎 의연체", size: 20))
+                            Text("Setting에서 권한 설정을 변경해주세요")
+                                .font(.custom("온글잎 의연체", size: 30))
+                            
+                            ImagePermissionInfoView()
+                            //                            .scaledToFit()
+                                .frame(height: UIScreen.main.bounds.height * 2 / 4)
+                            Button {
+                                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                                }
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.PrimaryColor)
+                                        .frame(maxWidth: .infinity).frame(height: 50)
+                                    
+                                    Text("설정 바로가기")
+                                        .foregroundColor(.black)
+                                        .font(.custom("온글잎 의연체", size: 28))
+                                }
                             }
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.PrimaryColor)
-                                    .frame(maxWidth: .infinity).frame(height: 50)
-                                
-                                Text("설정 바로가기")
-                                    .foregroundColor(.black)
-                                    .font(.custom("온글잎 의연체", size: 28))
+                            .padding(.top,30)
+                            .padding(.leading,20)
+                            .padding(.trailing,20)
+                        }.onAppear{
+                            if self.loadingState == true {
+                                self.loadingState = false
                             }
+                            
                         }
-                        .padding(.top,30)
-                        .padding(.leading,20)
-                        .padding(.trailing,20)
+                        
+                        
                     }
+                    // 권한 accept 했다면?
+                    else {
+                        // 선택된 사진이 한장도 없을때!
+                        if self.grid.count == 0{
+                            if startNoImageView{
+                                VStack{
+                                    Text("선택된 사진이 없습니다.")
+                                        .font(.custom("온글잎 의연체", size: 30))
+                                    Text("사진을 추가해 주세요!")
+                                        .font(.custom("온글잎 의연체", size: 20))
+                                    NoImageInfoView()
+                                    //                            .scaledToFit()
+                                        .frame(height: UIScreen.main.bounds.height * 2 / 4)
+                                    Button {
+                                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                                            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                                        }
+                                    } label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .fill(Color.PrimaryColor)
+                                                .frame(maxWidth: .infinity).frame(height: 50)
+                                            
+                                            Text("설정 바로가기")
+                                                .foregroundColor(.black)
+                                                .font(.custom("온글잎 의연체", size: 28))
+                                        }
+                                    }
+                                    .padding(.top,30)
+                                    .padding(.leading,20)
+                                    .padding(.trailing,20)
+                                }
+                            }
+                            else{
+                                VStack{}
+                                    .onAppear{
+                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.3){
+                                            print("asdsadasd")
+                                            self.startNoImageView = true
+                                        }
+                                    }
+                            }
+                            
+                        }
+                    }
+                    
                 }
-                
             }
+            
+            if self.loadingState {
+                ImageLoadingView()
+            }
+            
         }
+        
         .onAppear{
             PHPhotoLibrary.requestAuthorization { (status) in
                 if status == .authorized {
@@ -145,6 +172,9 @@ struct ImagePicker: View {
     }
     
     func getAllImages(){
+        if self.loadingState == false{
+            self.loadingState = true
+        }
         let opt = PHFetchOptions()
         opt.includeHiddenAssets = false
         
@@ -169,6 +199,7 @@ struct ImagePicker: View {
                 print(iteration.count)
                 self.grid = iteration
             }
+            self.loadingState = false
         }
     }
 }

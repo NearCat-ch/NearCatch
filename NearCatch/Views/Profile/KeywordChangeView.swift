@@ -12,6 +12,8 @@ struct KeywordChangeView: View {
     @ObservedObject var togglecount = ToggleCount()
     @State var tag:Int? = nil
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var keywords : [Int]
+    
     var body: some View {
         ZStack {
             Image("img_background")
@@ -220,6 +222,6 @@ struct KeywordChangeView: View {
 
 struct KeywordChangeView_Previews: PreviewProvider {
     static var previews: some View {
-        KeywordChangeView()
+        KeywordChangeView(keywords: .constant([1,2,3]))
     }
 }
