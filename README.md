@@ -53,13 +53,13 @@ Insert gif or link to demo
 1.이슈관리 : Miro<br>
 2.형상관리 : Github<br>
 3.커뮤니케이션 : Ryver, Notion, Zoom<br>
-4.개발환경
+4.개발환경<br>
     - OS : MacOS(M1Pro)
     - IDE : Xcode 13.4.1<br>
-5.상세사용
+5.상세사용<br>
     - Application : SwiftUI
     - Design : Sketch, AfterEffect, Illustrator<br>
-6.라이브러리
+6.라이브러리<br>
     - `swiftUI`, `UIKit`, `NearbyInteraction`, `MultipeerConnectivity`, `Lottie`, `CoreData`, `CoreMotion`, `CoreHaptics`, `simd`
 
 
@@ -88,13 +88,13 @@ This is a body part. Please describe the details of commit.
 ```
 
 3. Git 브랜치
-  - master : 배포
-  - develop : 개발된 기능(feature)을 통합하는 브랜치
-  - docs : 문서작업 브랜치
-  - feature/[function name] : 각 기능별 개발을 진행하는 브랜치
-  - release/[version] : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
-  - hotfix/[version] : 배포한 것을 급하게 수정
-  - 띄어쓰기, 구분 필요한 경우 대쉬
+    - master : 배포
+    - develop : 개발된 기능(feature)을 통합하는 브랜치
+    - docs : 문서작업 브랜치
+    - feature/[function name] : 각 기능별 개발을 진행하는 브랜치
+    - release/[version] : 배포 전, 현재까지의 develop 상태를 가져와서 버그 픽스하고 지금 상태까지를 현재 개발 중인 버전으로.
+    - hotfix/[version] : 배포한 것을 급하게 수정
+    - 띄어쓰기, 구분 필요한 경우 대쉬
   
 ## :books: Documentation
 
