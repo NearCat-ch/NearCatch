@@ -64,30 +64,40 @@ struct HomeView: View {
                 }
                 
                 HomeMainButton(state: $niObject.gameState) {
-                    switch niObject.gameState {
-                    case .ready:
-                        niObject.start()
-                        niObject.gameState = .finding
-                        if isLaunched {
-                            localNetAuth.requestAuthorization { auth in
-                                isLocalNetworkPermissionDenied = !auth
+                    withAnimation {
+                        switch niObject.gameState {
+                        case .ready:
+                            niObject.start()
+                            niObject.gameState = .finding
+                            if isLaunched {
+                                localNetAuth.requestAuthorization { auth in
+                                    isLocalNetworkPermissionDenied = !auth
+                                }
+                                isLaunched = false
                             }
-                            isLaunched = false
+                        case .finding:
+                            niObject.stop()
+                            niObject.gameState = .ready
+                        case .found:
+                            niObject.stop()
+                            niObject.gameState = .ready
                         }
-                    case .finding:
-                        niObject.stop()
-                        niObject.gameState = .ready
-                    case .found:
-                        niObject.stop()
-                        niObject.gameState = .ready
                     }
                 }
             }
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarTrailing) {
-                    NavigationLink(destination: ProfileView(), label: {Image("icn_person").resizable()
+                    NavigationLink {
+                        ProfileView()
+                    } label: {
+                        Image("icn_person")
+                            .resizable()
                             .frame(width:35*1.2, height:35*1.2)
-                    })
+                    }
+                    .offset(
+                        x : niObject.gameState == .ready ? 0 : 100,
+                        y : niObject.gameState == .ready ? 0 : -100
+                    )
                 }
             }
         }

@@ -54,6 +54,8 @@ struct ImageView: View {
         }
 //        .frame(width: 100, height: 100)
         .onTapGesture {
+
+            
             if !self.data.selected {
                 for i in (0..<self.grid.count) {
                     self.grid[i].selected = false
@@ -71,9 +73,6 @@ struct ImageView: View {
                     }
                 }
             }
-            
-            
-            
         }
     }
 }

@@ -9,12 +9,6 @@ import SwiftUI
 
 struct SettingNicknameView: View {
     
-    let coreDM: CoreDataManager
-    @State private var lotOfMydata: [Profile] = [Profile]()
-    private func populateMydatum() {
-        lotOfMydata = coreDM.readAllProfile()
-    }
-    
     @Binding var nickname: String
     
     var body: some View {
@@ -24,21 +18,26 @@ struct SettingNicknameView: View {
                 .font(.custom("온글잎 의연체", size: 34))
                 .padding(.top, 45)
                 .padding(.bottom, 10)
+
             Text("니어캣에게 이름을 알려주세요")
                 .foregroundColor(.white)
                 .font(.custom("온글잎 의연체", size: 24))
             Text("나중에 프로필 변경에서 변경할 수 있습니다.")
                 .foregroundColor(.white)
                 .font(.custom("온글잎 의연체", size: 24))
+//            Spacer()
+//                .frame(height: 50)
             Image("img_standing")
                 .padding(.bottom, 20.0)
                 .padding(.top, 15)
+//            Spacer()
+//                .frame(height: 20)
             
             ZStack {
                 
                 TextField("",text: $nickname)
                     .placeholder(when: nickname.isEmpty) {
-                        Text("User Name").foregroundColor(.white)
+                        Text("User Name").foregroundColor(.white.opacity(0.5))
                     }
                     .limitText($nickname, to: 10)
                     .foregroundColor(.white)
@@ -58,14 +57,14 @@ struct SettingNicknameView: View {
                         }
                 }
                 .frame(width: 250)
-                
-                
             }
             Divider()
                 .frame(width: 250, height: 1)
                 .background(Color.white)
-
-            
+            Text("\(nickname.count) / 10")
+                .font(.custom("온글잎 의연체", size:30))
+                .foregroundColor((nickname.isEmpty || nickname.count > 10) ? Color.red : Color.white)
+            Spacer()
         }
     }
 }
@@ -97,6 +96,6 @@ extension View {
 
 struct SettingNicknameView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingNicknameView(coreDM: CoreDataManager(), nickname: .constant(""))
+        SettingNicknameView(nickname: .constant(""))
     }
 }

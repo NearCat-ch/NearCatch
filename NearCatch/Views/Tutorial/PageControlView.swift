@@ -39,14 +39,18 @@ struct PageControlView: View {
                 
                 VStack {
                     if currentPage == 0 {
-                        SettingNicknameView(coreDM: CoreDataManager(), nickname: $nickname)
+
+                        SettingNicknameView(nickname: $nickname)
+
                             
+
                     }
                     else if currentPage == 1 {
                         SettingProfileImageView(profileImage: $profileImage)
 
                     }
                     else {
+                        SettingKeywordView(nickname: $nickname)
 //                        Image("img_shooting")
                     }
                 }
