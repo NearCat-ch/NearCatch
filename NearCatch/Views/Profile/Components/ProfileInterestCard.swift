@@ -12,11 +12,11 @@ struct ProfileInterestCard: View {
     
     var body: some View {
         ZStack{
-            Image("img_hurray")
-                .padding(EdgeInsets(top:0, leading:0, bottom:250, trailing:240))
+            LottieView(jsonName: "NearCatHurray")
+                .padding(EdgeInsets(top:0, leading:0, bottom:290, trailing:230))
             RoundedRectangle(cornerRadius:30)
                 .fill(Color.ThirdColor)
-                .frame(width:350, height:250)
+                .frame(width:350, height:280)
             VStack {
                 Text("내 관심사")
                     .font(.custom("온글잎 의연체", size:34))

@@ -22,8 +22,6 @@ struct ProfileView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack{
-                    Spacer()
-                        .frame(height:70)
                     VStack{
                         ZStack{
                             if self.profileImage == nil {

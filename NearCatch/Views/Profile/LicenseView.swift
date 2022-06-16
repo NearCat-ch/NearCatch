@@ -16,8 +16,6 @@ struct LicenseView: View {
                     .resizable()
                     .ignoresSafeArea()
                 VStack{
-                    Spacer()
-                        .frame(height:70)
                     ZStack{
                         RoundedRectangle(cornerRadius:10)
                             .fill(Color.white)
