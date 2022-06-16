@@ -196,7 +196,8 @@ struct SettingKeywordView: View {
             Button{
                 CoreDataManager.coreDM.createProfile(nickname: nickname)
                 if let profileImage = profileImage {
-                    CoreDataManager.coreDM.createPicture(content: profileImage)
+                    let profileImage2 = ImageConverter.resize(image: profileImage)
+                    CoreDataManager.coreDM.createPicture(content: profileImage2)
                 } else {
                     let x = UIImage(named: "img_sunglass_68px")!
                     CoreDataManager.coreDM.createPicture(content: x)

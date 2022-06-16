@@ -12,6 +12,7 @@ struct ImageView: View {
     @Binding var data: Img
     @Binding var tempImage: Img?
     @Binding var grid : [Img]
+    @State var isSelected: Bool = false
     
     var body: some View {
         ZStack {
@@ -27,7 +28,7 @@ struct ImageView: View {
                 
 //                .frame(height: 150)
 //                .scaledToFit()
-            if self.data.selected{
+            if let tempImage = tempImage, data.asset == tempImage.asset {
                 
                 ZStack{
                     
@@ -57,29 +58,31 @@ struct ImageView: View {
                 }
             }
             
-            
         }
 //        .frame(width: 100, height: 100)
         .onTapGesture {
-
+//            if !self.data.selected {
+//                for i in (0..<self.grid.count) {
+//                    self.grid[i].selected = false
+//                }
+//
+                
+//                self.data.selected = true
+            print("\(data)")
             
-            if !self.data.selected {
-                for i in (0..<self.grid.count) {
-                    self.grid[i].selected = false
-                }
-                
-                
-                self.data.selected = true
-                
-                DispatchQueue.global(qos: .background).async {
-                    let options = PHImageRequestOptions()
-                    options.isSynchronous = true
-                    PHCachingImageManager.default().requestImage(for: self.data.asset, targetSize: .init(), contentMode: .default, options: options) { (image, _) in
-
-                        self.tempImage = Img(image: image!, selected: true, asset: self.data.asset)
+            DispatchQueue.global(qos: .background).async {
+                let options = PHImageRequestOptions()
+                options.isSynchronous = true
+                PHCachingImageManager.default().requestImage(for: self.data.asset, targetSize: .init(), contentMode: .default, options: options) { (image, _) in
+                    DispatchQueue.main.async {
+                        self.tempImage = Img(image: image ?? UIImage(), selected: true, asset: self.data.asset)
                     }
+                    
                 }
+                print("\(tempImage)")
             }
+            
+//            }
         }
     }
 }
