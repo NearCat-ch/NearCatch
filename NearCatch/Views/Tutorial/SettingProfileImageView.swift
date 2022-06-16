@@ -43,11 +43,21 @@ struct SettingProfileImageView: View {
             
             // 이미지 클릭 버튼
             Button(action: {
-                
-//                if checkPermission{
-                withAnimation{
-                    self.isPresented.toggle()
+                PHPhotoLibrary.requestAuthorization { (status) in
+                    if status == .authorized {
+                        withAnimation{
+                            self.isPresented.toggle()
+                        }
+                    }
+                    else {
+                        print("디나이")
+                        withAnimation{
+                            self.isPresented.toggle()
+                        }
+                    }
                 }
+//                if checkPermission{
+                
 //                }
                 
             }) {
