@@ -99,7 +99,7 @@ struct HomeView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarTrailing) {
                     NavigationLink {
-                        ProfileView()
+                        ProfileView(nickname:myNickName, profileImage:myImage)
                     } label: {
                         Image("icn_person")
                             .resizable()
