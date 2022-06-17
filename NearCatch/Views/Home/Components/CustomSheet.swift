@@ -89,6 +89,7 @@ struct CustomSheetViewModifier<InnerContent: View>: ViewModifier {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 isPresented = false
+                                dismiss()
                             }
                         }
                         .transition(.opacity)

@@ -148,7 +148,9 @@ class NISessionManager: NSObject, ObservableObject {
         // 3. 연결된 피어 추가
         if !connectedPeers.contains(peer) {
             // 4. 나의 NI 디스커버리 토큰 공유
-            shareMyDiscoveryToken(token: myToken, peer: peer)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyDiscoveryToken(token: myToken, peer: peer)
+            }
             connectedPeers.append(peer)
         }
     }
@@ -180,13 +182,17 @@ class NISessionManager: NSObject, ObservableObject {
         
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            self.isBumped = true
-            gameState = .ready
-            bumpedName = receivedData.nickname
-            bumpedKeywords = receivedData.keywords
-            bumpedImage = receivedData.image
-            shareMyData(token: receivedData.token, peer: peer)
+            if !self.isBumped {
+                self.isBumped = true
+                bumpedName = receivedData.nickname
+                bumpedKeywords = receivedData.keywords
+                bumpedImage = receivedData.image
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.shareMyData(token: receivedData.token, peer: peer)
+                }
+            }
             stop()
+            gameState = .ready
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
@@ -207,7 +213,7 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
@@ -217,13 +223,21 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        guard connectedPeers.contains(peer) else { return }
-        
-        guard peerTokensMapping[token] == nil else { return }
+        // 기존에 토큰을 가지고 있는 상대인데 재연결로 다시 수신받은 경우 session 종료 후 다시 시작
+        if let ownedPeer = peerTokensMapping[token] {
+            self.sessions[ownedPeer]?.invalidate()
+            self.sessions[ownedPeer] = nil
+            // 그 피어가 매치 상대일 경우 매치 상대 초기화
+            if matchedObject?.token == token {
+                matchedObject = nil
+                hapticManager.endHaptic()
+                gameState = .finding
+            }
+        }
         
         peerTokensMapping[token] = peer
         
@@ -232,7 +246,7 @@ class NISessionManager: NSObject, ObservableObject {
         
         // Run the session.
         // 7. NI 세션 시작
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.sessions[peer]?.run(config)
         }
     }
@@ -247,11 +261,13 @@ extension NISessionManager: NISessionDelegate {
         }
         
         guard let nearbyObjectUpdate = peerObj else { return }
-
+        
         // 범프
         if isNearby(nearbyObjectUpdate.distance ?? 10) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
-            shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            }
         }
         
         // 매칭된 사람일 경우 진동 변화
@@ -289,7 +305,9 @@ extension NISessionManager: NISessionDelegate {
             // The peer timed out, but the session is valid.
             // If the configuration is valid, run the session again.
             if let config = session.configuration {
-                session.run(config)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    session.run(config)
+                }
             }
         default:
             fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
@@ -355,11 +373,5 @@ extension NISessionManager {
     private func calMatchingKeywords(_ first: [Int], _ second: [Int]) -> Int {
         let cnt = Set(first).intersection(second).count
         return cnt
-    }
-}
-
-extension Data {
-    func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound ..< range.upperBound + 1)
     }
 }
