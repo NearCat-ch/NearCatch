@@ -42,7 +42,7 @@ struct ProfileView: View {
                             }
                         }
                         Text(nickname ?? "")
-                            .font(.custom("온글잎 의연체", size: 34))
+                            .font(.custom("온글잎 의연체", size: 28))
                             .foregroundColor(.white)
                     }.padding([.top], -20)
                     HStack{
