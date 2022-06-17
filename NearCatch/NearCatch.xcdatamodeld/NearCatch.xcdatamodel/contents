@@ -10,8 +10,8 @@
         <attribute name="nickname" attributeType="String"/>
     </entity>
     <elements>
+        <element name="Keyword" positionX="-45" positionY="18" width="128" height="44"/>
         <element name="Picture" positionX="-54" positionY="18" width="128" height="44"/>
         <element name="Profile" positionX="-63" positionY="-18" width="128" height="44"/>
-        <element name="Keyword" positionX="-45" positionY="18" width="128" height="44"/>
     </elements>
 </model>
