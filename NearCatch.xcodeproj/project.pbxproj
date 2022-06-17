@@ -45,6 +45,7 @@
 		6F02F89928571FF40016DF26 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02F89828571FF40016DF26 /* SetView.swift */; };
 		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
+		6F870818285C6ED100A79E22 /* TipChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F870817285C6ED100A79E22 /* TipChange.swift */; };
 		6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */; };
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FCBC3982858763D00A1D7D1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCBC3972858763D00A1D7D1 /* SettingButton.swift */; };
@@ -114,6 +115,7 @@
 		6F02F89828571FF40016DF26 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
+		6F870817285C6ED100A79E22 /* TipChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipChange.swift; sourceTree = "<group>"; };
 		6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRectangularButton.swift; sourceTree = "<group>"; };
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FCBC3972858763D00A1D7D1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				21F1AD34285336810016185A /* CustomSheet.swift */,
 				21F1AD362853368B0016185A /* ProfilePicture.swift */,
 				21F1AD38285336940016185A /* Extension.swift */,
+				6F870817285C6ED100A79E22 /* TipChange.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */,
 				164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */,
 				21F1AD31285336640016185A /* NearCat.swift in Sources */,
+				6F870818285C6ED100A79E22 /* TipChange.swift in Sources */,
 				7110C112285AFA8F009DD77B /* LoadingView.swift in Sources */,
 				164A4A782854C4DC00CA8B0A /* MPCSession.swift in Sources */,
 			);

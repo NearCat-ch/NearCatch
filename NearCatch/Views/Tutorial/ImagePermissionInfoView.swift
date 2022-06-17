@@ -29,11 +29,6 @@ struct ImagePermissionInfoView: View {
                 }
                     
             }
-            
-//
-//            Image("image_permission_info2")
-//                .resizable()
-//                .scaledToFit()
         }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .padding(.leading, 20)
             .padding(.trailing, 20)
@@ -42,7 +37,6 @@ struct ImagePermissionInfoView: View {
                     currentIndex = currentIndex < 1 ? currentIndex + 1 : 0
                 }
             })
-//            .disabled(true)
     }
 }
 
