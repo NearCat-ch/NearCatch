@@ -29,7 +29,7 @@
 
 ## :framed_picture: Demo
 
-[⭐️ NearCatch]("https://youtu.be/bBylSazJQlQ")
+유튜브 영상데모 보러가기 -> [⭐️ NearCatch](https://youtu.be/bBylSazJQlQ)
 
 ## 🌈 Design Guide 
 
