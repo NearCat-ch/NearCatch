@@ -16,10 +16,6 @@ struct HomeView: View {
     @State var isLaunched = true
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var myNickName: String = ""
-    @State var myKeywords: [Int] = []
-    @State var myImage: UIImage?
-    
     var body: some View {
         NavigationView{
             ZStack {
@@ -99,7 +95,7 @@ struct HomeView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarTrailing) {
                     NavigationLink {
-                        ProfileView(nickname:myNickName, profileImage:myImage)
+                        ProfileView()
                     } label: {
                         Image("icn_person")
                             .resizable()
@@ -120,20 +116,7 @@ struct HomeView: View {
             }
         }
         .customSheet(isPresented: $niObject.isBumped) {
-            Match(imageData: niObject.matchedImage, nickName: niObject.matchedName, keywords: niObject.matchedKeywords)
-        }
-        .onAppear {
-            let profiles = CoreDataManager.coreDM.readAllProfile()
-            let keywords = CoreDataManager.coreDM.readKeyword()
-            let pictures = CoreDataManager.coreDM.readAllPicture()
-            
-            myNickName = profiles[0].nickname ?? ""
-            myKeywords = keywords[0].favorite
-            myImage = pictures[0].content ?? .add
-            
-            niObject.myNickname = myNickName
-            niObject.myKeywords = myKeywords
-            niObject.myPicture = myImage
+            Match(imageData: niObject.bumpedImage, nickName: niObject.bumpedName, keywords: niObject.bumpedKeywords)
         }
     }
 }
