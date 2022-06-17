@@ -60,13 +60,15 @@ class NISessionManager: NSObject, ObservableObject {
     let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
     let hapticManager = HapticManager()
     
-    @Published var matchedName = ""
-    @Published var matchedKeywords : [Int] = []
-    @Published var matchedImage : UIImage?
-    
+    // 나의 정보
     @Published var myNickname : String = ""
     @Published var myKeywords : [Int] = []
     @Published var myPicture : UIImage?
+    
+    // 범프된 상대 정보
+    @Published var bumpedName = ""
+    @Published var bumpedKeywords : [Int] = []
+    @Published var bumpedImage : UIImage?
     
     override init() {
         super.init()
@@ -79,6 +81,10 @@ class NISessionManager: NSObject, ObservableObject {
     
     func start() {
         startup()
+        
+        myNickname = CoreDataManager.coreDM.readAllProfile()[0].nickname ?? ""
+        myKeywords = CoreDataManager.coreDM.readKeyword()[0].favorite
+        myPicture = CoreDataManager.coreDM.readAllPicture()[0].content
     }
     
     func stop() {
@@ -180,8 +186,9 @@ class NISessionManager: NSObject, ObservableObject {
         if receivedData.isBumped {
             self.isBumped = true
             gameState = .ready
-            matchedName = receivedData.nickname
-            matchedImage = receivedData.image
+            bumpedName = receivedData.nickname
+            bumpedKeywords = receivedData.keywords
+            bumpedImage = receivedData.image
             shareMyData(token: receivedData.token, peer: peer)
             stop()
         } else { // 일반 전송
@@ -237,6 +244,7 @@ extension NISessionManager: NISessionDelegate {
         
         guard let nearbyObjectUpdate = peerObj else { return }
 
+        // 범프
         if isNearby(nearbyObjectUpdate.distance ?? 0.5) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
             shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
@@ -246,7 +254,7 @@ extension NISessionManager: NISessionDelegate {
         // 매칭된 사람일 경우 진동 변화
         guard let matchedToken = matchedObject?.token else { return }
         if nearbyObjectUpdate.discoveryToken == matchedToken {
-            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 0,
+            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 10,
                                        matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
@@ -320,6 +328,7 @@ extension NISessionManager {
         return distance < nearbyDistanceThreshold
     }
     
+    // 매칭 상대 업데이트
     private func compareForCheckMatchedObject(_ data: TranData) {
         
         guard self.matchedObject != data else { return }
@@ -331,12 +340,10 @@ extension NISessionManager {
             
             if withCurCnt < withNewCnt {
                 self.matchedObject = data
-                matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             }
             
         } else {
             self.matchedObject = data
-            matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             gameState = .found
         }
         
