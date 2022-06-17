@@ -16,6 +16,8 @@
 		0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */; };
 		0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDD74F2851E2AF0081C832 /* PageControlView.swift */; };
 		0EC3BB86285B46C00069C5C6 /* UserCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */; };
+		0EC3BB88285B848D0069C5C6 /* ImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */; };
+		0EC3BB8C285B96080069C5C6 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */; };
 		164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A722854C43800CA8B0A /* MathUtilities.swift */; };
 		164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A742854C47400CA8B0A /* NISessionManager.swift */; };
 		164A4A782854C4DC00CA8B0A /* MPCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A772854C4DC00CA8B0A /* MPCSession.swift */; };
@@ -43,6 +45,7 @@
 		6F02F89928571FF40016DF26 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02F89828571FF40016DF26 /* SetView.swift */; };
 		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
+		6F870818285C6ED100A79E22 /* TipChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F870817285C6ED100A79E22 /* TipChange.swift */; };
 		6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */; };
 		6F9649702856222C00A54645 /* ProfileInterestCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96496F2856222C00A54645 /* ProfileInterestCard.swift */; };
 		6FCBC3982858763D00A1D7D1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCBC3972858763D00A1D7D1 /* SettingButton.swift */; };
@@ -82,6 +85,8 @@
 		0EBDD74D2851E2950081C832 /* SettingNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNicknameView.swift; sourceTree = "<group>"; };
 		0EBDD74F2851E2AF0081C832 /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
 		0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheckViewModel.swift; sourceTree = "<group>"; };
+		0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConverter.swift; sourceTree = "<group>"; };
+		0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
 		164A4A722854C43800CA8B0A /* MathUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		164A4A742854C47400CA8B0A /* NISessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NISessionManager.swift; sourceTree = "<group>"; };
 		164A4A772854C4DC00CA8B0A /* MPCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
@@ -110,6 +115,7 @@
 		6F02F89828571FF40016DF26 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
+		6F870817285C6ED100A79E22 /* TipChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipChange.swift; sourceTree = "<group>"; };
 		6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRectangularButton.swift; sourceTree = "<group>"; };
 		6F96496F2856222C00A54645 /* ProfileInterestCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInterestCard.swift; sourceTree = "<group>"; };
 		6FCBC3972858763D00A1D7D1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
 				0E5F2833285469CC00A625DF /* SettingProfileImageView.swift */,
 				0E2142742854FF3C0053587E /* ImagePicker.swift */,
+				0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */,
+				0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */,
 				0E6D4DE02859894B0099DCED /* ImagePickerModel.swift */,
 				0E6D4DE22859897B0099DCED /* ImageView.swift */,
 				71F63CAD2855D8BB00D44AC2 /* SettingKeywordView.swift */,
@@ -315,6 +323,7 @@
 				21F1AD34285336810016185A /* CustomSheet.swift */,
 				21F1AD362853368B0016185A /* ProfilePicture.swift */,
 				21F1AD38285336940016185A /* Extension.swift */,
+				6F870817285C6ED100A79E22 /* TipChange.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -488,8 +497,10 @@
 				6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */,
 				0E2C7B65285A0F480062320E /* NoImageInfoView.swift in Sources */,
 				16C50CFC285B1C7F00460F8C /* Keywords.swift in Sources */,
+				0EC3BB88285B848D0069C5C6 /* ImageConverter.swift in Sources */,
 				164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */,
 				0E2C7B632859F6950062320E /* ImagePermissionInfoView.swift in Sources */,
+				0EC3BB8C285B96080069C5C6 /* ImageLoadingView.swift in Sources */,
 				71DF7F09285B1A3300E5D85E /* UIImageTransformer.swift in Sources */,
 				21F1AD2B285336360016185A /* HomeMainButton.swift in Sources */,
 				21F1AD39285336940016185A /* Extension.swift in Sources */,
@@ -507,6 +518,7 @@
 				0EBDD7502851E2AF0081C832 /* PageControlView.swift in Sources */,
 				164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */,
 				21F1AD31285336640016185A /* NearCat.swift in Sources */,
+				6F870818285C6ED100A79E22 /* TipChange.swift in Sources */,
 				7110C112285AFA8F009DD77B /* LoadingView.swift in Sources */,
 				164A4A782854C4DC00CA8B0A /* MPCSession.swift in Sources */,
 			);
@@ -565,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -619,7 +631,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -637,28 +649,30 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = BXU6534P3P;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "photo use";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "서로의 관심사를 알기 위해 로컬 네트워크를 사용합니다.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "서로의 관심사를 알기 위해 사용자 근처 상호작용을 사용합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "프로필 정보를 저장하기 위해 사진을 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.2pm.NearCatch;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = co.2pm.NearCatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -670,28 +684,30 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = BXU6534P3P;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
-				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "photo use";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "서로의 관심사를 알기 위해 로컬 네트워크를 사용합니다.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "서로의 관심사를 알기 위해 사용자 근처 상호작용을 사용합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "프로필 정보를 저장하기 위해 사진을 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.2pm.NearCatch;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = co.2pm.NearCatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

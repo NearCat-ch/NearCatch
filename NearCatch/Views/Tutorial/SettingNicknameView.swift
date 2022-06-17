@@ -28,9 +28,10 @@ struct SettingNicknameView: View {
                 .font(.custom("온글잎 의연체", size: 24))
 //            Spacer()
 //                .frame(height: 50)
-            Image("img_standing")
-                .padding(.bottom, 20.0)
-                .padding(.top, 15)
+            LottieView(jsonName: "NearCatStanding")
+                .frame(height: 180)
+//                .padding(.bottom, 20.0)
+//                .padding(.top, 15)
 //            Spacer()
 //                .frame(height: 20)
             

@@ -15,16 +15,23 @@ struct SetView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
-                    Spacer()
-                        .frame(height:70)
-                    SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
+                    ZStack{
+                        Rectangle()
+                            .fill(.white)
+                            .opacity(0.3)
+                            .frame(width:350, height:20)
+                            .padding([.top], 30)
+                        SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
+                    }
                     NavigationLink(destination:LicenseView(), label: {
-                        SettingButton(text:"라이센스")
-                    })
+                        SettingButton(text:"라이센스", isEnd:true)
+                    }).padding([.top], -8)
                     
                     Spacer()
-                }
+                }.padding([.top], -20)
             }
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {

@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct EditProfileView: View {
-    @State var nickname:String
+    @Binding var nickname:String
     @Binding var profileImage: UIImage?
     @State var isPresented = false
+    @State var tempNick:String = ""
+    @State var tempImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -19,12 +21,24 @@ struct EditProfileView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     Spacer()
                     ZStack{
                         Button(action: {
-                            withAnimation{
-                                self.isPresented.toggle()
+                            PHPhotoLibrary.requestAuthorization { (status) in
+                                if status == .authorized {
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
+                                else {
+                                    print("디나이")
+                                    withAnimation{
+                                        self.isPresented.toggle()
+                                    }
+                                }
                             }
                         }) {
                             if self.profileImage == nil {
@@ -34,11 +48,15 @@ struct EditProfileView: View {
                                 ZStack{
                                     Circle()
                                         .fill(.white.opacity(0.3))
-                                    Image(uiImage: self.profileImage!)
+                                    Image(uiImage: self.tempImage ?? UIImage())
                                         .resizable()
                                         .clipShape(Circle())
                                         .scaledToFill()
                                         .frame(width: 200, height: 200)
+                                        .onAppear{
+                                            self.tempImage = self.profileImage
+                                        }
+                                        
                                         
                                 }.frame(width: 190, height: 190)
                                     .padding(.top, 25)
@@ -49,26 +67,29 @@ struct EditProfileView: View {
                         .frame(height:50)
                     VStack {
                         ZStack {
-                            TextField("", text: $nickname)
-                                .placeholder(when:nickname.isEmpty){
+                            TextField("", text: $tempNick)
+                                .placeholder(when:tempNick.isEmpty){
                                     Text("User Name")
                                         .font(.custom("온글잎 의연체", size:34))
                                         .foregroundColor(Color.white)
                                         .opacity(0.3)
                                 }
-                                .limitText($nickname, to: 10)
+                                .limitText($tempNick, to: 10)
                                 .font(.custom("온글잎 의연체", size:34))
                                 .foregroundColor(Color.white)
                                 .multilineTextAlignment(.center)
                                 .frame(width:200)
                                 .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
+                                .onAppear{
+                                    self.tempNick = self.nickname
+                                }
                             HStack{
                                 Spacer()
                                     .frame(width:225)
-                                if nickname != "" {
+                                if tempNick != "" {
                                     Button {
-                                        nickname = ""
+                                        tempNick = ""
                                     } label: {
                                         Image("icn_cancle")
                                             .resizable()
@@ -80,22 +101,30 @@ struct EditProfileView: View {
                         Rectangle()
                             .frame(width:260, height: 1)
                             .foregroundColor(.white)
-                        Text("\(nickname.count) / 10")
+                        Text("\(tempNick.count) / 10")
                             .font(.custom("온글잎 의연체", size:30))
-                            .foregroundColor((nickname.isEmpty || nickname.count > 10) ? Color.red : Color.white)
+                            .foregroundColor((tempNick.isEmpty || tempNick.count > 10) ? Color.red : Color.white)
                         
                     }
                     Spacer()
                         .frame(height:180)
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            self.nickname = self.tempNick
+                            self.profileImage = self.tempImage
+                            CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
+                            CoreDataManager.coreDM.updateProfile()
+                            CoreDataManager.coreDM.readAllPicture()[0].content = profileImage
+                            CoreDataManager.coreDM.updateProfile()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
-                        SharedRectangularButton(rectWidth:350, rectColor:((nickname.isEmpty || nickname.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((nickname.isEmpty || nickname.count > 10) ? Color.white : Color.black))
-                    }.disabled(nickname.isEmpty || nickname.count > 10)
+                        SharedRectangularButton(rectWidth:350, rectColor:((tempNick.isEmpty || tempNick.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((tempNick.isEmpty || tempNick.count > 10) ? Color.white : Color.black))
+                    }.disabled(tempNick.isEmpty || tempNick.count > 10)
                     Spacer()
                 }
                 .sheet(isPresented: $isPresented) {
-                    ImagePicker(profileImage: $profileImage, show: $isPresented)
+                    ImagePicker(profileImage: $tempImage, show: $isPresented)
                 }
             }
             .toolbar{
@@ -114,6 +143,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(nickname:"마이즈", profileImage: .constant(nil))
+        EditProfileView(nickname: .constant("니어캣"), profileImage: .constant(nil))
     }
 }

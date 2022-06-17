@@ -16,10 +16,6 @@ struct HomeView: View {
     @State var isLaunched = true
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var myNickName: String = ""
-    @State var myKeywords: [Int] = []
-    @State var myImage: UIImage?
-    
     var body: some View {
         NavigationView{
             ZStack {
@@ -36,22 +32,11 @@ struct HomeView: View {
                     ZStack {
                         VStack {
                             Spacer()
+                                .frame(height:475)
                             ZStack {
                                 if niObject.gameState != .ready {
-                                    Tip {
-                                        (niObject.gameState == .finding ?
-                                         AnyView(VStack {
-                                            Text("Tip 니어캣과 함께 주변을 돌아다녀 보세요".partialColor(["Tip", "니어캣"], .PrimaryColor))
-                                            Text("니어캣이 진동으로 인연의 별을 알려드릴 거에요".partialColor(["니어캣"], .PrimaryColor))
-                                        })
-                                         : AnyView(Text("Tip 스마트폰을 서로 가까이 가져가 보세요\n공통된 관심사를 가지고 대화를 이어나가 보세요!".partialColor(["Tip"], .PrimaryColor)))
-                                        )
-                                        .font(.custom("온글잎 의연체", size: 28))
-                                        .frame(maxWidth: .infinity)
-                                    }
-                                    .padding()
-                                    .transition(.move(edge: .bottom))
-                                    .animation(.linear, value: niObject.gameState)
+                                    TipChange()
+                                        .transition(.move(edge: .bottom))
                                 }
                             }
                         }
@@ -99,7 +84,7 @@ struct HomeView: View {
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarTrailing) {
                     NavigationLink {
-                        ProfileView(nickname:myNickName, profileImage:myImage)
+                        ProfileView()
                     } label: {
                         Image("icn_person")
                             .resizable()
@@ -119,21 +104,11 @@ struct HomeView: View {
                 }
             }
         }
-        .customSheet(isPresented: $niObject.isBumped) {
-            Match(imageData: niObject.matchedImage, nickName: niObject.matchedName, keywords: niObject.matchedKeywords)
-        }
-        .onAppear {
-            let profiles = CoreDataManager.coreDM.readAllProfile()
-            let keywords = CoreDataManager.coreDM.readKeyword()
-            let pictures = CoreDataManager.coreDM.readAllPicture()
-            
-            myNickName = profiles[0].nickname ?? ""
-            myKeywords = keywords[0].favorite
-            myImage = pictures[0].content ?? .add
-            
-            niObject.myNickname = myNickName
-            niObject.myKeywords = myKeywords
-            niObject.myPicture = myImage
+        .customSheet(isPresented: $niObject.isBumped, dismiss: {
+            niObject.gameState = .ready
+            niObject.stop()
+        }) {
+            Match(imageData: niObject.bumpedImage, nickName: niObject.bumpedName, keywords: niObject.bumpedKeywords)
         }
     }
 }

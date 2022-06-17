@@ -34,7 +34,7 @@ struct SettingKeywordView: View {
                 .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
             Spacer()
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 VStack(alignment: .leading){
                     HStack{
                         ForEach(0..<14, id: \.self) { i in
@@ -51,18 +51,16 @@ struct SettingKeywordView: View {
                                 ZStack{
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                     }
                                 }
                             }
-                            //              }
-                            //                 else {
-                            //팝업 10개까지만 선택할 수 있습니다?
-                            //                   }
                             
                         }
                     }
@@ -80,10 +78,12 @@ struct SettingKeywordView: View {
                                 ZStack{
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                         
                                     }
@@ -106,10 +106,12 @@ struct SettingKeywordView: View {
                                 ZStack{
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                     }
                                 }
@@ -129,10 +131,12 @@ struct SettingKeywordView: View {
                             }){
                                 if tagData.Tags[i].isSelected == true{
                                     Text(tagData.Tags[i].name)
+                                        .font(.custom("온글잎 의연체", size: 22))
                                         .tagView(.black, .PrimaryColor)
                                 }
                                 else{
                                     Text(tagData.Tags[i].name)
+                                        .font(.custom("온글잎 의연체", size: 22))
                                         .tagView(.gray, .ThirdColor)
                                 }
                             }
@@ -154,10 +158,12 @@ struct SettingKeywordView: View {
                                 ZStack{
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                     }
                                 }
@@ -178,10 +184,12 @@ struct SettingKeywordView: View {
                             }){
                                 if tagData.Tags[i].isSelected == true{
                                     Text(tagData.Tags[i].name)
+                                        .font(.custom("온글잎 의연체", size: 22))
                                         .tagView(.black, .PrimaryColor)
                                 }
                                 else{
                                     Text(tagData.Tags[i].name)
+                                        .font(.custom("온글잎 의연체", size: 22))
                                         .tagView(.gray, .ThirdColor)
                                 }
                             }
@@ -196,7 +204,8 @@ struct SettingKeywordView: View {
             Button{
                 CoreDataManager.coreDM.createProfile(nickname: nickname)
                 if let profileImage = profileImage {
-                    CoreDataManager.coreDM.createPicture(content: profileImage)
+                    let profileImage2 = ImageConverter.resize(image: profileImage)
+                    CoreDataManager.coreDM.createPicture(content: profileImage2)
                 } else {
                     let x = UIImage(named: "img_sunglass_68px")!
                     CoreDataManager.coreDM.createPicture(content: x)

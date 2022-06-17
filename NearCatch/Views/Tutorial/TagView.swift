@@ -80,7 +80,7 @@ class TagViewModel : ObservableObject {
             
             Tag(index: 60, name: "소셜 미디어"),
             Tag(index: 61, name: "돈"),
-            Tag(index: 62, name: "스포츠"),
+            Tag(index: 62, name: "애니메이션"),
             Tag(index: 63, name: "배구"),
             Tag(index: 64, name: "밴드"),
             Tag(index: 65, name: "디즈니"),
@@ -97,7 +97,7 @@ class TagViewModel : ObservableObject {
             Tag(index: 75, name: "애플"),
             Tag(index: 76, name: "사진"),
             Tag(index: 77, name: "새로운 것 도전하기"),
-            Tag(index: 78, name: "넷플릭스"),
+            Tag(index: 78, name: "고전게임"),
             Tag(index: 79, name: "유튜브"),
             Tag(index: 80, name: "차(tea)"),
             Tag(index: 81, name: "스탠드업 코미디"),

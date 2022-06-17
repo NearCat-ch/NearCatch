@@ -57,16 +57,18 @@ class NISessionManager: NSObject, ObservableObject {
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
-    let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
+    let nearbyDistanceThreshold: Float = 0.08 // 범프 한계 거리
     let hapticManager = HapticManager()
     
-    @Published var matchedName = ""
-    @Published var matchedKeywords : [Int] = []
-    @Published var matchedImage : UIImage?
-    
+    // 나의 정보
     @Published var myNickname : String = ""
     @Published var myKeywords : [Int] = []
     @Published var myPicture : UIImage?
+    
+    // 범프된 상대 정보
+    @Published var bumpedName = ""
+    @Published var bumpedKeywords : [Int] = []
+    @Published var bumpedImage : UIImage?
     
     override init() {
         super.init()
@@ -79,20 +81,26 @@ class NISessionManager: NSObject, ObservableObject {
     
     func start() {
         startup()
+        
+        myNickname = CoreDataManager.coreDM.readAllProfile()[0].nickname ?? ""
+        myKeywords = CoreDataManager.coreDM.readKeyword()[0].favorite
+        myPicture = CoreDataManager.coreDM.readAllPicture()[0].content
     }
     
     func stop() {
         for (_, session) in sessions {
             session.invalidate()
         }
-        mpc?.invalidate()
-        mpc = nil
         connectedPeers.removeAll()
         sessions.removeAll()
         peerTokensMapping.removeAll()
         matchedObject = nil
         peersCnt = 0
         hapticManager.endHaptic()
+        if(!isBumped) {
+            mpc?.invalidate()
+            mpc = nil
+        }
     }
 
     func startup() {
@@ -140,7 +148,9 @@ class NISessionManager: NSObject, ObservableObject {
         // 3. 연결된 피어 추가
         if !connectedPeers.contains(peer) {
             // 4. 나의 NI 디스커버리 토큰 공유
-            shareMyDiscoveryToken(token: myToken, peer: peer)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyDiscoveryToken(token: myToken, peer: peer)
+            }
             connectedPeers.append(peer)
         }
     }
@@ -170,24 +180,29 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        // 3개 이상일 때만 매치
-        if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
-            compareForCheckMatchedObject(receivedData)
-            hapticManager.startHaptic()
-        }
-        
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            self.isBumped = true
-            gameState = .ready
-            matchedName = receivedData.nickname
-            matchedImage = receivedData.image
-            shareMyData(token: receivedData.token, peer: peer)
+            if !self.isBumped {
+                self.isBumped = true
+                bumpedName = receivedData.nickname
+                bumpedKeywords = receivedData.keywords
+                bumpedImage = receivedData.image
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.shareMyData(token: receivedData.token, peer: peer)
+                }
+            }
             stop()
+            gameState = .ready
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
             peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+            
+            // 3개 이상일 때만 매치
+            if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
+                compareForCheckMatchedObject(receivedData)
+                hapticManager.startHaptic()
+            }
         }
     }
 
@@ -198,7 +213,7 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
@@ -208,13 +223,21 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        guard connectedPeers.contains(peer) else { return }
-        
-        guard peerTokensMapping[token] == nil else { return }
+        // 기존에 토큰을 가지고 있는 상대인데 재연결로 다시 수신받은 경우 session 종료 후 다시 시작
+        if let ownedPeer = peerTokensMapping[token] {
+            self.sessions[ownedPeer]?.invalidate()
+            self.sessions[ownedPeer] = nil
+            // 그 피어가 매치 상대일 경우 매치 상대 초기화
+            if matchedObject?.token == token {
+                matchedObject = nil
+                hapticManager.endHaptic()
+                gameState = .finding
+            }
+        }
         
         peerTokensMapping[token] = peer
         
@@ -223,7 +246,9 @@ class NISessionManager: NSObject, ObservableObject {
         
         // Run the session.
         // 7. NI 세션 시작
-        sessions[peer]?.run(config)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.sessions[peer]?.run(config)
+        }
     }
 }
 
@@ -236,17 +261,19 @@ extension NISessionManager: NISessionDelegate {
         }
         
         guard let nearbyObjectUpdate = peerObj else { return }
-
-        if isNearby(nearbyObjectUpdate.distance ?? 0.5) {
+        
+        // 범프
+        if isNearby(nearbyObjectUpdate.distance ?? 10) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
-            shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
-            return
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            }
         }
         
         // 매칭된 사람일 경우 진동 변화
         guard let matchedToken = matchedObject?.token else { return }
         if nearbyObjectUpdate.discoveryToken == matchedToken {
-            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 0,
+            hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 10,
                                        matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
         }
     }
@@ -278,7 +305,9 @@ extension NISessionManager: NISessionDelegate {
             // The peer timed out, but the session is valid.
             // If the configuration is valid, run the session again.
             if let config = session.configuration {
-                session.run(config)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    session.run(config)
+                }
             }
         default:
             fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
@@ -320,6 +349,7 @@ extension NISessionManager {
         return distance < nearbyDistanceThreshold
     }
     
+    // 매칭 상대 업데이트
     private func compareForCheckMatchedObject(_ data: TranData) {
         
         guard self.matchedObject != data else { return }
@@ -331,12 +361,10 @@ extension NISessionManager {
             
             if withCurCnt < withNewCnt {
                 self.matchedObject = data
-                matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             }
             
         } else {
             self.matchedObject = data
-            matchedKeywords = Array(Set(myKeywords).intersection(data.keywords))
             gameState = .found
         }
         
@@ -345,11 +373,5 @@ extension NISessionManager {
     private func calMatchingKeywords(_ first: [Int], _ second: [Int]) -> Int {
         let cnt = Set(first).intersection(second).count
         return cnt
-    }
-}
-
-extension Data {
-    func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound ..< range.upperBound + 1)
     }
 }

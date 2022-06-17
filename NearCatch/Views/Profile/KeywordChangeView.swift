@@ -9,14 +9,18 @@ import SwiftUI
 
 struct KeywordChangeView: View {
     @StateObject var tagData = TagViewModel()
-    @ObservedObject var togglecount = ToggleCount()
     @State var tag:Int? = nil
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var keywords : [Int]
+    @State var duplicatedkeywords : [Int] = []
+    
     var body: some View {
         ZStack {
             Image("img_background")
                 .resizable()
                 .ignoresSafeArea()
+            LottieView(jsonName: "Background")
+                .ignoresSafeArea(.all)
             VStack{
                 Button(
                     action: {
@@ -38,10 +42,10 @@ struct KeywordChangeView: View {
                 }
                 Text("최소 5개 이상 선택해야 해요!")
                     .font(.custom("온글잎 의연체", size: 22))
-                    .foregroundColor((togglecount.keywordCounter < 5) ? Color.red : Color.white)
-                Text("\(togglecount.keywordCounter) / 10")
+                    .foregroundColor((duplicatedkeywords.count < 5) ? Color.red : Color.white)
+                Text("\(duplicatedkeywords.count) / 10")
                     .font(.custom("온글잎 의연체", size: 34))
-                    .foregroundColor((togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? Color.red : Color.white)
+                    .foregroundColor((duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? Color.red : Color.white)
                 Spacer()
                     .frame(height:80)
                 
@@ -52,19 +56,22 @@ struct KeywordChangeView: View {
                                     Button(action: {
                                         if tagData.Tags[i].isSelected == true {
                                             tagData.Tags[i].isSelected = false
-                                            self.togglecount.keywordCounter -= 1
+                                            duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
+                                            
                                         } else {
                                             tagData.Tags[i].isSelected = true
-                                            self.togglecount.keywordCounter += 1
+                                            duplicatedkeywords.append(tagData.Tags[i].index)
                                         }
                                     }){
                                         ZStack{
                                             if tagData.Tags[i].isSelected == true{
                                                 Text(tagData.Tags[i].name)
+                                                    .font(.custom("온글잎 의연체", size: 22))
                                                     .tagView(.black, .PrimaryColor)
                                             }
                                             else{
                                                 Text(tagData.Tags[i].name)
+                                                    .font(.custom("온글잎 의연체", size: 22))
                                                     .tagView(.gray, .ThirdColor)
                                             }
                                         }
@@ -76,19 +83,21 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
                                         if tagData.Tags[i].isSelected == true{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.black, .PrimaryColor)
                                         }
                                         else{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.gray, .ThirdColor)
                                             
                                         }
@@ -102,19 +111,21 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
                                         if tagData.Tags[i].isSelected == true{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.black, .PrimaryColor)
                                         }
                                         else{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.gray, .ThirdColor)
                                         }
                                     }
@@ -126,18 +137,20 @@ struct KeywordChangeView: View {
                                 Button(action: {
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                     }
                                 }
@@ -150,19 +163,21 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     ZStack{
                                         if tagData.Tags[i].isSelected == true{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.black, .PrimaryColor)
                                         }
                                         else{
                                             Text(tagData.Tags[i].name)
+                                                .font(.custom("온글잎 의연체", size: 22))
                                                 .tagView(.gray, .ThirdColor)
                                         }
                                     }
@@ -175,18 +190,20 @@ struct KeywordChangeView: View {
                                     
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
-                                        self.togglecount.keywordCounter -= 1
+                                        duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
                                     } else {
                                         tagData.Tags[i].isSelected = true
-                                        self.togglecount.keywordCounter += 1
+                                        duplicatedkeywords.append(tagData.Tags[i].index)
                                     }
                                 }){
                                     if tagData.Tags[i].isSelected == true{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.black, .PrimaryColor)
                                     }
                                     else{
                                         Text(tagData.Tags[i].name)
+                                            .font(.custom("온글잎 의연체", size: 22))
                                             .tagView(.gray, .ThirdColor)
                                     }
                                 }
@@ -199,20 +216,33 @@ struct KeywordChangeView: View {
                     .frame(height:140)
                 HStack{
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
                         SharedRectangularButton(rectWidth:150, rectColor:.ThirdColor, text:"취소", textColor:.white)
                     }
                     Spacer()
                         .frame(width:20)
                     Button{
-                        action: do { self.presentationMode.wrappedValue.dismiss() }
+                        action: do {
+                            keywords = duplicatedkeywords
+                            CoreDataManager.coreDM.readKeyword()[0].favorite = keywords
+                            CoreDataManager.coreDM.updateProfile()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     } label:{
-                        SharedRectangularButton(rectWidth:150, rectColor: (togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10) ? .white : .black)
-                    }.disabled(togglecount.keywordCounter < 5 || togglecount.keywordCounter > 10)
+                        SharedRectangularButton(rectWidth:150, rectColor: (duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .white : .black)
+                    }.disabled(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10)
                 }
                 Spacer()
                     .frame(height:20)
+            }
+        }
+        .onAppear {
+            duplicatedkeywords = keywords
+            for keyword in keywords {
+                tagData.Tags[keyword].isSelected = true
             }
         }
     }
@@ -220,6 +250,6 @@ struct KeywordChangeView: View {
 
 struct KeywordChangeView_Previews: PreviewProvider {
     static var previews: some View {
-        KeywordChangeView()
+        KeywordChangeView(keywords: .constant([1,2,3]))
     }
 }
