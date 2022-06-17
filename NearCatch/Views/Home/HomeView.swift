@@ -105,6 +105,7 @@ struct HomeView: View {
             }
         }
         .customSheet(isPresented: $niObject.isBumped, dismiss: {
+            niObject.gameState = .ready
             niObject.stop()
         }) {
             Match(imageData: niObject.bumpedImage, nickName: niObject.bumpedName, keywords: niObject.bumpedKeywords)
