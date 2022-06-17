@@ -37,11 +37,13 @@ struct CustomSheet<Content: View>: View {
     
     @Environment(\.horizontalSizeClass) private var horizontal
     @Binding var isPresented: Bool
+    let dismiss: () -> Void
     let content: () -> Content
     
-    init(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
+    init(isPresented: Binding<Bool>, dismiss: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
         self._isPresented = isPresented
         self.content = content
+        self.dismiss = dismiss
     }
     
     var body: some View {
@@ -51,6 +53,7 @@ struct CustomSheet<Content: View>: View {
             CircleButton(imageName: "icn_cancle") {
                 withAnimation(.spring()) {
                     isPresented = false
+                    dismiss()
                 }
             }
             .frame(width: 40, height: 40)
@@ -67,10 +70,12 @@ struct CustomSheet<Content: View>: View {
 struct CustomSheetViewModifier<InnerContent: View>: ViewModifier {
     
     @Binding var isPresented: Bool
+    let dismiss: () -> Void
     let innerContent: () -> InnerContent
     
-    init(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> InnerContent) {
+    init(isPresented: Binding<Bool>, dismiss: @escaping () -> Void, @ViewBuilder content: @escaping () -> InnerContent) {
         self._isPresented = isPresented
+        self.dismiss = dismiss
         self.innerContent = content
     }
     
@@ -88,7 +93,7 @@ struct CustomSheetViewModifier<InnerContent: View>: ViewModifier {
                         }
                         .transition(.opacity)
                     
-                    CustomSheet(isPresented: $isPresented) {
+                    CustomSheet(isPresented: $isPresented, dismiss: dismiss) {
                         innerContent()
                     }
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -100,8 +105,8 @@ struct CustomSheetViewModifier<InnerContent: View>: ViewModifier {
 }
 
 extension View {
-    func customSheet<Content: View>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
-        self.modifier(CustomSheetViewModifier(isPresented: isPresented, content: content))
+    func customSheet<Content: View>(isPresented: Binding<Bool>, dismiss: @escaping () -> Void = {}, @ViewBuilder content: @escaping () -> Content) -> some View {
+        self.modifier(CustomSheetViewModifier(isPresented: isPresented, dismiss: dismiss, content: content))
     }
 }
 
