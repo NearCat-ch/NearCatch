@@ -15,6 +15,8 @@ struct LicenseView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     ZStack{
                         RoundedRectangle(cornerRadius:10)

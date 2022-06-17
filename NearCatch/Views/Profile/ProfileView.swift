@@ -21,11 +21,13 @@ struct ProfileView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     VStack{
                         ZStack{
                             if self.profileImage == nil {
-                                SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
+                                SharedCustomButton(icon:"icn_img", circleSize:215, color:Color.white, innerOpacity:1)
                             }
                             else {
                                 ZStack{
@@ -37,13 +39,12 @@ struct ProfileView: View {
                                         .scaledToFill()
                                         .frame(width: 190, height: 190)
                                 }.frame(width: 215, height: 215)
-                                    .padding(.top, 25)
                             }
                         }
                         Text(nickname ?? "")
-                            .font(.custom("온글잎 의연체", size: 42))
+                            .font(.custom("온글잎 의연체", size: 28))
                             .foregroundColor(.white)
-                    }
+                    }.padding([.top], -50)
                     HStack{
                         VStack{
                             NavigationLink(destination: EditProfileView(nickname: Binding(get: {nickname ?? ""}, set: {nickname = $0}), profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
@@ -70,7 +71,7 @@ struct ProfileView: View {
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.white)
                         }
-                    }.padding([.top], -20)
+                    }
                     Spacer()
                         .frame(height:50)
                     ProfileInterestCard(keywords: keywords ?? [])

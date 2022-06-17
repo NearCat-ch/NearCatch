@@ -19,6 +19,8 @@ struct KeywordChangeView: View {
             Image("img_background")
                 .resizable()
                 .ignoresSafeArea()
+            LottieView(jsonName: "Background")
+                .ignoresSafeArea(.all)
             VStack{
                 Button(
                     action: {

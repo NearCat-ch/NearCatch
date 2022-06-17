@@ -20,6 +20,8 @@ struct EditProfileView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     Spacer()
                     ZStack{
