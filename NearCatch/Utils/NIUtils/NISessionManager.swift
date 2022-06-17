@@ -209,7 +209,7 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
@@ -219,7 +219,7 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .reliable)
+        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
@@ -227,6 +227,12 @@ class NISessionManager: NSObject, ObservableObject {
         if let ownedPeer = peerTokensMapping[token] {
             self.sessions[ownedPeer]?.invalidate()
             self.sessions[ownedPeer] = nil
+            // 그 피어가 매치 상대일 경우 매치 상대 초기화
+            if matchedObject?.token == token {
+                matchedObject = nil
+                hapticManager.endHaptic()
+                gameState = .finding
+            }
         }
         
         peerTokensMapping[token] = peer
