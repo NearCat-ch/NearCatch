@@ -112,10 +112,15 @@ struct EditProfileView: View {
                         action: do {
                             self.nickname = self.tempNick
                             self.profileImage = self.tempImage
+                            #if !APPCLIP
                             CoreDataManager.coreDM.readAllProfile()[0].nickname = nickname
                             CoreDataManager.coreDM.updateProfile()
                             CoreDataManager.coreDM.readAllPicture()[0].content = profileImage
                             CoreDataManager.coreDM.updateProfile()
+                            #else
+                            ContentView.nickname = nickname
+                            ContentView.profileImage = profileImage ?? .add
+                            #endif
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     } label:{

@@ -82,9 +82,15 @@ class NISessionManager: NSObject, ObservableObject {
     func start() {
         startup()
         
+        #if !APPCLIP
         myNickname = CoreDataManager.coreDM.readAllProfile()[0].nickname ?? ""
         myKeywords = CoreDataManager.coreDM.readKeyword()[0].favorite
         myPicture = CoreDataManager.coreDM.readAllPicture()[0].content
+        #else
+        myNickname = ContentView.nickname
+        myKeywords = ContentView.keywords
+        myPicture = ContentView.profileImage
+        #endif
     }
     
     func stop() {

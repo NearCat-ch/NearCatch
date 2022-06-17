@@ -38,7 +38,11 @@ struct Match: View {
         }
         .padding()
         .onAppear {
+            #if !APPCLIP
             myKeywords = CoreDataManager.coreDM.readKeyword()[0].favorite
+            #else
+            myKeywords = ContentView.keywords
+            #endif
             commonKeywords = Array(Set(myKeywords).intersection(keywords))
         }
     }

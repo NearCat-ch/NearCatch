@@ -91,9 +91,15 @@ struct ProfileView: View {
             }
         }
         .onAppear {
+            #if !APPCLIP
             nickname = CoreDataManager.coreDM.readAllProfile()[0].nickname
             profileImage = CoreDataManager.coreDM.readAllPicture()[0].content
             keywords = CoreDataManager.coreDM.readKeyword()[0].favorite
+            #else
+            nickname = ContentView.nickname
+            profileImage = ContentView.profileImage
+            keywords = ContentView.keywords
+            #endif
         }
         .navigationBarHidden(true)
     }

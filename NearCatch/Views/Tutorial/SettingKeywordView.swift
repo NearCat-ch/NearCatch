@@ -202,13 +202,25 @@ struct SettingKeywordView: View {
             
             // 관심사 저장버튼
             Button{
+                #if !APPCLIP
                 CoreDataManager.coreDM.createProfile(nickname: nickname)
+                #else
+                ContentView.nickname = nickname
+                #endif
                 if let profileImage = profileImage {
                     let profileImage2 = ImageConverter.resize(image: profileImage)
+                    #if !APPCLIP
                     CoreDataManager.coreDM.createPicture(content: profileImage2)
+                    #else
+                    ContentView.profileImage = profileImage2
+                    #endif
                 } else {
                     let x = UIImage(named: "img_sunglass_68px")!
+                    #if !APPCLIP
                     CoreDataManager.coreDM.createPicture(content: x)
+                    #else
+                    ContentView.profileImage = x
+                    #endif
                 }
                 var tempList : [Int] = []
                 for i in 0 ..< 87 {
@@ -216,7 +228,11 @@ struct SettingKeywordView: View {
                         tempList.append(tagData.Tags[i].index)
                     }
                 }
+                #if !APPCLIP
                 CoreDataManager.coreDM.createKeyword(favorite: tempList)
+                #else
+                ContentView.keywords = tempList
+                #endif
                 //                    print(tempList)
                 self.isUserReady = true
             } label:{

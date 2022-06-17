@@ -227,8 +227,12 @@ struct KeywordChangeView: View {
                     Button{
                         action: do {
                             keywords = duplicatedkeywords
+                            #if !APPCLIP
                             CoreDataManager.coreDM.readKeyword()[0].favorite = keywords
                             CoreDataManager.coreDM.updateProfile()
+                            #else
+                            ContentView.keywords = keywords
+                            #endif
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     } label:{
