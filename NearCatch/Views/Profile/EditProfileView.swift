@@ -39,10 +39,6 @@ struct EditProfileView: View {
                                     }
                                 }
                             }
-//
-//                            withAnimation{
-//                                self.isPresented.toggle()
-//                            }
                         }) {
                             if self.profileImage == nil {
                                 SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
