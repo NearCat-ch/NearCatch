@@ -57,7 +57,7 @@ class NISessionManager: NSObject, ObservableObject {
     var sessions = [MCPeerID:NISession]()
     var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
     
-    let nearbyDistanceThreshold: Float = 0.2 // 범프 한계 거리
+    let nearbyDistanceThreshold: Float = 0.08 // 범프 한계 거리
     let hapticManager = HapticManager()
     
     // 나의 정보
@@ -91,14 +91,16 @@ class NISessionManager: NSObject, ObservableObject {
         for (_, session) in sessions {
             session.invalidate()
         }
-        mpc?.invalidate()
-        mpc = nil
         connectedPeers.removeAll()
         sessions.removeAll()
         peerTokensMapping.removeAll()
         matchedObject = nil
         peersCnt = 0
         hapticManager.endHaptic()
+        if(!isBumped) {
+            mpc?.invalidate()
+            mpc = nil
+        }
     }
 
     func startup() {
@@ -176,25 +178,27 @@ class NISessionManager: NSObject, ObservableObject {
             fatalError("Unexpectedly failed to decode discovery token.")
         }
         
-        // 3개 이상일 때만 매치
-        if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
-            compareForCheckMatchedObject(receivedData)
-            hapticManager.startHaptic()
-        }
-        
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            self.isBumped = true
-            gameState = .ready
-            bumpedName = receivedData.nickname
-            bumpedKeywords = receivedData.keywords
-            bumpedImage = receivedData.image
-            shareMyData(token: receivedData.token, peer: peer)
+            if !self.isBumped {
+                self.isBumped = true
+                bumpedName = receivedData.nickname
+                bumpedKeywords = receivedData.keywords
+                bumpedImage = receivedData.image
+                shareMyData(token: receivedData.token, peer: peer)
+            }
             stop()
+            gameState = .ready
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
             peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+            
+            // 3개 이상일 때만 매치
+            if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
+                compareForCheckMatchedObject(receivedData)
+                hapticManager.startHaptic()
+            }
         }
     }
 
@@ -219,9 +223,11 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        guard connectedPeers.contains(peer) else { return }
-        
-        guard peerTokensMapping[token] == nil else { return }
+        // 기존에 토큰을 가지고 있는 상대인데 재연결로 다시 수신받은 경우 session 종료 후 다시 시작
+        if let ownedPeer = peerTokensMapping[token] {
+            self.sessions[ownedPeer]?.invalidate()
+            self.sessions[ownedPeer] = nil
+        }
         
         peerTokensMapping[token] = peer
         
@@ -230,7 +236,9 @@ class NISessionManager: NSObject, ObservableObject {
         
         // Run the session.
         // 7. NI 세션 시작
-        sessions[peer]?.run(config)
+        DispatchQueue.global(qos: .background).async {
+            self.sessions[peer]?.run(config)
+        }
     }
 }
 
@@ -245,10 +253,9 @@ extension NISessionManager: NISessionDelegate {
         guard let nearbyObjectUpdate = peerObj else { return }
 
         // 범프
-        if isNearby(nearbyObjectUpdate.distance ?? 0.5) {
+        if isNearby(nearbyObjectUpdate.distance ?? 10) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
             shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
-            return
         }
         
         // 매칭된 사람일 경우 진동 변화

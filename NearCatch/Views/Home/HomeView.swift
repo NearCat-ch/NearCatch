@@ -104,7 +104,9 @@ struct HomeView: View {
                 }
             }
         }
-        .customSheet(isPresented: $niObject.isBumped) {
+        .customSheet(isPresented: $niObject.isBumped, dismiss: {
+            niObject.stop()
+        }) {
             Match(imageData: niObject.bumpedImage, nickName: niObject.bumpedName, keywords: niObject.bumpedKeywords)
         }
     }
