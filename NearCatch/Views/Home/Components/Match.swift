@@ -12,6 +12,9 @@ struct Match: View {
     let nickName: String
     let keywords: [Int]
     
+    @State var myKeywords : [Int] = []
+    @State var commonKeywords : [Int] = []
+    
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
@@ -28,12 +31,16 @@ struct Match: View {
                 Text("우리들의 공통점")
                     .font(.custom("온글잎 의연체", size: 22))
                 
-                Keywords(keywords: self.keywords)
+                Keywords(keywords: self.commonKeywords)
             }
             LottieView(jsonName: "Fireworks")
                 .frame(height: 400)
         }
         .padding()
+        .onAppear {
+            myKeywords = CoreDataManager.coreDM.readKeyword()[0].favorite
+            commonKeywords = Array(Set(myKeywords).intersection(keywords))
+        }
     }
 }
 

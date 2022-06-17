@@ -18,7 +18,7 @@ struct ProfileInterestCard: View {
                 .frame(width:350, height:200)
             VStack {
                 Text("내 관심사")
-                    .font(.custom("온글잎 의연체", size:34))
+                    .font(.custom("온글잎 의연체", size:28))
                     .foregroundColor(Color.white)
                     .padding([.trailing], 210)
                 Keywords(keywords: keywords)

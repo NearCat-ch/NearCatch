@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "icn_chevron.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icn_chevron@2x.png",
+      "filename" : "chevron_left_icon_128919.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icn_chevron@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
