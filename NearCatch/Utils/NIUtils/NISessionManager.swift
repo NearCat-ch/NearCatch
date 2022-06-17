@@ -180,13 +180,15 @@ class NISessionManager: NSObject, ObservableObject {
         
         //  범프된 상태일 경우
         if receivedData.isBumped {
-            self.isBumped = true
-            gameState = .ready
-            bumpedName = receivedData.nickname
-            bumpedKeywords = receivedData.keywords
-            bumpedImage = receivedData.image
-            shareMyData(token: receivedData.token, peer: peer)
+            if !self.isBumped {
+                self.isBumped = true
+                bumpedName = receivedData.nickname
+                bumpedKeywords = receivedData.keywords
+                bumpedImage = receivedData.image
+                shareMyData(token: receivedData.token, peer: peer)
+            }
             stop()
+            gameState = .ready
         } else { // 일반 전송
             let discoveryToken = receivedData.token
             
@@ -221,9 +223,11 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        guard connectedPeers.contains(peer) else { return }
-        
-        guard peerTokensMapping[token] == nil else { return }
+        // 기존에 토큰을 가지고 있는 상대인데 재연결로 다시 수신받은 경우 session 종료 후 다시 시작
+        if let ownedPeer = peerTokensMapping[token] {
+            self.sessions[ownedPeer]?.invalidate()
+            self.sessions[ownedPeer] = nil
+        }
         
         peerTokensMapping[token] = peer
         
