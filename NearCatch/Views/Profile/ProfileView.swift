@@ -44,7 +44,7 @@ struct ProfileView: View {
                         Text(nickname ?? "")
                             .font(.custom("온글잎 의연체", size: 28))
                             .foregroundColor(.white)
-                    }.padding([.top], -50)
+                    }.padding([.top], -20)
                     HStack{
                         VStack{
                             NavigationLink(destination: EditProfileView(nickname: Binding(get: {nickname ?? ""}, set: {nickname = $0}), profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})

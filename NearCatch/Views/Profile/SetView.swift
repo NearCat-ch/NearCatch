@@ -24,7 +24,7 @@ struct SetView: View {
                     })
                     
                     Spacer()
-                }
+                }.padding([.top], -20)
             }
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
