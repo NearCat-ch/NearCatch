@@ -148,7 +148,9 @@ class NISessionManager: NSObject, ObservableObject {
         // 3. 연결된 피어 추가
         if !connectedPeers.contains(peer) {
             // 4. 나의 NI 디스커버리 토큰 공유
-            shareMyDiscoveryToken(token: myToken, peer: peer)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyDiscoveryToken(token: myToken, peer: peer)
+            }
             connectedPeers.append(peer)
         }
     }
@@ -185,7 +187,9 @@ class NISessionManager: NSObject, ObservableObject {
                 bumpedName = receivedData.nickname
                 bumpedKeywords = receivedData.keywords
                 bumpedImage = receivedData.image
-                shareMyData(token: receivedData.token, peer: peer)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.shareMyData(token: receivedData.token, peer: peer)
+                }
             }
             stop()
             gameState = .ready
@@ -242,7 +246,7 @@ class NISessionManager: NSObject, ObservableObject {
         
         // Run the session.
         // 7. NI 세션 시작
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.sessions[peer]?.run(config)
         }
     }
@@ -257,11 +261,13 @@ extension NISessionManager: NISessionDelegate {
         }
         
         guard let nearbyObjectUpdate = peerObj else { return }
-
+        
         // 범프
         if isNearby(nearbyObjectUpdate.distance ?? 10) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
-            shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
+            }
         }
         
         // 매칭된 사람일 경우 진동 변화
@@ -299,7 +305,9 @@ extension NISessionManager: NISessionDelegate {
             // The peer timed out, but the session is valid.
             // If the configuration is valid, run the session again.
             if let config = session.configuration {
-                session.run(config)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    session.run(config)
+                }
             }
         default:
             fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
@@ -365,11 +373,5 @@ extension NISessionManager {
     private func calMatchingKeywords(_ first: [Int], _ second: [Int]) -> Int {
         let cnt = Set(first).intersection(second).count
         return cnt
-    }
-}
-
-extension Data {
-    func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound ..< range.upperBound + 1)
     }
 }
