@@ -15,6 +15,8 @@ struct LicenseView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     ZStack{
                         RoundedRectangle(cornerRadius:10)
@@ -23,7 +25,7 @@ struct LicenseView: View {
                     }
                     Spacer()
                     
-                }
+                }.padding([.top], -20)
             }
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {

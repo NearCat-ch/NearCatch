@@ -15,6 +15,8 @@ struct SetView: View {
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                LottieView(jsonName: "Background")
+                    .ignoresSafeArea(.all)
                 VStack{
                     SharedRectangularButton(rectWidth:350, rectColor:.white, text:"앱 정보", textColor:.black)
                     NavigationLink(destination:LicenseView(), label: {
@@ -22,7 +24,7 @@ struct SetView: View {
                     })
                     
                     Spacer()
-                }
+                }.padding([.top], -20)
             }
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
