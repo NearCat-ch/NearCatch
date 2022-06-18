@@ -3,8 +3,9 @@
 
 # :iphone: Near Catch 니어 캐치
 
-닉네임과 관심사를 등록하고 다양한 사람들과 어울려 친해질수 있는 환경에서 함께 즐길 수 있는 아이스 브레이킹 용 Gamification App입니다.
-> WWDC20 에서 발표한 Nearbyinteraction을 사용한 어플리케이션입니다. 동일한 와이파이 환경에서는 거리제한이 없고, 와이파이가 없는 환경에서는 사용자와 상대방 디바이스가 9미터 이내에 들어왔을때 서로의 관심사를 비교합니다. 이후 관심사가 일치하는 항목이 3개 이상일때 진동으로 앱 사용자에게 알려주고, 두 사람이 가까이서  스마트폰을 서로 교차하면 공통 키워드가 모달형식으로 뜹니다. <br>
+닉네임과 관심사를 등록하고 다양한 사람들과 어울려 친해질 수 있는 환경에서 함께 즐길 수 있는 아이스 브레이킹 용 Gamification App입니다.
+> WWDC20 에서 발표한 Nearby Interaction을 사용한 어플리케이션입니다 Multipeer Connectivity를 통해 동일한 와이파이 환경, 또는 Peer-to-Peer 와이파이, 블루투스를 통해 근처 주변 디바이스와 서로의 관심사를 비교합니다.
+이후 관심사가 일치하는 항목이 3개 이상일때 진동으로 앱 사용자에게 알려주고, 두 사람이 가까이서 스마트폰을 서로 교차하면 공통 키워드가 모달형식으로 뜹니다. <br>
 
 1. For What `Situation`
 - 다수의 아이폰 사용자가 처음 만나 어색한 자리
@@ -30,6 +31,7 @@
 ## :framed_picture: Demo
 
 ### [⭐️ NearCatch ⭐️](https://youtu.be/bBylSazJQlQ)유튜브 영상데모 보러가기
+### [⭐️ 사용방법 ⭐️](https://youtu.be/0zftlcXqkXs)시뮬레이터 작동영상 보러가기
 
 ## 🌈 Design Guide 
 
@@ -68,7 +70,6 @@ import Lottie
 import CoreData
 import CoreMotion
 import CoreHaptics
-import simd
 ```
 ## 🔀 Git
 
@@ -108,7 +109,7 @@ This is a body part. Please describe the details of commit.
   
 ## :books: Documentation
 
-[Documentation](https://linktodocumentation)
+[Documentation](./Docs/)
 
 
 ## :lock_with_ink_pen: License
