@@ -25,6 +25,7 @@ struct SharedCustomButton: View {
                     .frame(width:circleSize, height:circleSize)
                 Image(icon)
                     .resizable()
+                    .scaledToFit()
                     .frame(width:circleSize*0.5, height:circleSize*0.5)
             }
         }
