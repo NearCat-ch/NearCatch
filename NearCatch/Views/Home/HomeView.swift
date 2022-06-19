@@ -30,6 +30,33 @@ struct HomeView: View {
                     PermissionCheckView()
                 } else {
                     ZStack {
+                        VStack{
+                            switch
+                            niObject.gameState{
+                            case.finding:
+                           Image("img_shooting")
+                                .offset(x: -80, y: -340)
+                            case.found:
+                                Image("img_shooting")
+                                     .offset(x: -80, y: -340)
+                            case.ready:
+                                Text("")
+                            
+                            }
+                        }
+                        
+                        VStack{
+                            switch
+                            niObject.gameState{
+                            case.finding:
+                                
+                                Text("니어캣이\n 인연의 별을 찾고 있어요!".partialColor(["니어캣"], .PrimaryColor)).font(.custom("온글잎 의연체", size: 28)).multilineTextAlignment(.center)
+                            case.found:Text("니어캣이\n 인연의 별을 찾았어요!".partialColor(["니어캣"], .PrimaryColor)).font(.custom("온글잎 의연체", size: 28)).multilineTextAlignment(.center)
+                            case.ready:Text("")
+                                
+                            }
+                            Spacer().frame(height:600)
+                        }
                         VStack {
                             Spacer()
                                 .frame(height: 120 + 54)
