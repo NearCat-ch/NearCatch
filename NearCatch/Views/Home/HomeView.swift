@@ -44,16 +44,25 @@ struct HomeView: View {
                             
                             }
                         }
-                        
                         VStack{
                             switch
                             niObject.gameState{
                             case.finding:
-                                
-                                Text("니어캣이\n 인연의 별을 찾고 있어요!".partialColor(["니어캣"], .PrimaryColor)).font(.custom("온글잎 의연체", size: 28)).multilineTextAlignment(.center)
-                            case.found:Text("니어캣이\n 인연의 별을 찾았어요!".partialColor(["니어캣"], .PrimaryColor)).font(.custom("온글잎 의연체", size: 28)).multilineTextAlignment(.center)
-                            case.ready:Text("")
-                                
+                                VStack {
+                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text("인연의 별을 찾았어요!")
+                                }
+                                .font(.custom("온글잎 의연체", size: 28))
+                                .multilineTextAlignment(.center)
+                            case.found:
+                                VStack {
+                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text("인연의 별을 찾았어요!")
+                                }
+                                .font(.custom("온글잎 의연체", size: 28))
+                                .multilineTextAlignment(.center)
+                            case.ready:
+                                Text("")
                             }
                             Spacer().frame(height:600)
                         }
