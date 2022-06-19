@@ -50,7 +50,7 @@ struct HomeView: View {
                             case.finding:
                                 VStack {
                                     Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
-                                    Text("인연의 별을 찾았어요!")
+                                    Text("인연의 별을 찾고 있어요!")
                                 }
                                 .font(.custom("온글잎 의연체", size: 28))
                                 .multilineTextAlignment(.center)
