@@ -62,7 +62,7 @@ struct ImagePicker: View {
                         // 선택된 사진이 한장도 없을때!
                         if self.grid.count == 0{
                             if startNoImageView{
-                                ImagePermissionInfoView()
+                                NoImageInfoView()
                             }
                             else{
                                 VStack{}
@@ -74,7 +74,6 @@ struct ImagePicker: View {
                             }
                         }
                     }
-                    
                 }
             }
         }
@@ -138,7 +137,6 @@ struct ImageSelectButton<Content: View>: View {
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
                 switch status {
                 case .authorized:
-                    print("hihih")
                     isPresentedAllImage.toggle()
                 case .limited:
                     isPresentedImage.toggle()
@@ -149,21 +147,23 @@ struct ImageSelectButton<Content: View>: View {
         } label: {
             content()
         }
+        
         .sheet(isPresented: $isPresentedAllImage) {
             AllImagePicker(profileImage: $image)
         }
-        .sheet(isPresented: $isPresentedImage) {
-            ImagePicker(profileImage: $image)
-        }
+        
         .sheet(isPresented: $isPresentedPermissionCheck) {
             ImagePermissionCheckView()
+        }
+        .sheet(isPresented: $isPresentedImage) {
+            ImagePicker(profileImage: $image)
         }
     }
 }
 
 struct AllImagePicker: UIViewControllerRepresentable {
     @Binding var profileImage: UIImage?
-
+    
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.filter = .images
@@ -171,27 +171,27 @@ struct AllImagePicker: UIViewControllerRepresentable {
         picker.delegate = context.coordinator
         return picker
     }
-
+    
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
-
+        
     }
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         let parent: AllImagePicker
-
+        
         init(_ parent: AllImagePicker) {
             self.parent = parent
         }
-
+        
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
-
+            
             guard let provider = results.first?.itemProvider else { return }
-
+            
             if provider.canLoadObject(ofClass: UIImage.self) {
                 provider.loadObject(ofClass: UIImage.self) { image, _ in
                     self.parent.profileImage = image as? UIImage
