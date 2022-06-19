@@ -162,6 +162,7 @@
 			children = (
 				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
 				0E5F2833285469CC00A625DF /* SettingProfileImageView.swift */,
+				0E2C7B64285A0F480062320E /* NoImageInfoView.swift */,
 				0E2142742854FF3C0053587E /* ImagePicker.swift */,
 				0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */,
 				0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */,
@@ -173,7 +174,6 @@
 				7169F5332857165800A04934 /* TagViewModel.swift */,
 				7110C111285AFA8F009DD77B /* LoadingView.swift */,
 				0E2C7B622859F6950062320E /* ImagePermissionInfoView.swift */,
-				0E2C7B64285A0F480062320E /* NoImageInfoView.swift */,
 				71DF7F06285B19F500E5D85E /* Picture.swift */,
 				71DF7F08285B1A3300E5D85E /* UIImageTransformer.swift */,
 				71DF7F0F285B359700E5D85E /* Keyword.swift */,
@@ -649,7 +649,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 79Q32HWWTW;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -684,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 79Q32HWWTW;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
