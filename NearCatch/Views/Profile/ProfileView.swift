@@ -80,6 +80,7 @@ struct ProfileView: View {
                         ProfileInterestCard(keywords: keywords ?? [])
                     }
                     .padding(.vertical, 50)
+                    .padding(.horizontal, 30)
                 }
             }
             .toolbar{

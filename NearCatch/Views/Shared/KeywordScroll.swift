@@ -11,7 +11,6 @@ struct KeywordScroll: View {
     var tagData : TagViewModel
     var tags : [Tag]
     let keywords : [Int]
-    
     var keywordCut: Int
     
     init(keywords : [Int]) {
@@ -27,37 +26,36 @@ struct KeywordScroll: View {
     var body: some View {
         VStack{
             ScrollView(.horizontal, showsIndicators:false){
-                ZStack{
-                    VStack (alignment: .center, spacing: 10) {
-                        HStack (alignment: .center, spacing: 5) {
-                            ForEach(tags) { tag in
-                                if tags.firstIndex(of: tag) ?? 0 <= keywordCut {
-                                    Text(tag.name)
-                                        .font(.custom("온글잎 의연체", size: 22))
-                                        .tagView(.black, .PrimaryColor)
-                                        .fixedSize(horizontal: true, vertical: false)
-                                }
-                            }
-                        }
-                        HStack (alignment: .center, spacing: 5) {
-                            ForEach(tags) { tag in
-                                if tags.firstIndex(of: tag) ?? 0 > keywordCut {
-                                    Text(tag.name)
-                                        .font(.custom("온글잎 의연체", size: 22))
-                                        .tagView(.black, .PrimaryColor)
-                                        .fixedSize(horizontal: true, vertical: false)
-                                }
+                VStack (alignment: .center, spacing: 10) {
+                    HStack (alignment: .center, spacing: 5) {
+                        ForEach(tags) { tag in
+                            if tags.firstIndex(of: tag) ?? 0 <= keywordCut {
+                                Text(tag.name)
+                                    .font(.custom("온글잎 의연체", size: 22))
+                                    .tagView(.black, .PrimaryColor)
+                                    .fixedSize(horizontal: true, vertical: false)
                             }
                         }
                     }
-                }.frame(width: UIScreen.main.bounds.width * 0.8)
-            }.frame(maxWidth: .infinity)
-        }.frame(width: UIScreen.main.bounds.width * 0.8)
+                    HStack (alignment: .center, spacing: 5) {
+                        ForEach(tags) { tag in
+                            if tags.firstIndex(of: tag) ?? 0 > keywordCut {
+                                Text(tag.name)
+                                    .font(.custom("온글잎 의연체", size: 22))
+                                    .tagView(.black, .PrimaryColor)
+                                    .fixedSize(horizontal: true, vertical: false)
+                            }
+                        }
+                    }
+                }
+                .padding(.vertical, 10)
+            }
+        }
     }
 }
 
 struct KeywordScroll_Previews: PreviewProvider {
     static var previews: some View {
-        KeywordScroll(keywords: [0, 1, 2, 3, 4])
+        KeywordScroll(keywords: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
 }
