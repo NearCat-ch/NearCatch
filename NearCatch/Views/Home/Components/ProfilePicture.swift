@@ -23,7 +23,7 @@ struct ProfilePicture: View {
             if let uiImage = imageData {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
                     .clipShape(Circle())
                     .padding(5)
             } else {
