@@ -30,6 +30,7 @@ struct Keywords: View {
                         Text(row.name)
                             .font(.custom("온글잎 의연체", size: 22))
                             .tagView(.black, .PrimaryColor)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
                 }
             }
