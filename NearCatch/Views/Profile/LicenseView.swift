@@ -19,9 +19,32 @@ struct LicenseView: View {
                     .ignoresSafeArea(.all)
                 VStack{
                     ZStack{
-                        RoundedRectangle(cornerRadius:10)
-                            .fill(Color.white)
-                            .frame(width:350, height:600)
+                        
+                        Link(
+                            destination: URL(string: "https://github.com/airbnb/lottie-ios")!){
+                                ZStack{
+                                    
+                                    RoundedRectangle(cornerRadius:10)
+                                        .fill(Color.white)
+                                        .frame(width:350, height:60)
+                                        .opacity(0.5)
+                                    Text("Lottie")
+                                }
+                            }.font(.custom("온글잎 의연체", size:48)).foregroundColor(.black)
+                    }
+                    ZStack{
+                        
+                        Link(
+                            destination: URL(string: "https://github.com/ermig1979/Simd")!){
+                                ZStack{
+                                    
+                                    RoundedRectangle(cornerRadius:10)
+                                        .fill(Color.white)
+                                        .frame(width:350, height:60)
+                                        .opacity(0.5)
+                                    Text("simd")
+                                }
+                            }.font(.custom("온글잎 의연체", size:48)).foregroundColor(.black)
                     }
                     Spacer()
                     
