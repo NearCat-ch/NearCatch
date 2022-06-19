@@ -3,6 +3,8 @@ import SwiftUI
 
 struct ImagePicker: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    
     private let threeColumnGrid = [
         GridItem(.flexible(minimum: 40), spacing: 2),
         GridItem(.flexible(minimum: 40), spacing: 2),
@@ -10,7 +12,6 @@ struct ImagePicker: View {
     ]
     
     @Binding var profileImage: UIImage?
-    @Binding var show: Bool
     @State var tempImage: Img?
     @State var disabled = true
     @State var grid : [Img] = []
@@ -24,7 +25,7 @@ struct ImagePicker: View {
                 if !self.grid.isEmpty{
                     HStack{
                         Button(action: {
-                            self.show.toggle()
+                            presentationMode.wrappedValue.dismiss()
                         }){
                             Text("취소")
                         }.padding()
@@ -49,7 +50,7 @@ struct ImagePicker: View {
                                         if self.tempImage != nil {
                                             self.profileImage = grid[i].image
                                         }
-                                        self.show.toggle()
+                                        presentationMode.wrappedValue.dismiss()
                                     }
                             }
                         }
@@ -96,33 +97,7 @@ struct ImagePicker: View {
                         // 선택된 사진이 한장도 없을때!
                         if self.grid.count == 0{
                             if startNoImageView{
-                                VStack{
-                                    Text("선택된 사진이 없습니다.")
-                                        .font(.custom("온글잎 의연체", size: 30))
-                                    Text("사진을 추가해 주세요!")
-                                        .font(.custom("온글잎 의연체", size: 20))
-                                    NoImageInfoView()
-                                    //                            .scaledToFit()
-                                        .frame(height: UIScreen.main.bounds.height * 2 / 4)
-                                    Button {
-                                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-                                        }
-                                    } label: {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                                .fill(Color.PrimaryColor)
-                                                .frame(maxWidth: .infinity).frame(height: 50)
-                                            
-                                            Text("설정 바로가기")
-                                                .foregroundColor(.black)
-                                                .font(.custom("온글잎 의연체", size: 28))
-                                        }
-                                    }
-                                    .padding(.top,30)
-                                    .padding(.leading,20)
-                                    .padding(.trailing,20)
-                                }
+                                ImagePermissionInfoView()
                             }
                             else{
                                 VStack{}
@@ -184,6 +159,87 @@ struct ImagePicker: View {
                 self.grid = iteration
             }
             self.loadingState = false
+        }
+    }
+}
+
+struct ImageSelectButton<Content: View>: View {
+    
+    @State private var isPresentedAllImage = false
+    @State private var isPresentedImage = false
+    @State private var isPresentedPermissionCheck = false
+    @Binding var image: UIImage?
+    
+    let content: () -> Content
+    
+    init(image: Binding<UIImage?>, @ViewBuilder content: @escaping () -> Content) {
+        self._image = image
+        self.content = content
+    }
+    
+    var body: some View {
+        Button {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                switch status {
+                case .authorized:
+                    isPresentedAllImage.toggle()
+                case .limited:
+                    isPresentedImage.toggle()
+                default:
+                    isPresentedPermissionCheck.toggle()
+                }
+            }
+        } label: {
+            content()
+        }
+        .sheet(isPresented: $isPresentedAllImage) {
+            AllImagePicker(profileImage: $image)
+        }
+        .sheet(isPresented: $isPresentedImage) {
+            ImagePicker(profileImage: $image)
+        }
+        .sheet(isPresented: $isPresentedPermissionCheck) {
+            ImagePermissionInfoView()
+        }
+    }
+}
+
+struct AllImagePicker: UIViewControllerRepresentable {
+    @Binding var profileImage: UIImage?
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
+
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: AllImagePicker
+
+        init(_ parent: AllImagePicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+
+            guard let provider = results.first?.itemProvider else { return }
+
+            if provider.canLoadObject(ofClass: UIImage.self) {
+                provider.loadObject(ofClass: UIImage.self) { image, _ in
+                    self.parent.profileImage = image as? UIImage
+                }
+            }
         }
     }
 }
