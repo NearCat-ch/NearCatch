@@ -23,6 +23,7 @@ struct KeywordScroll: View {
         }
         keywordCut = (tags.count/2) + (tags.count % 2) - 1
     }
+    
     var body: some View {
         VStack{
             ScrollView(.horizontal, showsIndicators:false){
