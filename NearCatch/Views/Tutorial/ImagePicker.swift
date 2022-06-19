@@ -12,11 +12,9 @@ struct ImagePicker: View {
     ]
     
     @Binding var profileImage: UIImage?
-    @State var tempImage: Img?
     @State var disabled = true
     @State var grid : [Img] = []
     @State var startNoImageView: Bool = false
-    @State var loadingState : Bool = true
     
     var body: some View {
         ZStack {
@@ -47,9 +45,7 @@ struct ImagePicker: View {
                                     .clipped()
                                     .contentShape(Rectangle())
                                     .onTapGesture {
-                                        if self.tempImage != nil {
-                                            self.profileImage = grid[i].image
-                                        }
+                                        self.profileImage = grid[i].image
                                         presentationMode.wrappedValue.dismiss()
                                     }
                             }
@@ -59,38 +55,7 @@ struct ImagePicker: View {
                 else {
                     // 설정이 deny 되었을때
                     if self.disabled{
-                        VStack{
-                            Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
-                                .font(.custom("온글잎 의연체", size: 20))
-                            Text("Setting에서 권한 설정을 변경해주세요")
-                                .font(.custom("온글잎 의연체", size: 30))
-                            
-                            ImagePermissionInfoView()
-                            //                            .scaledToFit()
-                                .frame(height: UIScreen.main.bounds.height * 2 / 4)
-                            Button {
-                                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-                                }
-                            } label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(Color.PrimaryColor)
-                                        .frame(maxWidth: .infinity).frame(height: 50)
-                                    
-                                    Text("설정 바로가기")
-                                        .foregroundColor(.black)
-                                        .font(.custom("온글잎 의연체", size: 28))
-                                }
-                            }
-                            .padding(.top,30)
-                            .padding(.leading,20)
-                            .padding(.trailing,20)
-                        }.onAppear{
-                            if self.loadingState == true {
-                                self.loadingState = false
-                            }
-                        }
+                        ImagePermissionCheckView()
                     }
                     // 권한 accept 했다면?
                     else {
@@ -113,11 +78,6 @@ struct ImagePicker: View {
                     
                 }
             }
-            
-            if self.loadingState {
-                ImageLoadingView()
-            }
-            
         }
         .onAppear{
             PHPhotoLibrary.requestAuthorization { (status) in
@@ -126,7 +86,6 @@ struct ImagePicker: View {
                     self.disabled = false
                 }
                 else {
-                    print("디나이")
                     self.disabled = true
                 }
             }
@@ -134,9 +93,6 @@ struct ImagePicker: View {
     }
     
     func getAllImages(){
-        if self.loadingState == false{
-            self.loadingState = true
-        }
         let opt = PHFetchOptions()
         opt.includeHiddenAssets = false
         
@@ -155,10 +111,10 @@ struct ImagePicker: View {
                         iteration.append(data)
                     }
                 }
-                print(iteration.count)
-                self.grid = iteration
+                DispatchQueue.main.async {
+                    self.grid = iteration
+                }
             }
-            self.loadingState = false
         }
     }
 }
@@ -179,9 +135,10 @@ struct ImageSelectButton<Content: View>: View {
     
     var body: some View {
         Button {
-            PHPhotoLibrary.requestAuthorization { (status) in
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
                 switch status {
                 case .authorized:
+                    print("hihih")
                     isPresentedAllImage.toggle()
                 case .limited:
                     isPresentedImage.toggle()
@@ -199,7 +156,7 @@ struct ImageSelectButton<Content: View>: View {
             ImagePicker(profileImage: $image)
         }
         .sheet(isPresented: $isPresentedPermissionCheck) {
-            ImagePermissionInfoView()
+            ImagePermissionCheckView()
         }
     }
 }
@@ -240,6 +197,41 @@ struct AllImagePicker: UIViewControllerRepresentable {
                     self.parent.profileImage = image as? UIImage
                 }
             }
+        }
+    }
+}
+
+struct ImagePermissionCheckView: View {
+    
+    @State var loadingState : Bool = true
+    
+    var body: some View {
+        VStack{
+            Text("권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!")
+                .font(.custom("온글잎 의연체", size: 20))
+            Text("Setting에서 권한 설정을 변경해주세요")
+                .font(.custom("온글잎 의연체", size: 30))
+            
+            ImagePermissionInfoView()
+                .frame(height: UIScreen.main.bounds.height * 2 / 4)
+            Button {
+                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                }
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.PrimaryColor)
+                        .frame(maxWidth: .infinity).frame(height: 50)
+                    
+                    Text("설정 바로가기")
+                        .foregroundColor(.black)
+                        .font(.custom("온글잎 의연체", size: 28))
+                }
+            }
+            .padding(.top,30)
+            .padding(.leading,20)
+            .padding(.trailing,20)
         }
     }
 }
