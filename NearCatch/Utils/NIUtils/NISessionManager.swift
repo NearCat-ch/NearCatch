@@ -222,7 +222,16 @@ class NISessionManager: NSObject, ObservableObject {
     }
     
     func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: myPicture ?? .add)
+        var resizedImage : UIImage = .add
+        if let picture = myPicture {
+            let size = CGSize(width: 50, height: 50)
+            let renderer = UIGraphicsImageRenderer(size: size)
+            resizedImage = renderer.image { context in
+                picture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            }
+        }
+        
+        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: resizedImage)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
             //            fatalError("Unexpectedly failed to encode discovery token.")
