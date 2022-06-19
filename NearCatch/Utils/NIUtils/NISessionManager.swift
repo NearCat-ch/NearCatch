@@ -204,7 +204,9 @@ class NISessionManager: NSObject, ObservableObject {
             
             // 3개 이상일 때만 매치
             if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
-                compareForCheckMatchedObject(receivedData)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.compareForCheckMatchedObject(receivedData)
+                }
                 hapticManager.startHaptic()
             }
         }
