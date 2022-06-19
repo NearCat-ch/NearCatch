@@ -31,6 +31,7 @@ struct Keywords: View {
                             .lineLimit(1)
                             .font(.custom("온글잎 의연체", size: 22))
                             .tagView(.black, .PrimaryColor)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
                 }
             }
