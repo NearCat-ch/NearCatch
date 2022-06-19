@@ -69,7 +69,6 @@ struct ImageView: View {
 //
                 
 //                self.data.selected = true
-            print("\(data)")
             
             DispatchQueue.global(qos: .background).async {
                 let options = PHImageRequestOptions()
@@ -80,7 +79,6 @@ struct ImageView: View {
                     }
                     
                 }
-                print("\(tempImage)")
             }
             
 //            }

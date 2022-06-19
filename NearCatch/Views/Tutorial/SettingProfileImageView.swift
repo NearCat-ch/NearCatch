@@ -21,7 +21,9 @@ struct SettingProfileImageView: View {
     // 최종 고른 사진
 //    @State private var inputImage: UIImage?
 //    @State var checkPermission: Bool = false
-    @State var isPresented = false
+    @State private var isPresentedAllImage = false
+    @State private var isPresentedImage = false
+    @State private var isPresentedPermissionCheck = false
 //    @State var imageWasImported = false
     
     var inlineColorText: AttributedString = partialColorString(allString:"재간둥이 니어캣", allStringColor:.white,partialString:"니어캣",partialStringColor:Color(red: 255/255, green: 236/255, blue: 108/255))
@@ -42,25 +44,7 @@ struct SettingProfileImageView: View {
                 .font(.custom("온글잎 의연체", size: 24))
             
             // 이미지 클릭 버튼
-            Button(action: {
-                PHPhotoLibrary.requestAuthorization { (status) in
-                    if status == .authorized {
-                        withAnimation{
-                            self.isPresented.toggle()
-                        }
-                    }
-                    else {
-                        print("디나이")
-                        withAnimation{
-                            self.isPresented.toggle()
-                        }
-                    }
-                }
-//                if checkPermission{
-                
-//                }
-                
-            }) {
+            ImageSelectButton(image: $profileImage) {
                 if self.profileImage == nil {
                     ZStack {
                         Circle()
@@ -91,7 +75,6 @@ struct SettingProfileImageView: View {
                 }
             }
             
-            
             Image("img_sunglass_68px")
                 .padding(.top, 30.0)
             Text("기본 프로필")
@@ -102,11 +85,6 @@ struct SettingProfileImageView: View {
             
             
         }
-        .sheet(isPresented: $isPresented) {
-//            ImagePicker(imageToImport: $inputImage, isPresented: $isPresented, imageWasImported: $imageWasImported)
-            ImagePicker(profileImage: $profileImage, show: $isPresented)
-        }
-        
     }
 
 }

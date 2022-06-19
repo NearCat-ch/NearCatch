@@ -10,7 +10,6 @@ import PhotosUI
 struct EditProfileView: View {
     @Binding var nickname:String
     @Binding var profileImage: UIImage?
-    @State var isPresented = false
     @State var tempNick:String = ""
     @State var tempImage: UIImage?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -26,21 +25,7 @@ struct EditProfileView: View {
                 VStack{
                     Spacer()
                     ZStack{
-                        Button(action: {
-                            PHPhotoLibrary.requestAuthorization { (status) in
-                                if status == .authorized {
-                                    withAnimation{
-                                        self.isPresented.toggle()
-                                    }
-                                }
-                                else {
-                                    print("디나이")
-                                    withAnimation{
-                                        self.isPresented.toggle()
-                                    }
-                                }
-                            }
-                        }) {
+                        ImageSelectButton(image: $tempImage) {
                             if self.profileImage == nil {
                                 SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
                             }
@@ -122,9 +107,6 @@ struct EditProfileView: View {
                         SharedRectangularButton(rectWidth:350, rectColor:((tempNick.isEmpty || tempNick.count > 10) ? Color.ThirdColor : Color.PrimaryColor), text:"수정하기", textColor:((tempNick.isEmpty || tempNick.count > 10) ? Color.white : Color.black))
                     }.disabled(tempNick.isEmpty || tempNick.count > 10)
                     Spacer()
-                }
-                .sheet(isPresented: $isPresented) {
-                    ImagePicker(profileImage: $tempImage, show: $isPresented)
                 }
             }
             .toolbar{
