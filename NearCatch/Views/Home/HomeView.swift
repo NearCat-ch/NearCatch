@@ -30,17 +30,42 @@ struct HomeView: View {
                     PermissionCheckView()
                 } else {
                     ZStack {
-                        VStack {
-                            Spacer()
-                                .frame(height:475)
-                            ZStack {
-                                if niObject.gameState != .ready {
-                                    TipChange()
-                                        .transition(.move(edge: .bottom))
-                                }
+                        VStack{
+                            switch
+                            niObject.gameState{
+                            case.finding:
+                           Image("img_shooting")
+                                .offset(x: -80, y: -340)
+                            case.found:
+                                Image("img_shooting")
+                                     .offset(x: -80, y: -340)
+                            case.ready:
+                                Text("")
+                            
                             }
                         }
-                        
+                        VStack{
+                            switch
+                            niObject.gameState{
+                            case.finding:
+                                VStack {
+                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text("인연의 별을 찾고 있어요!")
+                                }
+                                .font(.custom("온글잎 의연체", size: 28))
+                                .multilineTextAlignment(.center)
+                            case.found:
+                                VStack {
+                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text("인연의 별을 찾았어요!")
+                                }
+                                .font(.custom("온글잎 의연체", size: 28))
+                                .multilineTextAlignment(.center)
+                            case.ready:
+                                Text("")
+                            }
+                            Spacer().frame(height:600)
+                        }
                         VStack {
                             Spacer()
                                 .frame(height: 120 + 54)
@@ -54,6 +79,14 @@ struct HomeView: View {
                                 StarBubble(count: niObject.peersCnt)
                             case .found:
                                 HeartBubble()
+                            }
+                        }
+                        VStack {
+                            Spacer()
+                            if niObject.gameState != .ready {
+                                TipChange()
+                                    .transition(.move(edge: .bottom))
+                                    .padding(.bottom, 10)
                             }
                         }
                     }

@@ -26,7 +26,6 @@
 		16514B75284F313D007A1BB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B74284F313D007A1BB5 /* Assets.xcassets */; };
 		16514B78284F313D007A1BB5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16514B77284F313D007A1BB5 /* Preview Assets.xcassets */; };
 		16514B7D284F313D007A1BB5 /* NearCatch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16514B7B284F313D007A1BB5 /* NearCatch.xcdatamodeld */; };
-		1674F88A2851D016006BC61A /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1674F8892851D016006BC61A /* TestModel.swift */; };
 		16AEB31C2851C3820034CC0F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AEB31B2851C3820034CC0F /* HomeView.swift */; };
 		16C50CF82858742600460F8C /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C50CF72858742600460F8C /* LocalNetworkAuthorization.swift */; };
 		16C50CFA285B04C800460F8C /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C50CF9285B04C800460F8C /* Match.swift */; };
@@ -44,6 +43,7 @@
 		21F1AD39285336940016185A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD38285336940016185A /* Extension.swift */; };
 		6F02F89928571FF40016DF26 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02F89828571FF40016DF26 /* SetView.swift */; };
 		6F5711772851D7FF00B094C2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5711762851D7FF00B094C2 /* ProfileView.swift */; };
+		6F6E4BC5285EF9A1002B21A1 /* KeywordScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4BC4285EF9A1002B21A1 /* KeywordScroll.swift */; };
 		6F7303C22851EA8A00CC8115 /* SharedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */; };
 		6F870818285C6ED100A79E22 /* TipChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F870817285C6ED100A79E22 /* TipChange.swift */; };
 		6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */; };
@@ -96,7 +96,6 @@
 		16514B74284F313D007A1BB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16514B77284F313D007A1BB5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		16514B7C284F313D007A1BB5 /* NearCatch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NearCatch.xcdatamodel; sourceTree = "<group>"; };
-		1674F8892851D016006BC61A /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 		16AEB31B2851C3820034CC0F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		16C50CF72858742600460F8C /* LocalNetworkAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNetworkAuthorization.swift; sourceTree = "<group>"; };
 		16C50CF9285B04C800460F8C /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 		21F1AD38285336940016185A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6F02F89828571FF40016DF26 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		6F5711762851D7FF00B094C2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		6F6E4BC4285EF9A1002B21A1 /* KeywordScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordScroll.swift; sourceTree = "<group>"; };
 		6F7303C12851EA8A00CC8115 /* SharedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCustomButton.swift; sourceTree = "<group>"; };
 		6F870817285C6ED100A79E22 /* TipChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipChange.swift; sourceTree = "<group>"; };
 		6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRectangularButton.swift; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 			children = (
 				0EBDD74F2851E2AF0081C832 /* PageControlView.swift */,
 				0E5F2833285469CC00A625DF /* SettingProfileImageView.swift */,
+				0E2C7B64285A0F480062320E /* NoImageInfoView.swift */,
 				0E2142742854FF3C0053587E /* ImagePicker.swift */,
 				0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */,
 				0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */,
@@ -173,7 +174,6 @@
 				7169F5332857165800A04934 /* TagViewModel.swift */,
 				7110C111285AFA8F009DD77B /* LoadingView.swift */,
 				0E2C7B622859F6950062320E /* ImagePermissionInfoView.swift */,
-				0E2C7B64285A0F480062320E /* NoImageInfoView.swift */,
 				71DF7F06285B19F500E5D85E /* Picture.swift */,
 				71DF7F08285B1A3300E5D85E /* UIImageTransformer.swift */,
 				71DF7F0F285B359700E5D85E /* Keyword.swift */,
@@ -255,7 +255,6 @@
 		16AEB3162851C01D0034CC0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1674F8892851D016006BC61A /* TestModel.swift */,
 				0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */,
 			);
 			path = Models;
@@ -288,6 +287,7 @@
 				7072D6E128533929008594E5 /* Colors.swift */,
 				6F8E26A02857172300B6C568 /* SharedRectangularButton.swift */,
 				16C50CFB285B1C7E00460F8C /* Keywords.swift */,
+				6F6E4BC4285EF9A1002B21A1 /* KeywordScroll.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -479,7 +479,6 @@
 				16514B71284F313B007A1BB5 /* NearCatchApp.swift in Sources */,
 				16C50CFA285B04C800460F8C /* Match.swift in Sources */,
 				0EBDD74E2851E2950081C832 /* SettingNicknameView.swift in Sources */,
-				1674F88A2851D016006BC61A /* TestModel.swift in Sources */,
 				0E2142752854FF3C0053587E /* ImagePicker.swift in Sources */,
 				0E6D4DE12859894B0099DCED /* ImagePickerModel.swift in Sources */,
 				6FCBC3982858763D00A1D7D1 /* SettingButton.swift in Sources */,
@@ -498,6 +497,7 @@
 				0E2C7B65285A0F480062320E /* NoImageInfoView.swift in Sources */,
 				16C50CFC285B1C7F00460F8C /* Keywords.swift in Sources */,
 				0EC3BB88285B848D0069C5C6 /* ImageConverter.swift in Sources */,
+				6F6E4BC5285EF9A1002B21A1 /* KeywordScroll.swift in Sources */,
 				164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */,
 				0E2C7B632859F6950062320E /* ImagePermissionInfoView.swift in Sources */,
 				0EC3BB8C285B96080069C5C6 /* ImageLoadingView.swift in Sources */,
@@ -649,7 +649,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 79Q32HWWTW;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
@@ -684,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 79Q32HWWTW;
+				DEVELOPMENT_TEAM = BXU6534P3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
