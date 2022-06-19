@@ -44,7 +44,7 @@ struct ProfileView: View {
                         Text(nickname ?? "")
                             .font(.custom("온글잎 의연체", size: 34))
                             .foregroundColor(.white)
-                    }.padding([.top], -20)
+                    }
                     HStack{
                         VStack{
                             NavigationLink(destination: EditProfileView(nickname: Binding(get: {nickname ?? ""}, set: {nickname = $0}), profileImage: $profileImage), label: {SharedCustomButton(icon: "icn_edit", circleSize:50, color:Color.white, innerOpacity:0.5)})
@@ -64,7 +64,9 @@ struct ProfileView: View {
                             Text("관심사 수정")
                                 .font(.custom("온글잎 의연체", size: 22))
                                 .foregroundColor(.PrimaryColor)
-                        }.padding(EdgeInsets(top: 0, leading: 35, bottom: -60, trailing: 35))
+                        }
+                        .offset(x: 0, y: 40)
+                        .padding(.horizontal, 35)
                         VStack{
                             NavigationLink(destination: SetView(), label: {SharedCustomButton(icon: "icn_sat", circleSize:50, color:Color.white, innerOpacity:0.5)})
                             Text("설정")
@@ -72,12 +74,13 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    Spacer()
-                        .frame(height:50)
-                    ProfileInterestCard(keywords: keywords ?? [])
-                        .padding(EdgeInsets(top:20, leading:0, bottom:0, trailing:0))
-                    Spacer()
-                        .frame(height:50)
+                    ZStack {
+                        NearCat(state: .constant(GameState.found))
+                            .offset(x: -120, y: -100)
+                        ProfileInterestCard(keywords: keywords ?? [])
+                    }
+                    .padding(.vertical, 50)
+                    .padding(.horizontal, 30)
                 }
             }
             .toolbar{

@@ -28,8 +28,10 @@ struct Keywords: View {
                 HStack(alignment: .center, spacing: 5) {
                     ForEach(rows) { row in
                         Text(row.name)
+                            .lineLimit(1)
                             .font(.custom("온글잎 의연체", size: 22))
                             .tagView(.black, .PrimaryColor)
+                            .fixedSize(horizontal: true, vertical: false)
                     }
                 }
             }
@@ -42,7 +44,7 @@ struct Keywords: View {
         
         var totalWidth: CGFloat = 0
         
-        let screenWidth: CGFloat = UIScreen.main.bounds.width - 200
+        let screenWidth: CGFloat = UIScreen.main.bounds.size.width - 200
         
         tags.forEach { tag in
             let font = UIFont.preferredFont(from: .custom("온글잎 의연체", size: 22))

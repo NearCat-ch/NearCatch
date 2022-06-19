@@ -46,13 +46,12 @@ struct Match: View {
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-        Match(imageData: nil, nickName: "빅썬", keywords: [1,2,3])
+        Match(imageData: nil, nickName: "빅썬", keywords: [1,45,31,30,0,14,15,46])
             .preferredColorScheme(.dark)
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .fill(Color.ThirdColor)
             )
-            .previewLayout(.sizeThatFits)
     }
 }
