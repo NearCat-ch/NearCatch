@@ -67,8 +67,7 @@ struct ImagePicker: View {
                             else{
                                 VStack{}
                                     .onAppear{
-                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.2){
-                                            print("asdsadasd")
+                                        DispatchQueue.main.asyncAfter(deadline: .now()+0.4){
                                             self.startNoImageView = true
                                         }
                                     }
@@ -101,12 +100,13 @@ struct ImagePicker: View {
         DispatchQueue.global(qos: .background).async {
             let options = PHImageRequestOptions()
             options.isSynchronous = true
+            options.resizeMode = .exact
             
             var iteration : [Img] = []
             for i in stride(from: 0, to: req.count, by: 1) {
                 if i < req.count {
                     // 원본 화질로 하면, 보기는 좋지만 로딩되는 시간때문에 체크가 풀린다.
-                    PHCachingImageManager.default().requestImage(for: req[i], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image,_) in
+                    PHCachingImageManager.default().requestImage(for: req[i], targetSize: .init(), contentMode: .default, options: options) { (image,_) in
                         let data = Img(image: image!, selected: false, asset: req[i])
                         iteration.append(data)
                     }

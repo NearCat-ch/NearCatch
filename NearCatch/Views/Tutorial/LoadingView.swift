@@ -60,13 +60,6 @@ struct LoadingView: View {
         }
         .onAppear{
             populateProfiles()
-            
-            print(profiles.count)
-            print(profiles[0].nickname)
-            
-            
-            print(content.count)
-            print(content[0])
         }
             
             
