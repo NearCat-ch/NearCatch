@@ -48,13 +48,17 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     // MARK: - `MPCSession` public methods.
     func start() {
         NSLog("Start advertising")
-        mcAdvertiser.startAdvertisingPeer()
-        mcBrowser.startBrowsingForPeers()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.mcAdvertiser.startAdvertisingPeer()
+            self.mcBrowser.startBrowsingForPeers()
+        }
     }
 
     func suspend() {
-        mcAdvertiser.stopAdvertisingPeer()
-        mcBrowser.stopBrowsingForPeers()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.mcAdvertiser.stopAdvertisingPeer()
+            self.mcBrowser.stopBrowsingForPeers()
+        }
     }
 
     func invalidate() {
@@ -89,8 +93,6 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
                 handler(peerID)
             }
         }
-
-        self.start()
     }
 
     // MARK: - `MCSessionDelegate`.

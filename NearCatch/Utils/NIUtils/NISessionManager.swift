@@ -170,7 +170,9 @@ class NISessionManager: NSObject, ObservableObject {
         if peerTokensMapping[matchedToken] == peer {
             matchedObject = nil
             hapticManager.endHaptic()
-            gameState = .finding
+            if !isBumped {
+                gameState = .finding
+            }
         }
     }
     
@@ -239,7 +241,9 @@ class NISessionManager: NSObject, ObservableObject {
             if matchedObject?.token == token {
                 matchedObject = nil
                 hapticManager.endHaptic()
-                gameState = .finding
+                if !isBumped {
+                    gameState = .finding
+                }
             }
         }
         
@@ -370,7 +374,9 @@ extension NISessionManager {
             
         } else {
             self.matchedObject = data
-            gameState = .found
+            if !isBumped {
+                gameState = .found
+            }
         }
         
     }
