@@ -142,7 +142,8 @@ class NISessionManager: NSObject, ObservableObject {
         sessions[peer]?.delegate = self
         
         guard let myToken = sessions[peer]?.discoveryToken else {
-            fatalError("Unexpectedly failed to initialize nearby interaction session.")
+            //            fatalError("Unexpectedly failed to initialize nearby interaction session.")
+            return
         }
         
         // 3. 연결된 피어 추가
@@ -177,7 +178,8 @@ class NISessionManager: NSObject, ObservableObject {
     // 5. 상대 데이터 수신
     func dataReceivedHandler(data: Data, peer: MCPeerID) {
         guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? TranData else {
-            fatalError("Unexpectedly failed to decode discovery token.")
+            //            fatalError("Unexpectedly failed to decode discovery token.")
+            return
         }
         
         //  범프된 상태일 경우
@@ -210,7 +212,8 @@ class NISessionManager: NSObject, ObservableObject {
         let tranData = TranData(token: token, keywords: myKeywords)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
-            fatalError("Unexpectedly failed to encode discovery token.")
+            //            fatalError("Unexpectedly failed to encode discovery token.")
+            return
         }
         
         mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
@@ -220,7 +223,8 @@ class NISessionManager: NSObject, ObservableObject {
         let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: myPicture ?? .add)
         
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
-            fatalError("Unexpectedly failed to encode discovery token.")
+            //            fatalError("Unexpectedly failed to encode discovery token.")
+            return
         }
         
         mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
@@ -310,7 +314,8 @@ extension NISessionManager: NISessionDelegate {
                 }
             }
         default:
-            fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
+            //            fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
+            return
         }
     }
 

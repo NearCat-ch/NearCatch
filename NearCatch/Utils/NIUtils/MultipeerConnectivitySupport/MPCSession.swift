@@ -103,7 +103,8 @@ class MPCSession: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         case .connecting:
             break
         @unknown default:
-            fatalError("Unhandled MCSessionState")
+            //            fatalError("Unhandled MCSessionState")
+            return
         }
         DispatchQueue.main.async {
             self.delegate?.connectedDevicesChanged(devices: session.connectedPeers.map{$0.displayName})
