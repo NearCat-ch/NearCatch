@@ -32,17 +32,6 @@ struct HomeView: View {
                     ZStack {
                         VStack {
                             Spacer()
-                                .frame(height:475)
-                            ZStack {
-                                if niObject.gameState != .ready {
-                                    TipChange()
-                                        .transition(.move(edge: .bottom))
-                                }
-                            }
-                        }
-                        
-                        VStack {
-                            Spacer()
                                 .frame(height: 120 + 54)
                             
                             switch niObject.gameState {
@@ -54,6 +43,14 @@ struct HomeView: View {
                                 StarBubble(count: niObject.peersCnt)
                             case .found:
                                 HeartBubble()
+                            }
+                        }
+                        VStack {
+                            Spacer()
+                            if niObject.gameState != .ready {
+                                TipChange()
+                                    .transition(.move(edge: .bottom))
+                                    .padding(.bottom, 10)
                             }
                         }
                     }
