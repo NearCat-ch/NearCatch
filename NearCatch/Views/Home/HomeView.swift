@@ -49,14 +49,16 @@ struct HomeView: View {
                             niObject.gameState{
                             case.finding:
                                 VStack {
-                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text(
+                                        PartialColor.partialColorString(allString: "니어캣이", allStringColor: .white, partialString: "니어캣", partialStringColor: .PrimaryColor)
+                                    )
                                     Text("인연의 별을 찾고 있어요!")
                                 }
                                 .font(.custom("온글잎 의연체", size: 28))
                                 .multilineTextAlignment(.center)
                             case.found:
                                 VStack {
-                                    Text("니어캣이".partialColor(["니어캣"], .PrimaryColor))
+                                    Text(PartialColor.partialColorString(allString: "니어캣이", allStringColor: .white, partialString: "니어캣", partialStringColor: .PrimaryColor))
                                     Text("인연의 별을 찾았어요!")
                                 }
                                 .font(.custom("온글잎 의연체", size: 28))

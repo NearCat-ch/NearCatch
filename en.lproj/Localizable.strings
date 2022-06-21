@@ -6,7 +6,7 @@
   
 */
 
-"니어캣을 눌러서\n새로운 인연을 찾아보세요!" = "Tap the near cat \n to find a new relationship!";
+"니어캣을 눌러서\n새로운 인연을 찾아보세요!" = "Tap the Nearcat \n to find a new relationship!";
 
 
 "게임" = "Game";
@@ -95,8 +95,8 @@
 "리그 오브 레전드" = "League of Legend";
 "참뼈" = "Real Bone";
 "건너뛰기" = "Skip";
-"당신의 이름을 니어캣에게 알려주세요!" = "Please tell your name to Near Cat!";
-"니어캣에게 이름을 알려주세요" = "Tell the name to Near Cat";
+"당신의 이름을 니어캣에게 알려주세요!" = "Please tell your name to Nearcat!";
+"니어캣에게 이름을 알려주세요" = "Tell the name to Nearcat";
 "나중에 프로필 변경에서 변경할 수 있습니다." = "You can change it later in Profile.";
 "당신의 사진을 등록해 주세요!" = "Please register your picture!";
 "프로필 사진은 선택 항목입니다." = "Profile picture is optional.";
@@ -107,15 +107,17 @@
 "관심사 저장" = "Save";
 "니어캣이" = "Nearcat is";
 "인연의 별을 찾고 있어요!" = "looking for your mate!";
-"Tip 니어캣과 함께 주변을 돌아다녀 보세요" = "Tip Walk around with your Near Cat";
-"니어캣이 진동으로 인연의 별을 알려드릴 거에요" = "Near Cat will tell you the stars of fate through vibration";
+"Tip 니어캣과 함께 주변을 돌아다녀 보세요." = "Tip Walk around with your Nearcat.";
+"니어캣이 진동으로 인연의 별을 알려드릴 거에요." = "Nearcat will tell you the stars of fate through vibration.";
 "Tip 스마트폰을 서로 가까이 가져가 보세요.\n왠지 두근거리는 느낌이 들지 않나요?" = "Tip Take your smartphones close to each other.\nDoesn't it feel like your heart is pounding?";
 "Tip 스마트폰의 뒷면을 서로 맞대보세요!\n 서로의 관심사를 확인할 수 있어요!" = "Tip: Face the back of your smartphone!\nWe can see each other's interests!";
 "다음 주제로 대화해보세요!" = "Let's talk about the next topics!";
+"다음 주제로" = "next topics!";
 "우리들의 공통점" = "Our same point";
 "인연의 별을 찾았어요!" = "founds your mate!";
 "프로필 수정" = "Modify Profile";
 "관심사 수정" = "Modify Interests";
+"관심사" = "Interests";
 "설정" = "Setting";
 "내 관심사" = "My interests";
 "수정하기" = "Change";
@@ -126,3 +128,7 @@
 "권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!" = "Cannot register profile image without permission!";
 "Setting에서 권한 설정을 변경해주세요" = "Please change the permission settings";
 "설정 바로가기" = "Go to setting";
+"재간둥이 니어캣" = "Lovely Nearcat";
+"니어캣" = "Nearcat";
+"취소" = "Cancel";
+"수정" = "Edit";

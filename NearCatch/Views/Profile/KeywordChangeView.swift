@@ -32,14 +32,9 @@ struct KeywordChangeView: View {
                 }
                 Spacer()
                     .frame(height:60)
-                HStack {
-                    Text("관심사")
-                        .font(.custom("온글잎 의연체", size:34))
-                        .foregroundColor(.PrimaryColor)
-                    Text("수정")
-                        .font(.custom("온글잎 의연체", size:34))
-                        .foregroundColor(.white)
-                }
+                Text("관심사 수정".partialColor(["관심사"], .PrimaryColor))
+                    .font(.custom("온글잎 의연체", size:34))
+                    .foregroundColor(.PrimaryColor)
                 Text("최소 5개 이상 선택해야 해요!")
                     .font(.custom("온글잎 의연체", size: 22))
                     .foregroundColor((duplicatedkeywords.count < 5) ? Color.red : Color.white)
