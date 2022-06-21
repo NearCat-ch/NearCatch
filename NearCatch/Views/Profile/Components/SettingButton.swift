@@ -25,7 +25,7 @@ struct SettingButton: View {
                     .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
             }
             HStack{
-                Text(text)
+                Text(LocalizedStringKey(text))
                     .font(.custom("온글잎 의연체", size:22))
                     .foregroundColor(.white)
                 Spacer()

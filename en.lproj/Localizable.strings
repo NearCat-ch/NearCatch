@@ -5,6 +5,7 @@
   Created by 김예훈 on 2022/06/21.
   
 */
+
 "니어캣을 눌러서\n새로운 인연을 찾아보세요!" = "Tap the near cat \n to find a new relationship!";
 
 
@@ -93,5 +94,35 @@
 "크로스핏" = "Crossfit";
 "리그 오브 레전드" = "League of Legend";
 "참뼈" = "Real Bone";
-
-
+"건너뛰기" = "Skip";
+"당신의 이름을 니어캣에게 알려주세요!" = "Please tell your name to Near Cat!";
+"니어캣에게 이름을 알려주세요" = "Tell the name to Near Cat";
+"나중에 프로필 변경에서 변경할 수 있습니다." = "You can change it later in Profile.";
+"당신의 사진을 등록해 주세요!" = "Please register your picture!";
+"프로필 사진은 선택 항목입니다." = "Profile picture is optional.";
+"미입력시 기본 프로필이 제공됩니다." = "If not entered, a default profile is provided.";
+"기본 프로필" = "default profile";
+"관심사를 선택해주세요!" = "Please select your interest!";
+"최소 5개 이상 선택해야 해요!" = "You must choose at least five!";
+"관심사 저장" = "Save";
+"니어캣이" = "Nearcat is";
+"인연의 별을 찾고 있어요!" = "looking for your mate!";
+"Tip 니어캣과 함께 주변을 돌아다녀 보세요" = "Tip Walk around with your Near Cat";
+"니어캣이 진동으로 인연의 별을 알려드릴 거에요" = "Near Cat will tell you the stars of fate through vibration";
+"Tip 스마트폰을 서로 가까이 가져가 보세요.\n왠지 두근거리는 느낌이 들지 않나요?" = "Tip Take your smartphones close to each other.\nDoesn't it feel like your heart is pounding?";
+"Tip 스마트폰의 뒷면을 서로 맞대보세요!\n 서로의 관심사를 확인할 수 있어요!" = "Tip: Face the back of your smartphone!\nWe can see each other's interests!";
+"다음 주제로 대화해보세요!" = "Let's talk about the next topics!";
+"우리들의 공통점" = "Our same point";
+"인연의 별을 찾았어요!" = "founds your mate!";
+"프로필 수정" = "Modify Profile";
+"관심사 수정" = "Modify Interests";
+"설정" = "Setting";
+"내 관심사" = "My interests";
+"수정하기" = "Change";
+"앱 정보" = "info";
+"라이센스" = "license";
+"선택된 이미지가 없습니다!" = "No image selected!";
+"Setting에서 설정을 변경해주세요" = "Please change the setting";
+"권한을 허용하지 않으면 프로필 이미지를 등록할 수 없어요!" = "Cannot register profile image without permission!";
+"Setting에서 권한 설정을 변경해주세요" = "Please change the permission settings";
+"설정 바로가기" = "Go to setting";
