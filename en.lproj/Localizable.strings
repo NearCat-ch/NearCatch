@@ -132,3 +132,7 @@
 "니어캣" = "Nearcat";
 "취소" = "Cancel";
 "수정" = "Edit";
+"NO. 권한을 허용하지 않으면\n니어캐치 앱 사용이 불가능해요!!\n" = "NO. If you don't allow permission,\nyou can't use the NearCatch app!\n";
+"1. 설정에서 개인 정보 보호에 들어갑니다." = "1. Enter Privacy in Settings.";
+"2. 근접 상호 작용 항목으로 들어갑니다." = "2. Enter the Nearby Interactions item.";
+"3.니어캐치 앱의 권한을 허용해주세요" = "3. Please allow access to the NearCatch app";

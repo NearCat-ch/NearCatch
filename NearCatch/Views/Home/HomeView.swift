@@ -34,14 +34,14 @@ struct HomeView: View {
                             switch
                             niObject.gameState{
                             case.finding:
-                           Image("img_shooting")
-                                .offset(x: -80, y: -340)
+                                Image("img_shooting")
+                                    .offset(x: -80, y: -340)
                             case.found:
                                 Image("img_shooting")
-                                     .offset(x: -80, y: -340)
+                                    .offset(x: -80, y: -340)
                             case.ready:
                                 Text("")
-                            
+                                
                             }
                         }
                         VStack{
@@ -92,26 +92,27 @@ struct HomeView: View {
                             }
                         }
                     }
-                }
-                
-                HomeMainButton(state: $niObject.gameState) {
-                    withAnimation {
-                        switch niObject.gameState {
-                        case .ready:
-                            niObject.start()
-                            niObject.gameState = .finding
-                            if isLaunched {
-                                localNetAuth.requestAuthorization { auth in
-                                    isLocalNetworkPermissionDenied = !auth
+                    
+                    
+                    HomeMainButton(state: $niObject.gameState) {
+                        withAnimation {
+                            switch niObject.gameState {
+                            case .ready:
+                                niObject.start()
+                                niObject.gameState = .finding
+                                if isLaunched {
+                                    localNetAuth.requestAuthorization { auth in
+                                        isLocalNetworkPermissionDenied = !auth
+                                    }
+                                    isLaunched = false
                                 }
-                                isLaunched = false
+                            case .finding:
+                                niObject.stop()
+                                niObject.gameState = .ready
+                            case .found:
+                                niObject.stop()
+                                niObject.gameState = .ready
                             }
-                        case .finding:
-                            niObject.stop()
-                            niObject.gameState = .ready
-                        case .found:
-                            niObject.stop()
-                            niObject.gameState = .ready
                         }
                     }
                 }
@@ -155,4 +156,4 @@ struct HomeView_Previews: PreviewProvider {
             .environment(\.locale, .init(identifier: "ko"))
     }
 }
- 
+
