@@ -115,3 +115,4 @@ This is a body part. Please describe the details of commit.
 ## :lock_with_ink_pen: License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)
