@@ -27,7 +27,6 @@ struct ProfileView: View {
                 LottieView(jsonName: "Background")
                     .ignoresSafeArea(.all)
                 
-                
                 VStack{
                     VStack{
                         //프로필 사진 부분

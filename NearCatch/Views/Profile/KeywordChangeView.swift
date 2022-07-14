@@ -120,7 +120,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(30..<45, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
@@ -172,7 +171,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(60..<75, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
@@ -199,7 +197,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(75..<87, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
