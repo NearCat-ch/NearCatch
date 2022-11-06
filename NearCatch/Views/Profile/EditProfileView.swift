@@ -17,18 +17,28 @@ struct EditProfileView: View {
     var body: some View {
         NavigationView{
             ZStack{
+                //배경 이미지
                 Image("img_background")
                     .resizable()
                     .ignoresSafeArea()
+                
+                //배경 별 LottieView
                 LottieView(jsonName: "Background")
                     .ignoresSafeArea(.all)
+                
                 VStack{
                     Spacer()
+                    
+                    //프로필 사진 수정 버튼
                     ZStack{
                         ImageSelectButton(image: $tempImage) {
+                            
+                            //프로필 사진이 기본 사진인 경우
                             if self.profileImage == nil {
                                 SharedCustomButton(icon:"icn_img", circleSize:190, color:Color.white, innerOpacity:1)
                             }
+                            
+                            //프로필 사진이 존재하는 경우 표시
                             else {
                                 ZStack{
                                     Circle()
@@ -48,10 +58,14 @@ struct EditProfileView: View {
                             }
                         }
                     }
+                    
                     Spacer()
                         .frame(height:50)
+                    
+                    //닉네임 수정
                     VStack {
                         ZStack {
+                            //닉네임 입력 TextField
                             TextField("", text: $tempNick)
                                 .placeholder(when:tempNick.isEmpty){
                                     Text("User Name")
@@ -69,6 +83,8 @@ struct EditProfileView: View {
                                 .onAppear{
                                     self.tempNick = self.nickname
                                 }
+                            
+                            //닉네임 한번에 지우는 버튼
                             HStack{
                                 Spacer()
                                     .frame(width:225)
@@ -83,16 +99,22 @@ struct EditProfileView: View {
                                 }
                             }
                         }
+                        
+                        //TextField 아래 흰색 밑줄
                         Rectangle()
                             .frame(width:260, height: 1)
                             .foregroundColor(.white)
+                        
+                        //닉네임 글자수 제한 표시
                         Text("\(tempNick.count) / 10")
                             .font(.custom("온글잎 의연체", size:30))
                             .foregroundColor((tempNick.isEmpty || tempNick.count > 10) ? Color.red : Color.white)
-                        
                     }
+                    
                     Spacer()
                         .frame(height:180)
+                    
+                    //변경사항 저장 버튼 (수정하기)
                     Button{
                         action: do {
                             self.nickname = self.tempNick
@@ -109,6 +131,7 @@ struct EditProfileView: View {
                     Spacer()
                 }
             }
+            //뒤로가기 버튼
             .toolbar{
                 ToolbarItemGroup(placement:.navigationBarLeading) {
                     Button {

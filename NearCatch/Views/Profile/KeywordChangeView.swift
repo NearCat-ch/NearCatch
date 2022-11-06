@@ -16,12 +16,17 @@ struct KeywordChangeView: View {
     
     var body: some View {
         ZStack {
+            //배경 이미지
             Image("img_background")
                 .resizable()
                 .ignoresSafeArea()
+            
+            //배경 별 LottieView
             LottieView(jsonName: "Background")
                 .ignoresSafeArea(.all)
+            
             VStack{
+                //모달 닫는 버튼
                 Button(
                     action: {
                         presentationMode.wrappedValue.dismiss()
@@ -30,6 +35,7 @@ struct KeywordChangeView: View {
                         .foregroundColor(.white)
                         .frame(width:50, height:5)
                 }
+                
                 Spacer()
                     .frame(height:60)
                 Text("관심사 수정".partialColor(["관심사"], .PrimaryColor))
@@ -41,9 +47,11 @@ struct KeywordChangeView: View {
                 Text("\(duplicatedkeywords.count) / 10")
                     .font(.custom("온글잎 의연체", size: 34))
                     .foregroundColor((duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? Color.red : Color.white)
+                
                 Spacer()
                     .frame(height:80)
                 
+                //관심사 키워드 나열
                 ScrollView(.horizontal, showsIndicators: false) {
                     VStack(alignment: .leading){
                         HStack{
@@ -103,7 +111,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(30..<45, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
@@ -155,7 +162,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(60..<75, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
@@ -182,7 +188,6 @@ struct KeywordChangeView: View {
                         HStack{
                             ForEach(75..<87, id: \.self) { i in
                                 Button(action: {
-                                    
                                     if tagData.Tags[i].isSelected == true {
                                         tagData.Tags[i].isSelected = false
                                         duplicatedkeywords = duplicatedkeywords.filter{ $0 !=  tagData.Tags[i].index }
@@ -207,9 +212,12 @@ struct KeywordChangeView: View {
                         }
                     }.padding([.leading, .trailing], 20)
                 }
+                
                 Spacer()
                     .frame(height:140)
+                
                 HStack{
+                    //취소 버튼
                     Button{
                         action: do {
                             self.presentationMode.wrappedValue.dismiss()
@@ -217,8 +225,11 @@ struct KeywordChangeView: View {
                     } label:{
                         SharedRectangularButton(rectWidth:150, rectColor:.ThirdColor, text:"취소", textColor:.white)
                     }
+                    
                     Spacer()
                         .frame(width:20)
+                    
+                    //수정 완료 버튼
                     Button{
                         action: do {
                             keywords = duplicatedkeywords
@@ -230,10 +241,12 @@ struct KeywordChangeView: View {
                         SharedRectangularButton(rectWidth:150, rectColor: (duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .ThirdColor : .PrimaryColor, text:"수정", textColor:(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10) ? .white : .black)
                     }.disabled(duplicatedkeywords.count < 5 || duplicatedkeywords.count > 10)
                 }
+                
                 Spacer()
                     .frame(height:20)
             }
         }
+        //이미 선택되어 있는 키워드 표시
         .onAppear {
             duplicatedkeywords = keywords
             for keyword in keywords {

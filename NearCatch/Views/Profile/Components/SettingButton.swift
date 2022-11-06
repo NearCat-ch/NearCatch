@@ -24,6 +24,8 @@ struct SettingButton: View {
                     .frame(width:350, height:50)
                     .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
             }
+            
+            //버튼에 들어가는 텍스트
             HStack{
                 Text(LocalizedStringKey(text))
                     .font(.custom("온글잎 의연체", size:22))
@@ -40,7 +42,7 @@ struct SettingButton: View {
     }
 }
 
-// Specific-Rounded Corner
+// 특정 모서리만 둥근 직사각형
 // source : https://stackoverflow.com/questions/56760335/round-specific-corners-swiftui
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {

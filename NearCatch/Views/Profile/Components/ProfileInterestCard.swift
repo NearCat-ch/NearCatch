@@ -12,12 +12,14 @@ struct ProfileInterestCard: View {
     
     var body: some View {
         VStack {
+            //내 관심사 제목
             HStack {
                 Text("내 관심사")
                     .font(.custom("온글잎 의연체", size:28))
                     .foregroundColor(Color.white)
                 Spacer()
             }
+            //자신의 관심사 키워드 나열
             KeywordScroll(keywords: keywords)
         }
         .padding(.vertical, 20)
