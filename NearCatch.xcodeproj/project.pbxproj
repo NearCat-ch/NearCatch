@@ -18,6 +18,7 @@
 		0EC3BB86285B46C00069C5C6 /* UserCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */; };
 		0EC3BB88285B848D0069C5C6 /* ImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */; };
 		0EC3BB8C285B96080069C5C6 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */; };
+		164A00C62938E0E6000D9ED5 /* CBSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A00C52938E0E6000D9ED5 /* CBSession.swift */; };
 		164A4A732854C43800CA8B0A /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A722854C43800CA8B0A /* MathUtilities.swift */; };
 		164A4A752854C47400CA8B0A /* NISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A742854C47400CA8B0A /* NISessionManager.swift */; };
 		164A4A782854C4DC00CA8B0A /* MPCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A4A772854C4DC00CA8B0A /* MPCSession.swift */; };
@@ -89,6 +90,7 @@
 		0EC3BB85285B46C00069C5C6 /* UserCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheckViewModel.swift; sourceTree = "<group>"; };
 		0EC3BB87285B848C0069C5C6 /* ImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConverter.swift; sourceTree = "<group>"; };
 		0EC3BB8B285B96080069C5C6 /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
+		164A00C52938E0E6000D9ED5 /* CBSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBSession.swift; sourceTree = "<group>"; };
 		164A4A722854C43800CA8B0A /* MathUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
 		164A4A742854C47400CA8B0A /* NISessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NISessionManager.swift; sourceTree = "<group>"; };
 		164A4A772854C4DC00CA8B0A /* MPCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCSession.swift; sourceTree = "<group>"; };
@@ -186,12 +188,21 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		163A0FA129255A4400BFF0D2 /* CorebluetoothSupport */ = {
+			isa = PBXGroup;
+			children = (
+				164A00C52938E0E6000D9ED5 /* CBSession.swift */,
+			);
+			path = CorebluetoothSupport;
+			sourceTree = "<group>";
+		};
 		164A4A712854C3A000CA8B0A /* NIUtils */ = {
 			isa = PBXGroup;
 			children = (
 				164A4A722854C43800CA8B0A /* MathUtilities.swift */,
 				164A4A742854C47400CA8B0A /* NISessionManager.swift */,
 				164A4A762854C4C200CA8B0A /* MultipeerConnectivitySupport */,
+				163A0FA129255A4400BFF0D2 /* CorebluetoothSupport */,
 				16C50CF72858742600460F8C /* LocalNetworkAuthorization.swift */,
 			);
 			path = NIUtils;
@@ -503,6 +514,7 @@
 				71DF7F07285B19F500E5D85E /* Picture.swift in Sources */,
 				7072D6ED28549B28008594E5 /* LottieView.swift in Sources */,
 				16C52E0028623F6D00EF7E5B /* PartialColorUtils.swift in Sources */,
+				164A00C62938E0E6000D9ED5 /* CBSession.swift in Sources */,
 				6F8E26A12857172300B6C568 /* SharedRectangularButton.swift in Sources */,
 				0E2C7B65285A0F480062320E /* NoImageInfoView.swift in Sources */,
 				16C50CFC285B1C7F00460F8C /* Keywords.swift in Sources */,
@@ -673,10 +685,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 2K43262B89;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "서로의 관심사를 알기 위해 블루투스를 사용합니다.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "서로의 관심사를 알기 위해 블루투스를 사용합니다.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "서로의 관심사를 알기 위해 로컬 네트워크를 사용합니다.";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "서로의 관심사를 알기 위해 사용자 근처 상호작용을 사용합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "프로필 정보를 저장하기 위해 사진을 사용합니다.";
@@ -708,10 +722,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearCatch/Preview Content\"";
-				DEVELOPMENT_TEAM = 2K43262B89;
+				DEVELOPMENT_TEAM = 79Q32HWWTW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NearCatch/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "서로의 관심사를 알기 위해 블루투스를 사용합니다.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "서로의 관심사를 알기 위해 블루투스를 사용합니다.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "서로의 관심사를 알기 위해 로컬 네트워크를 사용합니다.";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "서로의 관심사를 알기 위해 사용자 근처 상호작용을 사용합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "프로필 정보를 저장하기 위해 사진을 사용합니다.";
