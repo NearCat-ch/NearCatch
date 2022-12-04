@@ -9,19 +9,26 @@ import CoreBluetooth
 import Foundation
 import os
 
+/// Transfer UUID
+/// peripheral - service - character
 struct TransferService {
-    static let serviceUUID = CBUUID(string: "E20A39F4-73F5-4BC4-A12F-17D1AD07A961")
-    static let characteristicUUID = CBUUID(string: "08590F7E-DB05-467E-8757-72F6FAEB13D4")
+    static let serviceUUID = CBUUID(string: "E20A39F4-73F5-4BC4-A12F-17D1AD07A926")
+    static let characteristicUUID = CBUUID(string: "08590F7E-DB05-467E-8757-72F6FAEB13E6")
 }
 
 class CBSession: NSObject {
-    private let cbcManager: CBCentralManager
-    private let cbpManager: CBPeripheralManager
+    var peerDataFromCentralHandler: ((Data, CBCentral) -> Void)?
+    var peerDataFromPeripheralHandler: ((Data, CBPeripheral) -> Void)?
+    var peerConnectedHandler: ((CBPeripheral) -> Void)?
+    var peerDisconnectedHandler: ((CBPeripheral) -> Void)?
+    
+    private let cbcManager: CBCentralManager // 수신용
+    private let cbpManager: CBPeripheralManager // 송신용
     
     var discoveredPeripherals = [CBPeripheral]()
-    var transferCharacteristics = [CBPeripheral:CBCharacteristic]()
+    var transferCharacteristics = [CBPeripheral:CBCharacteristic]() // 구독한 chracteristic
     var connectedCentrals = [CBCentral]()
-    var transferCharacteristic: CBMutableCharacteristic?
+    var transferCharacteristic: CBMutableCharacteristic? // my chracteristic
     
     override init() {
         cbcManager = CBCentralManager(delegate: nil, queue: .main, options: [CBCentralManagerOptionShowPowerAlertKey: true])
@@ -38,6 +45,7 @@ class CBSession: NSObject {
     }
     
     func start() {
+        setupPeripheral()
         retrievePeripheral()
     }
     
@@ -50,12 +58,14 @@ class CBSession: NSObject {
         suspend()
     }
     
-    func sendDataToAllPeers(data: Data) {
-        
+    func sendDataToCentral(data: Data, peer: CBCentral) {
+        guard let characteristic = transferCharacteristic else { return }
+        cbpManager.updateValue(data, for: characteristic, onSubscribedCentrals: [peer])
     }
     
-    func sendData(data: Data) {
-        
+    func sendDataToPeripheral(data: Data, peer: CBPeripheral) {
+        guard let characteristic = transferCharacteristics[peer] else { return }
+        peer.writeValue(data, for: characteristic, type: .withoutResponse)
     }
     
     private func retrievePeripheral() {
@@ -124,6 +134,7 @@ extension CBSession: CBCentralManagerDelegate {
         switch central.state {
         case .poweredOn:
             os_log("CBManager is powered on")
+            retrievePeripheral()
             return
         case .poweredOff:
             os_log("CBManager is not powered on")
@@ -173,10 +184,14 @@ extension CBSession: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         os_log("Perhiperal Disconnected")
-        discoveredPeripherals = discoveredPeripherals.filter { $0 != peripheral }
         
-        // We're disconnected, so start scanning again
-        // retrievePeripheral()
+        if let handler = peerDisconnectedHandler {
+            DispatchQueue.main.async {
+                handler(peripheral)
+            }
+        }
+        
+        discoveredPeripherals = discoveredPeripherals.filter { $0 != peripheral }
     }
 }
 
@@ -186,6 +201,7 @@ extension CBSession: CBPeripheralManagerDelegate {
         switch peripheral.state {
         case .poweredOn:
             os_log("CBManager is powered on")
+            setupPeripheral()
             return
         case .poweredOff:
             os_log("CBManager is not powered on")
@@ -222,13 +238,15 @@ extension CBSession: CBPeripheralManagerDelegate {
         connectedCentrals = connectedCentrals.filter { $0 != central }
     }
     
-    func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
-        // Start sending again
-    }
-    
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         for aRequest in requests {
-            print(aRequest.value ?? "")
+            guard let requestValue = aRequest.value, let handler = peerDataFromCentralHandler else {
+                continue
+            }
+            
+            DispatchQueue.main.async {
+                handler(requestValue, aRequest.central)
+            }
         }
     }
 }
@@ -270,7 +288,12 @@ extension CBSession: CBPeripheralDelegate {
         guard let serviceCharacteristics = service.characteristics else { return }
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicUUID {
             // If it is, subscribe to it
-            //transferCharacteristic = characteristic
+            transferCharacteristics[peripheral] = characteristic
+            if let handler = peerConnectedHandler {
+                DispatchQueue.main.async {
+                    handler(peripheral)
+                }
+            }
             peripheral.setNotifyValue(true, for: characteristic)
         }
         
@@ -285,25 +308,10 @@ extension CBSession: CBPeripheralDelegate {
             return
         }
         
-        guard let characteristicData = characteristic.value,
-            let stringFromData = String(data: characteristicData, encoding: .utf8) else { return }
-        
-        os_log("Received %d bytes: %s", characteristicData.count, stringFromData)
-        
-        // Have we received the end-of-message token?
-        if stringFromData == "EOM" {
-            // End-of-message case: show the data.
-            // Dispatch the text view update to the main queue for updating the UI, because
-            // we don't know which thread this method will be called back on.
-//            DispatchQueue.main.async() {
-//                self.textView.text = String(data: self.data, encoding: .utf8)
-//            }
-            
-            // Write test data
-//            writeData()
-        } else {
-            // Otherwise, just append the data to what we have previously received.
-//            data.append(characteristicData)
+        guard let data = characteristic.value, let handler = peerDataFromPeripheralHandler else { return }
+
+        DispatchQueue.main.async {
+            handler(data, peripheral)
         }
     }
     
@@ -325,12 +333,5 @@ extension CBSession: CBPeripheralDelegate {
             os_log("Notification stopped on %@. Disconnecting", characteristic)
             cleanup(peripheral)
         }
-        
-    }
-
-    
-    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-        os_log("Peripheral is ready, send data")
-//        writeData()
     }
 }

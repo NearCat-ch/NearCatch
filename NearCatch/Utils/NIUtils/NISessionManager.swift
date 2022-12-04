@@ -7,37 +7,50 @@ An object that manages the interaction session.
 Edited by Wonhyuk Choi on 2022/06/09.
 */
 
+import CoreBluetooth
 import Foundation
 import NearbyInteraction
 import MultipeerConnectivity
 import UIKit
 
-class TranData: NSObject, NSCoding {
+class TokenData: NSObject, NSCoding {
     let token : NIDiscoveryToken
-    let isBumped : Bool
+    let keywords : [Int]
+    
+    init(token: NIDiscoveryToken, keywords: [Int]) {
+        self.token = token
+        self.keywords = keywords
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(self.token, forKey: "token")
+        coder.encode(self.keywords, forKey: "keywords")
+    }
+    
+    required init?(coder: NSCoder) {
+        self.token = coder.decodeObject(forKey: "token") as! NIDiscoveryToken
+        self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
+    }
+}
+
+class InfoData: NSObject, NSCoding {
     let keywords : [Int]
     let nickname : String
     let image : UIImage
     
-    init(token : NIDiscoveryToken, isBumped : Bool = false, keywords : [Int], nickname : String = "", image : UIImage = .add) {
-        self.token = token
-        self.isBumped = isBumped
+    init(keywords: [Int], nickname: String, image: UIImage) {
         self.keywords = keywords
         self.nickname = nickname
         self.image = image
     }
     
     func encode(with coder: NSCoder) {
-        coder.encode(self.token, forKey: "token")
-        coder.encode(self.isBumped, forKey: "isMatched")
         coder.encode(self.keywords, forKey: "keywords")
         coder.encode(self.nickname, forKey: "nickname")
         coder.encode(self.image, forKey: "image")
     }
     
     required init?(coder: NSCoder) {
-        self.token = coder.decodeObject(forKey: "token") as! NIDiscoveryToken
-        self.isBumped = coder.decodeBool(forKey: "isMatched")
         self.nickname = coder.decodeObject(forKey: "nickname") as! String
         self.keywords = coder.decodeObject(forKey: "keywords") as! [Int]
         self.image = coder.decodeObject(forKey: "image") as! UIImage
@@ -45,20 +58,24 @@ class TranData: NSObject, NSCoding {
 }
 
 class NISessionManager: NSObject, ObservableObject {
-
-    @Published var connectedPeers = [MCPeerID]()
-    @Published var matchedObject: TranData? // 매치된 오브젝트
+    
+    @Published var connectedPeers = [UUID]() { // 상호 연결된 피어들
+        didSet {
+            peersCnt = connectedPeers.count
+        }
+    }
+    @Published var matchedPeer: TokenData? // 매치된 피어
     @Published var peersCnt: Int = 0
     @Published var gameState : GameState = .ready
     @Published var isBumped: Bool = false
     @Published var isPermissionDenied = false
     
-    var mpc: MPCSession?
-    var sessions = [MCPeerID:NISession]()
-    var peerTokensMapping = [NIDiscoveryToken:MCPeerID]()
+    var cb: CBSession?
+    var sessions = [UUID:NISession]()
+    var peerTokensMapping = [NIDiscoveryToken:CBCentral]()
     
-    let nearbyDistanceThreshold: Float = 0.08 // 범프 한계 거리
-    let hapticManager = HapticManager()
+    private let nearbyDistanceThreshold: Float = 0.08 // 범프 한계 거리
+    private let hapticManager = HapticManager()
     
     // 나의 정보
     @Published var myNickname : String = ""
@@ -75,8 +92,7 @@ class NISessionManager: NSObject, ObservableObject {
     }
 
     deinit {
-        sessions.removeAll()
-        mpc?.invalidate()
+        cb?.invalidate()
     }
     
     func start() {
@@ -94,81 +110,71 @@ class NISessionManager: NSObject, ObservableObject {
         connectedPeers.removeAll()
         sessions.removeAll()
         peerTokensMapping.removeAll()
-        matchedObject = nil
+        matchedPeer = nil
         peersCnt = 0
         hapticManager.endHaptic()
         if(!isBumped) {
-            mpc?.invalidate()
-            mpc = nil
+            cb?.invalidate()
+            cb = nil
         }
     }
 
     func startup() {
-        // mpc 재실행
-        mpc?.invalidate()
-        mpc = nil
+        // cb 재실행
+        cb?.invalidate()
+        cb = nil
         connectedPeers.removeAll()
 
-        // 1. MPC 작동
-        startupMPC()
+        // 1. CB 작동
+        startupCB()
     }
 
-    // MARK: - MPC를 사용하여 디스커버리 토큰 공유
-
-    func startupMPC() {
-        if mpc == nil {
-            // Prevent Simulator from finding devices.
-            #if targetEnvironment(simulator)
-            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch")
-            #else
-            mpc = MPCSession(service: "nearcatch", identity: "com.2pm.NearCatch")
-            #endif
-            mpc?.delegate = self
-            mpc?.peerConnectedHandler = connectedToPeer
-            mpc?.peerDataHandler = dataReceivedHandler
-            mpc?.peerDisconnectedHandler = disconnectedFromPeer
+    // MARK: - CB를 사용하여 디스커버리 토큰 공유
+    
+    func startupCB() {
+        if cb == nil {
+            cb = CBSession()
+            cb?.peerConnectedHandler = connectedToPeer
+            cb?.peerDisconnectedHandler = disconnectedFromPeer
+            cb?.peerDataFromCentralHandler = tokenDataReceivedHandler
+            cb?.peerDataFromPeripheralHandler = infoDataReceivedHandler
         }
-        mpc?.invalidate()
-        mpc?.start()
+        cb?.invalidate()
+        cb?.start()
     }
     
-    // MPC peerConnectedHandeler에 의해 피어 연결
+    // CB peerConnectedHandeler에 의해 피어 연결
     // 2. 피어 연결 (NI 디스커버리 토큰을 공유)
-    func connectedToPeer(peer: MCPeerID) {
-        guard sessions[peer] == nil else { return }
+    func connectedToPeer(peer: CBPeripheral) {
+        let puid = peer.identifier
+        guard sessions[puid] == nil else { return }
         
         // 해당 피어의 NI Session 생성
-        sessions[peer] = NISession()
-        sessions[peer]?.delegate = self
+        sessions[puid] = NISession()
+        sessions[puid]?.delegate = self
         
-        guard let myToken = sessions[peer]?.discoveryToken else {
-            //            fatalError("Unexpectedly failed to initialize nearby interaction session.")
-            return
-        }
+        guard let myToken = sessions[puid]?.discoveryToken else { return }
         
         // 3. 연결된 피어 추가
-        if !connectedPeers.contains(peer) {
+        if !connectedPeers.contains(puid) {
             // 4. 나의 NI 디스커버리 토큰 공유
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.shareMyDiscoveryToken(token: myToken, peer: peer)
-            }
-            connectedPeers.append(peer)
+            shareMyTokenData(token: myToken, peer: peer)
+            connectedPeers.append(puid)
         }
     }
-
-    // MPC peerDisconnectedHander에 의해 피어 연결 해제
-    func disconnectedFromPeer(peer: MCPeerID) {
-        // 연결 해제시 연결된 피어 제거
-        if connectedPeers.contains(peer) {
-            connectedPeers = connectedPeers.filter { $0 != peer }
-            sessions[peer]?.invalidate()
-            sessions[peer] = nil
+    
+    // CB peerDisconnectedHander에 의해 피어 연결 해제
+    func disconnectedFromPeer(peer: CBPeripheral) {
+        let puid = peer.identifier
+        if connectedPeers.contains(puid) {
+            connectedPeers = connectedPeers.filter { $0 != puid }
+            sessions[puid]?.invalidate()
+            sessions[puid] = nil
         }
         
-        // 매칭된 상대가 해제 될 경우 제거
-        guard let matchedToken = matchedObject?.token else { return }
-        if peerTokensMapping[matchedToken] == peer {
-            matchedObject = nil
+        guard let matchedToken = matchedPeer?.token else { return }
+        if peerTokensMapping[matchedToken]?.identifier == puid {
+            matchedPeer = nil
             hapticManager.endHaptic()
             if !isBumped {
                 gameState = .finding
@@ -176,54 +182,45 @@ class NISessionManager: NSObject, ObservableObject {
         }
     }
     
-    // MPC peerDataHandler에 의해 데이터 리시빙
-    // 5. 상대 데이터 수신
-    func dataReceivedHandler(data: Data, peer: MCPeerID) {
-        guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? TranData else {
-            //            fatalError("Unexpectedly failed to decode discovery token.")
-            return
-        }
+    // 5. 상대 토큰 수신
+    // CB peerDataFromCentralHandler에 의해 토큰 데이터 리시빙 (Central -> Peripheral)
+    func tokenDataReceivedHandler(data: Data, peer: CBCentral) {
+        guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? TokenData else { return }
+        let discoveryToken = receivedData.token
+        peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
         
-        //  범프된 상태일 경우
-        if receivedData.isBumped {
-            if !self.isBumped {
-                self.isBumped = true
-                bumpedName = receivedData.nickname
-                bumpedKeywords = receivedData.keywords
-                bumpedImage = receivedData.image
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.shareMyData(token: receivedData.token, peer: peer)
-                }
+        // 3개 이상일 때만 매치
+        if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.compareForCheckMatchedObject(receivedData)
             }
-            stop()
-            gameState = .ready
-        } else { // 일반 전송
-            let discoveryToken = receivedData.token
-            
-            peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
-            
-            // 3개 이상일 때만 매치
-            if calMatchingKeywords(myKeywords, receivedData.keywords) > 2 {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.compareForCheckMatchedObject(receivedData)
-                }
-                hapticManager.startHaptic()
-            }
+            hapticManager.startHaptic()
         }
-    }
-
-    func shareMyDiscoveryToken(token: NIDiscoveryToken, peer: MCPeerID) {
-        let tranData = TranData(token: token, keywords: myKeywords)
-        
-        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
-            //            fatalError("Unexpectedly failed to encode discovery token.")
-            return
-        }
-        
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
     }
     
-    func shareMyData(token: NIDiscoveryToken, peer: MCPeerID) {
+    // 상대 정보 수신
+    // CB peerDataFromPeripheralHandler에 의해 정보 데이터 리시빙 (Peripheral -> Central)
+    func infoDataReceivedHandler(data: Data, peer: CBPeripheral) {
+        guard let receivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InfoData else { return }
+        
+        if !isBumped {
+            isBumped = true
+            bumpedName = receivedData.nickname
+            bumpedKeywords = receivedData.keywords
+            bumpedImage = receivedData.image
+        }
+        stop()
+        gameState = .ready
+    }
+
+    func shareMyTokenData(token: NIDiscoveryToken, peer: CBPeripheral) {
+        let tokenData = TokenData(token: token, keywords: myKeywords)
+        
+        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tokenData, requiringSecureCoding: false) else { return }
+        cb?.sendDataToPeripheral(data: encodedData, peer: peer)
+    }
+    
+    func shareMyInfoData(peer: CBCentral) {
         var resizedImage : UIImage = .add
         if let picture = myPicture {
             let size = CGSize(width: 50, height: 50)
@@ -233,24 +230,21 @@ class NISessionManager: NSObject, ObservableObject {
             }
         }
         
-        let tranData = TranData(token: token, isBumped: true, keywords: myKeywords, nickname: myNickname, image: resizedImage)
+        let infoData = InfoData(keywords: myKeywords, nickname: myNickname, image: resizedImage)
         
-        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: tranData, requiringSecureCoding: false) else {
-            //            fatalError("Unexpectedly failed to encode discovery token.")
-            return
-        }
+        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: infoData, requiringSecureCoding: false) else { return }
         
-        mpc?.sendData(data: encodedData, peers: [peer], mode: .unreliable)
+        cb?.sendDataToCentral(data: encodedData, peer: peer)
     }
-
-    func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
+    
+    func peerDidShareDiscoveryToken(peer: CBCentral, token: NIDiscoveryToken) {
         // 기존에 토큰을 가지고 있는 상대인데 재연결로 다시 수신받은 경우 session 종료 후 다시 시작
         if let ownedPeer = peerTokensMapping[token] {
-            self.sessions[ownedPeer]?.invalidate()
-            self.sessions[ownedPeer] = nil
+            self.sessions[ownedPeer.identifier]?.invalidate()
+            self.sessions[ownedPeer.identifier] = nil
             // 그 피어가 매치 상대일 경우 매치 상대 초기화
-            if matchedObject?.token == token {
-                matchedObject = nil
+            if matchedPeer?.token == token {
+                matchedPeer = nil
                 hapticManager.endHaptic()
                 if !isBumped {
                     gameState = .finding
@@ -260,14 +254,8 @@ class NISessionManager: NSObject, ObservableObject {
         
         peerTokensMapping[token] = peer
         
-        // 6. 피어토큰으로 NI 세션 설정
         let config = NINearbyPeerConfiguration(peerToken: token)
-        
-        // Run the session.
-        // 7. NI 세션 시작
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.sessions[peer]?.run(config)
-        }
+        sessions[peer.identifier]?.run(config)
     }
 }
 
@@ -284,16 +272,14 @@ extension NISessionManager: NISessionDelegate {
         // 범프
         if isNearby(nearbyObjectUpdate.distance ?? 10) {
             guard let peerId = peerTokensMapping[nearbyObjectUpdate.discoveryToken] else { return }
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.shareMyData(token: nearbyObjectUpdate.discoveryToken, peer: peerId)
-            }
+            self.shareMyInfoData(peer: peerId)
         }
         
         // 매칭된 사람일 경우 진동 변화
-        guard let matchedToken = matchedObject?.token else { return }
-        if nearbyObjectUpdate.discoveryToken == matchedToken {
+        guard let peer = matchedPeer else { return }
+        if nearbyObjectUpdate.discoveryToken == peer.token {
             hapticManager.updateHaptic(dist: nearbyObjectUpdate.distance ?? 10,
-                                       matchingPercent: calMatchingKeywords(matchedObject?.keywords ?? [], myKeywords))
+                                       matchingPercent: calMatchingKeywords(peer.keywords, myKeywords))
         }
     }
     
@@ -309,14 +295,14 @@ extension NISessionManager: NISessionDelegate {
         
         switch reason {
         case .peerEnded:
-            guard let curMPCid = peerTokensMapping[peerObj!.discoveryToken] else { return }
+            guard let curPeer = peerTokensMapping[peerObj!.discoveryToken] else { return }
             
             peerTokensMapping[peerObj!.discoveryToken] = nil
             
             // The peer stopped communicating, so invalidate the session because
             // it's finished.
-            sessions[curMPCid]?.invalidate()
-            sessions[curMPCid] = nil
+            sessions[curPeer.identifier]?.invalidate()
+            sessions[curPeer.identifier] = nil
             
             // Restart the sequence to see if the peer comes back.
             startup()
@@ -324,9 +310,7 @@ extension NISessionManager: NISessionDelegate {
             // The peer timed out, but the session is valid.
             // If the configuration is valid, run the session again.
             if let config = session.configuration {
-                DispatchQueue.global(qos: .userInitiated).async {
                     session.run(config)
-                }
             }
         default:
             //            fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
@@ -370,24 +354,20 @@ extension NISessionManager {
     }
     
     // 매칭 상대 업데이트
-    private func compareForCheckMatchedObject(_ data: TranData) {
+    private func compareForCheckMatchedObject(_ data: TokenData) {
         
-        guard self.matchedObject != data else { return }
+        guard matchedPeer != data else { return }
         
-        if let nowTranData = self.matchedObject {
+        if let nowTranData = matchedPeer {
             
             let withCurCnt : Int = calMatchingKeywords(myKeywords, nowTranData.keywords)
             let withNewCnt : Int = calMatchingKeywords(myKeywords, data.keywords)
             
-            if withCurCnt < withNewCnt {
-                self.matchedObject = data
-            }
+            if withCurCnt < withNewCnt { matchedPeer = data }
             
         } else {
-            self.matchedObject = data
-            if !isBumped {
-                gameState = .found
-            }
+            matchedPeer = data
+            if !isBumped { gameState = .found }
         }
         
     }
